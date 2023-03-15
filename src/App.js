@@ -1,9 +1,16 @@
+import React from 'react';
 import './App.css';
+import { Counter } from './components/Counter';
+import { SearchForm } from './components/SearchForm';
+import { GenreSelect } from './components/GenreSelect';
 
-export default function App() {
+export const App = () => {
+
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
-  );
+    <main>
+      <Counter initialValue={0} />
+      <SearchForm initialSearchQuery={'Hello World'} onSearch={(serachText) => console.log(serachText)} />
+      <GenreSelect listOfGenres={['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME']} selectedGenre={'COMEDY'} onSelect={genreName => console.log('Genre is', genreName)} />
+    </main>
+  )
 }
