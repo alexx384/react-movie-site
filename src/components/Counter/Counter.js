@@ -14,7 +14,7 @@ export class Counter extends React.Component {
     this.setState({ count: this.state.count - 1 });
   }
   render() {
-    const label = React.createElement('h1', null, `${this.state.count}`);
+    const label = React.createElement('h1', null, this.state.count);
     const incrementButton = React.createElement(
       'button',
       { onClick: this.increment },

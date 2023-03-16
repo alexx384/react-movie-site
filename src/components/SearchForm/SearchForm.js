@@ -3,21 +3,21 @@ import React from 'react';
 export const SearchForm = ({ initialSearchQuery, onSearch }) => {
   const [searchQuery, setSearchQuery] = React.useState(initialSearchQuery);
 
-  function onFormSubmit(event) {
+  function executeOnSearch(event) {
     event.preventDefault();
     onSearch(searchQuery);
   }
 
-  function updateSeachQuery(query) {
-    setSearchQuery(query.target.value);
+  function updateSeachQuery(event) {
+    setSearchQuery(event.target.value);
   }
 
   return (
-    <form onSubmit={(event) => onFormSubmit(event)}>
+    <form onSubmit={executeOnSearch}>
       <input
         type={'text'}
         value={searchQuery}
-        onChange={(query) => updateSeachQuery(query)}
+        onChange={updateSeachQuery}
         style={{
           borderRadius: '4px',
           opacity: 0.7,
