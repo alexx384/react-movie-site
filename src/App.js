@@ -5,12 +5,18 @@ import { SearchForm } from './components/SearchForm';
 import { GenreSelect } from './components/GenreSelect';
 
 export const App = () => {
-
   return (
     <main>
       <Counter initialValue={0} />
-      <SearchForm initialSearchQuery={'Hello World'} onSearch={(serachText) => console.log(serachText)} />
-      <GenreSelect listOfGenres={['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME']} selectedGenre={'COMEDY'} onSelect={genreName => console.log('Genre is', genreName)} />
+      <SearchForm
+        initialSearchQuery={'Hello World'}
+        onSearch={(serachText) => console.log(serachText)}
+      />
+      <GenreSelect
+        listOfGenres={['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME']}
+        selectedGenre={'COMEDY'}
+        onSelect={(genreName) => console.log('Genre is', genreName)}
+      />
     </main>
-  )
-}
+  );
+};
