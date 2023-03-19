@@ -3,9 +3,14 @@ import React from 'react';
 export const SearchForm = ({ initialSearchQuery, onSearch }) => {
   const [searchQuery, setSearchQuery] = React.useState(initialSearchQuery);
 
-  function executeOnSearch(event) {
-    event.preventDefault();
+  function executeOnSearch() {
     onSearch(searchQuery);
+  }
+
+  function onInputKeydown(event) {
+    if (event.key === 'Enter') {
+      executeOnSearch(event);
+    }
   }
 
   function updateSeachQuery(event) {
@@ -13,11 +18,12 @@ export const SearchForm = ({ initialSearchQuery, onSearch }) => {
   }
 
   return (
-    <form onSubmit={executeOnSearch}>
+    <div>
       <input
         type={'text'}
         value={searchQuery}
         onChange={updateSeachQuery}
+        onKeyDown={onInputKeydown}
         style={{
           borderRadius: '4px',
           opacity: 0.7,
@@ -29,9 +35,13 @@ export const SearchForm = ({ initialSearchQuery, onSearch }) => {
           left: '19px',
         }}
       />
-      <button type="submit" style={{ color: '#F65261' }}>
+      <button
+        type="button"
+        style={{ color: '#F65261' }}
+        onClick={executeOnSearch}
+      >
         SEARCH
       </button>
-    </form>
+    </div>
   );
 };
