@@ -1,38 +1,33 @@
-import { useState } from 'react';
+import { GenreItem } from './GenreItem';
 
-export const GenreSelect = ({ listOfGenres, selectedGenre, onSelect }) => {
-  const [genres, setGenres] = useState(
-    listOfGenres.map((genre) => {
-      return { name: genre, isSelected: selectedGenre === genre };
-    })
-  );
-
-  function updateGenres(selectedGenre) {
-    onSelect(selectedGenre);
-    setGenres(
-      listOfGenres.map((genre) => {
-        return { name: genre, isSelected: selectedGenre === genre };
-      })
-    );
+export const GenreSelect = ({
+  listOfGenres,
+  selectedGenreName,
+  onSelect: onSelectGenre,
+}) => {
+  let selectedGenreProps;
+  function initSelectedGenreProps(genreProps) {
+    if (selectedGenreProps === undefined) {
+      selectedGenreProps = genreProps;
+    }
+  }
+  function onSelectGenreItem(genreProps) {
+    selectedGenreProps.deselect();
+    selectedGenreProps = genreProps;
+    onSelectGenre(genreProps.genreName);
   }
 
   return (
     <div style={{ display: 'flex', backgroundColor: 'DodgerBlue' }}>
-      {genres.map((genre) => {
-        const color = genre.isSelected ? '#FF6666' : '#f1f1f1';
+      {listOfGenres.map((genreName, index) => {
         return (
-          <div
-            style={{
-              backgroundColor: color,
-              padding: '20px',
-              margin: '10px',
-              fontSize: '30px',
-            }}
-            onClick={() => updateGenres(genre.name)}
-            key={genre.name}
-          >
-            {genre.name}
-          </div>
+          <GenreItem
+            genreName={genreName}
+            isInitiallySelected={genreName === selectedGenreName}
+            onSelect={onSelectGenreItem}
+            onInitiallySelected={initSelectedGenreProps}
+            key={index}
+          />
         );
       })}
     </div>

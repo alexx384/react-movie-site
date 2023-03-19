@@ -14,7 +14,7 @@ export const App = () => {
       />
       <GenreSelect
         listOfGenres={['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME']}
-        selectedGenre={'COMEDY'}
+        selectedGenreName={'COMEDY'}
         onSelect={(genreName) => console.log('Genre is', genreName)}
       />
     </main>
