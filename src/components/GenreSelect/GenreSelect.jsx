@@ -1,20 +1,17 @@
+import { useState } from 'react';
 import { GenreItem } from './GenreItem';
 
 export const GenreSelect = ({
   listOfGenres,
-  selectedGenreName,
+  initiallySelectedGenreName,
   onSelect: onSelectGenre,
 }) => {
-  let selectedGenreProps;
-  function initSelectedGenreProps(genreProps) {
-    if (selectedGenreProps === undefined) {
-      selectedGenreProps = genreProps;
-    }
-  }
-  function onSelectGenreItem(genreProps) {
-    selectedGenreProps.deselect();
-    selectedGenreProps = genreProps;
-    onSelectGenre(genreProps.genreName);
+  const [selectedGenreName, setSelectedGenreName] = useState(
+    initiallySelectedGenreName
+  );
+  function onSelectGenreItem(genreName) {
+    setSelectedGenreName(genreName);
+    onSelectGenre(genreName);
   }
 
   return (
@@ -23,9 +20,8 @@ export const GenreSelect = ({
         return (
           <GenreItem
             genreName={genreName}
-            isInitiallySelected={genreName === selectedGenreName}
+            isSelected={genreName === selectedGenreName}
             onSelect={onSelectGenreItem}
-            onInitiallySelected={initSelectedGenreProps}
             key={index}
           />
         );

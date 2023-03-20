@@ -1,21 +1,6 @@
-import { useState } from 'react';
-
-export const GenreItem = ({
-  genreName,
-  isInitiallySelected,
-  onSelect,
-  onInitiallySelected,
-}) => {
-  const [isSelected, setSelected] = useState(isInitiallySelected);
-  if (isInitiallySelected === true) {
-    onInitiallySelected({ genreName: genreName, deselect: deselect });
-  }
-  function select() {
-    onSelect({ genreName: genreName, deselect: deselect });
-    setSelected(() => true);
-  }
-  function deselect() {
-    setSelected(() => false);
+export const GenreItem = ({ genreName, isSelected, onSelect }) => {
+  function onClick() {
+    onSelect(genreName);
   }
   return (
     <div
@@ -25,7 +10,7 @@ export const GenreItem = ({
         margin: '10px',
         fontSize: '30px',
       }}
-      onClick={select}
+      onClick={onClick}
     >
       {genreName}
     </div>

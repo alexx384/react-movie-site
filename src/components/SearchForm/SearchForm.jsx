@@ -20,7 +20,7 @@ export const SearchForm = ({ initialSearchQuery, onSearch }) => {
   return (
     <div>
       <input
-        type={'text'}
+        type="text"
         value={searchQuery}
         onChange={updateSeachQuery}
         onKeyDown={onInputKeydown}
