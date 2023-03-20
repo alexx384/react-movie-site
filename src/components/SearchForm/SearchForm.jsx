@@ -3,17 +3,17 @@ import React from 'react';
 export const SearchForm = ({ initialSearchQuery, onSearch }) => {
   const [searchQuery, setSearchQuery] = React.useState(initialSearchQuery);
 
-  function executeOnSearch() {
+  function onSearchClickHandle() {
     onSearch(searchQuery);
   }
 
-  function onInputKeydown(event) {
+  function onInputKeydownHandle(event) {
     if (event.key === 'Enter') {
-      executeOnSearch(event);
+      onSearchClickHandle(event);
     }
   }
 
-  function updateSeachQuery(event) {
+  function onSearchQueryChangeHandle(event) {
     setSearchQuery(event.target.value);
   }
 
@@ -22,8 +22,8 @@ export const SearchForm = ({ initialSearchQuery, onSearch }) => {
       <input
         type="text"
         value={searchQuery}
-        onChange={updateSeachQuery}
-        onKeyDown={onInputKeydown}
+        onChange={onSearchQueryChangeHandle}
+        onKeyDown={onInputKeydownHandle}
         style={{
           borderRadius: '4px',
           opacity: 0.7,
@@ -38,7 +38,7 @@ export const SearchForm = ({ initialSearchQuery, onSearch }) => {
       <button
         type="button"
         style={{ color: '#F65261' }}
-        onClick={executeOnSearch}
+        onClick={onSearchClickHandle}
       >
         SEARCH
       </button>

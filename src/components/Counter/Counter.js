@@ -4,25 +4,25 @@ export class Counter extends React.Component {
   constructor(props) {
     super();
     this.state = { counter: props.initialValue };
-    this.increment = this.increment.bind(this);
-    this.decrement = this.decrement.bind(this);
+    this.increment = this.onLabelCounterIncrementHandle.bind(this);
+    this.decrement = this.onLabelCounterDecrementHandle.bind(this);
   }
-  increment() {
+  onLabelCounterIncrementHandle() {
     this.setState((previosState) => ({ counter: previosState.counter + 1 }));
   }
-  decrement() {
+  onLabelCounterDecrementHandle() {
     this.setState((previosState) => ({ counter: previosState.counter - 1 }));
   }
   render() {
     const label = React.createElement('h1', null, this.state.counter);
     const incrementButton = React.createElement(
       'button',
-      { onClick: this.increment },
+      { onClick: this.onLabelCounterIncrementHandle },
       'Incremenet'
     );
     const decrementButton = React.createElement(
       'button',
-      { onClick: this.decrement },
+      { onClick: this.onLabelCounterDecrementHandle },
       'Decremenet'
     );
     return React.createElement(

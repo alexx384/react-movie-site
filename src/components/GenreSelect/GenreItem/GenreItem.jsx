@@ -1,5 +1,5 @@
 export const GenreItem = ({ genreName, isSelected, onSelect }) => {
-  function onClick() {
+  function onItemClickHandle() {
     onSelect(genreName);
   }
   return (
@@ -10,7 +10,7 @@ export const GenreItem = ({ genreName, isSelected, onSelect }) => {
         margin: '10px',
         fontSize: '30px',
       }}
-      onClick={onClick}
+      onClick={onItemClickHandle}
     >
       {genreName}
     </div>
