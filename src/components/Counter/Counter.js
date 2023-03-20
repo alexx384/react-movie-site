@@ -4,8 +4,10 @@ export class Counter extends React.Component {
   constructor(props) {
     super();
     this.state = { counter: props.initialValue };
-    this.increment = this.onLabelCounterIncrementHandle.bind(this);
-    this.decrement = this.onLabelCounterDecrementHandle.bind(this);
+    this.onLabelCounterIncrementHandle =
+      this.onLabelCounterIncrementHandle.bind(this);
+    this.onLabelCounterDecrementHandle =
+      this.onLabelCounterDecrementHandle.bind(this);
   }
   onLabelCounterIncrementHandle() {
     this.setState((previosState) => ({ counter: previosState.counter + 1 }));
