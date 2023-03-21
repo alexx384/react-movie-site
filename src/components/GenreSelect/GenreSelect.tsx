@@ -2,15 +2,21 @@ import { useState } from 'react';
 import { GenreItem } from './GenreItem';
 import './GenreSelect.css';
 
+type GenreSelectProps = {
+  listOfGenres: string[];
+  initiallySelectedGenreName: string;
+  onSelectGenre: (genreName: string) => void;
+};
+
 export const GenreSelect = ({
   listOfGenres,
   initiallySelectedGenreName,
-  onSelect: onSelectGenre,
-}) => {
+  onSelectGenre,
+}: GenreSelectProps) => {
   const [selectedGenreName, setSelectedGenreName] = useState(
     initiallySelectedGenreName
   );
-  function onGenreItemSelectHandle(genreName) {
+  function onGenreItemSelectHandle(genreName: string) {
     setSelectedGenreName(genreName);
     onSelectGenre(genreName);
   }

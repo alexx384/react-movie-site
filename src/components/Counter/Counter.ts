@@ -1,9 +1,17 @@
 import React from 'react';
 import './Counter.css';
 
-export class Counter extends React.Component {
-  constructor(props) {
-    super();
+type CounterState = {
+  counter: number;
+};
+
+type CounterProps = {
+  initialValue: number;
+};
+
+export class Counter extends React.Component<CounterProps, CounterState> {
+  constructor(props: CounterProps) {
+    super(props);
     this.state = { counter: props.initialValue };
     this.onLabelCounterIncrementHandle =
       this.onLabelCounterIncrementHandle.bind(this);

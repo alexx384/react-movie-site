@@ -1,7 +1,17 @@
 import './GenreItem.css';
 
-export const GenreItem = ({ genreName, isSelected, onSelect }) => {
-  function onItemKeyDownHandle(event) {
+type GenreItemProps = {
+  genreName: string;
+  isSelected: boolean;
+  onSelect: (genreName: string) => void;
+};
+
+export const GenreItem = ({
+  genreName,
+  isSelected,
+  onSelect,
+}: GenreItemProps) => {
+  function onItemKeyDownHandle(event: React.KeyboardEvent<HTMLLIElement>) {
     if (event.key === 'Enter') {
       onItemClickHandle();
     }
@@ -14,7 +24,7 @@ export const GenreItem = ({ genreName, isSelected, onSelect }) => {
       onClick={onItemClickHandle}
       onKeyDown={onItemKeyDownHandle}
       className={isSelected ? 'selectedGenreItem' : 'unselectedGenreItem'}
-      tabIndex="0"
+      tabIndex={0}
     >
       {genreName}
     </li>

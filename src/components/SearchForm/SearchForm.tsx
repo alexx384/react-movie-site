@@ -1,20 +1,30 @@
 import React from 'react';
 import './SearchForm.css';
 
-export const SearchForm = ({ initialSearchQuery, onSearch }) => {
+type SearchFormProps = {
+  initialSearchQuery: string;
+  onSearch: (searchQuery: string) => void;
+};
+
+export const SearchForm = ({
+  initialSearchQuery,
+  onSearch,
+}: SearchFormProps) => {
   const [searchQuery, setSearchQuery] = React.useState(initialSearchQuery);
 
   function onSearchClickHandle() {
     onSearch(searchQuery);
   }
 
-  function onInputKeydownHandle(event) {
+  function onInputKeydownHandle(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
-      onSearchClickHandle(event);
+      onSearchClickHandle();
     }
   }
 
-  function onSearchQueryChangeHandle(event) {
+  function onSearchQueryChangeHandle(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
     setSearchQuery(event.target.value);
   }
 
