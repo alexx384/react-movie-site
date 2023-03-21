@@ -1,0 +1,25 @@
+.counterBlock {
+  margin: 4vh 2vw 6vh;
+  border: 5px solid #333;
+  width: fit-content;
+  background-color: whitesmoke;
+}
+
+.counterBlock h1 {
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.incrementButton,
+.decrementButton {
+  height: 3rem;
+  border-width: 0;
+}
+
+.incrementButton {
+  background-color: coral;
+}
+
+.decrementButton {
+  background-color: deepskyblue;
+}

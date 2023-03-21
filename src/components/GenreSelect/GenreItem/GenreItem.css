@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+.selectedGenreItem,
+.unselectedGenreItem {
+  font-size: 1rem;
+  color: white;
+  list-style-type: none;
+  display: inline-block;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+.selectedGenreItem:hover,
+.unselectedGenreItem:hover {
+  background-color: hsl(0, 0%, 8%);
+}
+
+.selectedGenreItem {
+  border-bottom: 1px solid red;
+}

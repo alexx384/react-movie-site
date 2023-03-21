@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GenreItem } from './GenreItem';
+import './GenreSelect.css';
 
 export const GenreSelect = ({
   listOfGenres,
@@ -15,17 +16,19 @@ export const GenreSelect = ({
   }
 
   return (
-    <div style={{ display: 'flex', backgroundColor: 'DodgerBlue' }}>
-      {listOfGenres.map((genreName, index) => {
-        return (
-          <GenreItem
-            genreName={genreName}
-            isSelected={genreName === selectedGenreName}
-            onSelect={onGenreItemSelectHandle}
-            key={index}
-          />
-        );
-      })}
+    <div className="genreSelect">
+      <ul>
+        {listOfGenres.map((genreName, index) => {
+          return (
+            <GenreItem
+              genreName={genreName}
+              isSelected={genreName === selectedGenreName}
+              onSelect={onGenreItemSelectHandle}
+              key={index}
+            />
+          );
+        })}
+      </ul>
     </div>
   );
 };
