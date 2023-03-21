@@ -1,4 +1,4 @@
-import './GenreItem.css';
+import styles from './GenreItem.module.css';
 
 type GenreItemProps = {
   genreName: string;
@@ -23,7 +23,9 @@ export const GenreItem = ({
     <li
       onClick={onItemClickHandle}
       onKeyDown={onItemKeyDownHandle}
-      className={isSelected ? 'selectedGenreItem' : 'unselectedGenreItem'}
+      className={
+        isSelected ? styles.selectedGenreItem : styles.unselectedGenreItem
+      }
       tabIndex={0}
     >
       {genreName}

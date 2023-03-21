@@ -1,5 +1,5 @@
 import React from 'react';
-import './Counter.css';
+import styles from './Counter.module.css';
 
 type CounterState = {
   counter: number;
@@ -30,7 +30,7 @@ export class Counter extends React.Component<CounterProps, CounterState> {
       'button',
       {
         onClick: this.onLabelCounterIncrementHandle,
-        className: 'incrementButton',
+        className: styles.incrementButton,
       },
       'Incremenet'
     );
@@ -38,13 +38,13 @@ export class Counter extends React.Component<CounterProps, CounterState> {
       'button',
       {
         onClick: this.onLabelCounterDecrementHandle,
-        className: 'decrementButton',
+        className: styles.decrementButton,
       },
       'Decremenet'
     );
     return React.createElement(
       'div',
-      { className: 'counterBlock' },
+      { className: styles.counterBlock },
       label,
       incrementButton,
       decrementButton

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { GenreItem } from './GenreItem';
-import './GenreSelect.css';
+import styles from './GenreSelect.module.css';
 
 type GenreSelectProps = {
   listOfGenres: string[];
@@ -22,7 +22,7 @@ export const GenreSelect = ({
   }
 
   return (
-    <div className="genreSelect">
+    <div className={styles.genreSelect}>
       <ul>
         {listOfGenres.map((genreName, index) => {
           return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import './SearchForm.css';
+import styles from './SearchForm.module.css';
 
 type SearchFormProps = {
   initialSearchQuery: string;
@@ -29,7 +29,7 @@ export const SearchForm = ({
   }
 
   return (
-    <div className="searchForm">
+    <div className={styles.searchForm}>
       <h1>FIND YOUR MOVIE</h1>
       <input
         type="text"
