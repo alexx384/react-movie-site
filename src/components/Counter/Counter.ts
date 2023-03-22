@@ -25,7 +25,11 @@ export class Counter extends React.Component<CounterProps, CounterState> {
     this.setState((previosState) => ({ counter: previosState.counter - 1 }));
   }
   render() {
-    const label = React.createElement('h1', null, this.state.counter);
+    const label = React.createElement(
+      'h1',
+      { 'data-test-id': 'counterLabel' },
+      this.state.counter
+    );
     const incrementButton = React.createElement(
       'button',
       {
