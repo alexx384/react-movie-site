@@ -27,7 +27,7 @@ export class Counter extends React.Component<CounterProps, CounterState> {
   render() {
     const label = React.createElement(
       'h1',
-      { 'data-test-id': 'counterLabel' },
+      { 'data-testid': 'counterLabel' },
       this.state.counter
     );
     const incrementButton = React.createElement(
