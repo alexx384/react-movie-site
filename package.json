@@ -13,9 +13,8 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "start:no-browser": "PORT=3000 BROWSER=none react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "start-test start:no-browser http-get://localhost:3000 'npm run test:unit && npm run test:e2e'",
+    "test": "start-test 'PORT=3000 BROWSER=none npx react-app-rewired start' http-get://localhost:3000 'npm run test:unit && npm run test:e2e'",
     "test:watch": "react-app-rewired test",
     "test:unit": "react-app-rewired test --watchAll=false",
     "test:coverage": "react-app-rewired test --coverage --watchAll=false",
