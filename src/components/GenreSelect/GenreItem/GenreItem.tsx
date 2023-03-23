@@ -1,5 +1,9 @@
 import styles from './GenreItem.module.css';
 import classNames from 'classnames';
+import {
+  GENRE_ITEM_SELECTED,
+  GENRE_ITEM_UNSELECTED,
+} from '../../../constants/tests.constants';
 
 type GenreItemProps = {
   genreName: string;
@@ -29,7 +33,7 @@ export const GenreItem = ({
         [styles.unselectedGenreItem]: !isSelected,
       })}
       tabIndex={0}
-      data-testid={isSelected ? 'selectedGenreItem' : 'unselectedGenreItem'}
+      data-testid={isSelected ? GENRE_ITEM_SELECTED : GENRE_ITEM_UNSELECTED}
     >
       {genreName}
     </li>

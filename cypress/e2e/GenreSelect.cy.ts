@@ -1,3 +1,8 @@
+import {
+  GENRE_ITEM_SELECTED,
+  GENRE_ITEM_UNSELECTED,
+} from '../../src/constants/tests.constants';
+
 describe('Genre Select', () => {
   it('receives console log output after click on the selected element', () => {
     cy.visit('/', {
@@ -6,9 +11,9 @@ describe('Genre Select', () => {
       },
     });
 
-    cy.get('[data-testid=selectedGenreItem]').click();
+    cy.get(`[data-testid=${GENRE_ITEM_SELECTED}]`).click();
 
-    cy.get('[data-testid=selectedGenreItem]').then((item) => {
+    cy.get(`[data-testid=${GENRE_ITEM_SELECTED}]`).then((item) => {
       cy.get('@consoleLog').should('be.calledWith', 'Genre is', item.text());
     });
   });
@@ -20,13 +25,13 @@ describe('Genre Select', () => {
       },
     });
     let selectedGenreText;
-    cy.get('[data-testid=unselectedGenreItem]')
+    cy.get(`[data-testid=${GENRE_ITEM_UNSELECTED}]`)
       .eq(0)
       .then((item) => (selectedGenreText = item.text()));
 
-    cy.get('[data-testid=unselectedGenreItem]').eq(0).click();
+    cy.get(`[data-testid=${GENRE_ITEM_UNSELECTED}]`).eq(0).click();
 
-    cy.get('[data-testid=selectedGenreItem]')
+    cy.get(`[data-testid=${GENRE_ITEM_SELECTED}]`)
       .should((item) => {
         expect(item).have.text(selectedGenreText);
       })

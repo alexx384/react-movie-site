@@ -1,3 +1,5 @@
+import { SEARCH_FORM_INPUT } from '../../src/constants/tests.constants';
+
 describe('template spec', () => {
   it('receives console log output after click on search button', () => {
     cy.visit('/', {
@@ -6,10 +8,10 @@ describe('template spec', () => {
       },
     });
 
-    cy.get('[data-testid=searchMovieInput]').type('hello');
+    cy.get(`[data-testid=${SEARCH_FORM_INPUT}]`).type('hello');
     cy.contains('button', 'SEARCH').click();
 
-    cy.get('[data-testid=searchMovieInput]').then((input) => {
+    cy.get(`[data-testid=${SEARCH_FORM_INPUT}]`).then((input) => {
       cy.get('@consoleLog').should('be.calledWith', input.val());
     });
   });

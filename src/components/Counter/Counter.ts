@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Counter.module.css';
+import { COUNTER_LABEL } from '../../constants/tests.constants';
 
 type CounterState = {
   counter: number;
@@ -27,7 +28,7 @@ export class Counter extends React.Component<CounterProps, CounterState> {
   render() {
     const label = React.createElement(
       'h1',
-      { 'data-testid': 'counterLabel' },
+      { 'data-testid': COUNTER_LABEL },
       this.state.counter
     );
     const incrementButton = React.createElement(

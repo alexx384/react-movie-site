@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './SearchForm.module.css';
+import { SEARCH_FORM_INPUT } from '../../constants/tests.constants';
 
 type SearchFormProps = {
   initialSearchQuery: string;
@@ -34,7 +35,7 @@ export const SearchForm = ({
         value={searchQuery}
         onChange={handleSearchQueryChange}
         onKeyDown={handleInputKeydown}
-        data-testid="searchMovieInput"
+        data-testid={SEARCH_FORM_INPUT}
       />
       <button type="button" onClick={handleSearchClick}>
         SEARCH
