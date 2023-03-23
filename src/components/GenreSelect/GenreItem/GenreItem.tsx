@@ -1,4 +1,5 @@
 import styles from './GenreItem.module.css';
+import classNames from 'classnames';
 
 type GenreItemProps = {
   genreName: string;
@@ -23,9 +24,10 @@ export const GenreItem = ({
     <li
       onClick={handleItemClick}
       onKeyDown={handleItemKeyDown}
-      className={
-        isSelected ? styles.selectedGenreItem : styles.unselectedGenreItem
-      }
+      className={classNames({
+        [styles.selectedGenreItem]: isSelected,
+        [styles.unselectedGenreItem]: !isSelected,
+      })}
       tabIndex={0}
       data-testid={isSelected ? 'selectedGenreItem' : 'unselectedGenreItem'}
     >
