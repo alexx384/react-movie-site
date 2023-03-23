@@ -37,7 +37,7 @@ export class Counter extends React.Component<CounterProps, CounterState> {
         onClick: this.handleLabelCounterIncrement,
         className: styles.incrementButton,
       },
-      'Incremenet'
+      'Increment'
     );
     const decrementButton = React.createElement(
       'button',
@@ -45,7 +45,7 @@ export class Counter extends React.Component<CounterProps, CounterState> {
         onClick: this.handleLabelCounterDecrement,
         className: styles.decrementButton,
       },
-      'Decremenet'
+      'Decrement'
     );
     return React.createElement(
       'div',
