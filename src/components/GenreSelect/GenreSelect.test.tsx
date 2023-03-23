@@ -45,12 +45,12 @@ it('highlights a selected genre passed in props', () => {
 it('calls "onSelectGenre" callback and passes correct genre in arguments after a click event on a genre button', async () => {
   const initiallySelectedGenreName: string = listOfGenres[0];
   const user: UserEvent = userEvent.setup();
-  const onSelectGenreHandler = jest.fn();
+  const handleSelectGenre = jest.fn();
   render(
     <GenreSelect
       listOfGenres={listOfGenres}
       initiallySelectedGenreName={initiallySelectedGenreName}
-      onSelectGenre={onSelectGenreHandler}
+      onSelectGenre={handleSelectGenre}
     />
   );
   const unselectedGenreItem: HTMLElement = screen.getAllByTestId(
@@ -59,8 +59,8 @@ it('calls "onSelectGenre" callback and passes correct genre in arguments after a
 
   await user.click(unselectedGenreItem);
 
-  expect(onSelectGenreHandler).toBeCalledTimes(1);
-  expect(onSelectGenreHandler).toBeCalledWith(unselectedGenreItem.textContent);
+  expect(handleSelectGenre).toBeCalledTimes(1);
+  expect(handleSelectGenre).toBeCalledWith(unselectedGenreItem.textContent);
 });
 
 it('not highlights a selected genre when it is not from the list', () => {

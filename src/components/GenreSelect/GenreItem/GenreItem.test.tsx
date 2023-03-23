@@ -13,8 +13,12 @@ it('renders a genreName', () => {
 });
 
 it('renders list items with different classes based on isSelected attribute', () => {
-  render(<GenreItem genreName={genreName} isSelected={true} />);
-  render(<GenreItem genreName={genreName} isSelected={false} />);
+  render(
+    <>
+      <GenreItem genreName={genreName} isSelected={true} />
+      <GenreItem genreName={genreName} isSelected={false} />
+    </>
+  );
 
   const selectedListItem: HTMLLIElement =
     screen.getByTestId('selectedGenreItem');
