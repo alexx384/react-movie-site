@@ -36,6 +36,7 @@ export const SearchForm = ({
         value={searchQuery}
         onChange={onSearchQueryChangeHandle}
         onKeyDown={onInputKeydownHandle}
+        data-testid="searchMovieInput"
       />
       <button type="button" onClick={onSearchClickHandle}>
         SEARCH
