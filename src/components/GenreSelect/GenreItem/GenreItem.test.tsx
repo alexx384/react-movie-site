@@ -26,17 +26,17 @@ it('renders list items with different classes based on isSelected attribute', ()
 
 it('invokes "onSelect" with correct property on click', async () => {
   const user: UserEvent = userEvent.setup();
-  const onSelectHandler = jest.fn();
+  const handleSelect = jest.fn();
   render(
     <GenreItem
       genreName={genreName}
       isSelected={true}
-      onSelect={onSelectHandler}
+      onSelect={handleSelect}
     />
   );
 
   await user.click(screen.getByRole('listitem'));
 
-  expect(onSelectHandler).toBeCalledTimes(1);
-  expect(onSelectHandler).toBeCalledWith(genreName);
+  expect(handleSelect).toBeCalledTimes(1);
+  expect(handleSelect).toBeCalledWith(genreName);
 });
