@@ -16,7 +16,7 @@ export const GenreSelect = ({
   const [selectedGenreName, setSelectedGenreName] = useState(
     initiallySelectedGenreName
   );
-  function onGenreItemSelectHandle(genreName: string) {
+  function handleGenreItemSelect(genreName: string) {
     setSelectedGenreName(genreName);
     onSelectGenre?.(genreName);
   }
@@ -29,7 +29,7 @@ export const GenreSelect = ({
             <GenreItem
               genreName={genreName}
               isSelected={genreName === selectedGenreName}
-              onSelect={onGenreItemSelectHandle}
+              onSelect={handleGenreItemSelect}
               key={index}
             />
           );

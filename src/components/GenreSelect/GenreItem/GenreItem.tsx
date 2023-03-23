@@ -11,18 +11,18 @@ export const GenreItem = ({
   isSelected,
   onSelect,
 }: GenreItemProps) => {
-  function onItemKeyDownHandle(event: React.KeyboardEvent<HTMLLIElement>) {
+  function handleItemKeyDown(event: React.KeyboardEvent<HTMLLIElement>) {
     if (event.key === 'Enter') {
-      onItemClickHandle();
+      handleItemClick();
     }
   }
-  function onItemClickHandle() {
+  function handleItemClick() {
     onSelect?.(genreName);
   }
   return (
     <li
-      onClick={onItemClickHandle}
-      onKeyDown={onItemKeyDownHandle}
+      onClick={handleItemClick}
+      onKeyDown={handleItemKeyDown}
       className={
         isSelected ? styles.selectedGenreItem : styles.unselectedGenreItem
       }

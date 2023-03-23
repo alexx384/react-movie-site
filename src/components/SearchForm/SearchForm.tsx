@@ -12,19 +12,17 @@ export const SearchForm = ({
 }: SearchFormProps) => {
   const [searchQuery, setSearchQuery] = React.useState(initialSearchQuery);
 
-  function onSearchClickHandle() {
+  function handleSearchClick() {
     onSearch?.(searchQuery);
   }
 
-  function onInputKeydownHandle(event: React.KeyboardEvent<HTMLInputElement>) {
+  function handleInputKeydown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
-      onSearchClickHandle();
+      handleSearchClick();
     }
   }
 
-  function onSearchQueryChangeHandle(
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
+  function handleSearchQueryChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(event.target.value);
   }
 
@@ -34,11 +32,11 @@ export const SearchForm = ({
       <input
         type="text"
         value={searchQuery}
-        onChange={onSearchQueryChangeHandle}
-        onKeyDown={onInputKeydownHandle}
+        onChange={handleSearchQueryChange}
+        onKeyDown={handleInputKeydown}
         data-testid="searchMovieInput"
       />
-      <button type="button" onClick={onSearchClickHandle}>
+      <button type="button" onClick={handleSearchClick}>
         SEARCH
       </button>
     </div>

@@ -15,34 +15,34 @@ it('renders an input with the value equal to initial value passed in props', () 
 it('calls "onSelect" prop with proper value after typing to the input and a "click" event on the Submit button', async () => {
   const userTyping: string = 'hello';
   const user: UserEvent = userEvent.setup();
-  const onSearchHandler = jest.fn();
+  const handleSearch = jest.fn();
   render(
     <SearchForm
       initialSearchQuery={initialSearchQuery}
-      onSearch={onSearchHandler}
+      onSearch={handleSearch}
     />
   );
 
   await user.type(screen.getByRole('textbox'), userTyping);
   await user.click(screen.getByRole('button', { name: /SEARCH/ }));
 
-  expect(onSearchHandler).toBeCalledTimes(1);
-  expect(onSearchHandler).toBeCalledWith(initialSearchQuery + userTyping);
+  expect(handleSearch).toBeCalledTimes(1);
+  expect(handleSearch).toBeCalledWith(initialSearchQuery + userTyping);
 });
 
 it('calls "onSelect" prop with proper value after typing to the input and pressing Enter key', async () => {
   const userTyping: string = 'hello';
   const user: UserEvent = userEvent.setup();
-  const onSearchHandler = jest.fn();
+  const handleSearch = jest.fn();
   render(
     <SearchForm
       initialSearchQuery={initialSearchQuery}
-      onSearch={onSearchHandler}
+      onSearch={handleSearch}
     />
   );
 
   await user.type(screen.getByRole('textbox'), userTyping + '{enter}');
 
-  expect(onSearchHandler).toBeCalledTimes(1);
-  expect(onSearchHandler).toBeCalledWith(initialSearchQuery + userTyping);
+  expect(handleSearch).toBeCalledTimes(1);
+  expect(handleSearch).toBeCalledWith(initialSearchQuery + userTyping);
 });

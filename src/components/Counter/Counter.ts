@@ -13,15 +13,15 @@ export class Counter extends React.Component<CounterProps, CounterState> {
   constructor(props: CounterProps) {
     super(props);
     this.state = { counter: props.initialValue };
-    this.onLabelCounterIncrementHandle =
-      this.onLabelCounterIncrementHandle.bind(this);
-    this.onLabelCounterDecrementHandle =
-      this.onLabelCounterDecrementHandle.bind(this);
+    this.handleLabelCounterIncrement =
+      this.handleLabelCounterIncrement.bind(this);
+    this.handleLabelCounterDecrement =
+      this.handleLabelCounterDecrement.bind(this);
   }
-  onLabelCounterIncrementHandle() {
+  handleLabelCounterIncrement() {
     this.setState((previosState) => ({ counter: previosState.counter + 1 }));
   }
-  onLabelCounterDecrementHandle() {
+  handleLabelCounterDecrement() {
     this.setState((previosState) => ({ counter: previosState.counter - 1 }));
   }
   render() {
@@ -33,7 +33,7 @@ export class Counter extends React.Component<CounterProps, CounterState> {
     const incrementButton = React.createElement(
       'button',
       {
-        onClick: this.onLabelCounterIncrementHandle,
+        onClick: this.handleLabelCounterIncrement,
         className: styles.incrementButton,
       },
       'Incremenet'
@@ -41,7 +41,7 @@ export class Counter extends React.Component<CounterProps, CounterState> {
     const decrementButton = React.createElement(
       'button',
       {
-        onClick: this.onLabelCounterDecrementHandle,
+        onClick: this.handleLabelCounterDecrement,
         className: styles.decrementButton,
       },
       'Decremenet'
