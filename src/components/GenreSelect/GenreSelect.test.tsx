@@ -40,6 +40,7 @@ it('highlights a selected genre passed in props', () => {
   const selectedGenreItem: HTMLLIElement =
     screen.getByTestId('selectedGenreItem');
   expect(selectedGenreItem).toBeInTheDocument();
+  expect(selectedGenreItem).toHaveTextContent(initiallySelectedGenreName);
 });
 
 it('calls "onSelectGenre" callback and passes correct genre in arguments after a click event on a genre button', async () => {
