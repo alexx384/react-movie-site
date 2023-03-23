@@ -64,3 +64,16 @@ it('calls "onSelectGenre" callback and passes correct genre in arguments after a
   expect(onSelectGenreHandler).toBeCalledTimes(1);
   expect(onSelectGenreHandler).toBeCalledWith(unselectedGenreItem.textContent);
 });
+
+it('not highlights a selected genre when it is not from the list', () => {
+  const initiallySelectedGenreName: string = 'UNKNOWN';
+  render(
+    <GenreSelect
+      listOfGenres={[]}
+      initiallySelectedGenreName={initiallySelectedGenreName}
+      onSelectGenre={() => {}}
+    />
+  );
+
+  expect(screen.queryByTestId('selectedGenreItem')).toBeNull();
+});
