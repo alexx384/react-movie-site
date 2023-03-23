@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react';
 import { GenreSelect } from './GenreSelect';
 import userEvent from '@testing-library/user-event';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
+import {
+  GENRE_ITEM_SELECTED,
+  GENRE_ITEM_UNSELECTED,
+} from '../../constants/tests.constants';
 
 const listOfGenres: string[] = [
   'ALL',
@@ -38,7 +42,7 @@ it('highlights a selected genre passed in props', () => {
   );
 
   const selectedGenreItem: HTMLLIElement =
-    screen.getByTestId('selectedGenreItem');
+    screen.getByTestId(GENRE_ITEM_SELECTED);
   expect(selectedGenreItem).toBeInTheDocument();
   expect(selectedGenreItem).toHaveTextContent(initiallySelectedGenreName);
 });
@@ -54,9 +58,10 @@ it('calls "onSelectGenre" callback and passes correct genre in arguments after a
       onSelectGenre={handleSelectGenre}
     />
   );
-  const unselectedGenreItem: HTMLElement = screen.getAllByTestId(
-    'unselectedGenreItem'
-  )[0];
+  const unselectedGenreItems: HTMLElement[] = screen.getAllByTestId(
+    GENRE_ITEM_UNSELECTED
+  );
+  const unselectedGenreItem: HTMLElement = unselectedGenreItems[0];
 
   await user.click(unselectedGenreItem);
 
@@ -73,5 +78,5 @@ it('not highlights a selected genre when it is not from the list', () => {
     />
   );
 
-  expect(screen.queryByTestId('selectedGenreItem')).toBeNull();
+  expect(screen.queryByTestId(GENRE_ITEM_SELECTED)).toBeNull();
 });

@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
 import { GenreItem } from './GenreItem';
+import {
+  GENRE_ITEM_SELECTED,
+  GENRE_ITEM_UNSELECTED,
+} from '../../../constants/tests.constants';
 
 const genreName = 'ALL';
 
@@ -21,9 +25,9 @@ it('renders list items with different classes based on isSelected attribute', ()
   );
 
   const selectedListItem: HTMLLIElement =
-    screen.getByTestId('selectedGenreItem');
+    screen.getByTestId(GENRE_ITEM_SELECTED);
   const unselectedListItem: HTMLLIElement = screen.getByTestId(
-    'unselectedGenreItem'
+    GENRE_ITEM_UNSELECTED
   );
   expect(selectedListItem.className).not.toEqual(unselectedListItem.className);
 });
