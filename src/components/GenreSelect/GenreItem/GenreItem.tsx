@@ -27,6 +27,7 @@ export const GenreItem = ({
         isSelected ? styles.selectedGenreItem : styles.unselectedGenreItem
       }
       tabIndex={0}
+      data-testid={isSelected ? 'selectedGenreItem' : 'unselectedGenreItem'}
     >
       {genreName}
     </li>
