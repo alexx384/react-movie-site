@@ -13,9 +13,12 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
+    "start:no-browser": "PORT=3000 BROWSER=none react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "test": "start-test start:no-browser http-get://localhost:3000 'npm run test:unit && npm run test:e2e'",
+    "test:watch": "react-app-rewired test",
     "test:unit": "react-app-rewired test --watchAll=false",
+    "test:coverage": "react-app-rewired test --coverage --watchAll=false",
     "test:e2e": "cypress run",
     "eject": "react-scripts eject",
     "prepare": "husky install",
@@ -54,6 +57,7 @@
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.4",
     "react-app-rewired": "^2.2.1",
+    "start-server-and-test": "^2.0.0",
     "typescript": "^4.9.5"
   }
 }
