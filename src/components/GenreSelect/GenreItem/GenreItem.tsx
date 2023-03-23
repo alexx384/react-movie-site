@@ -3,7 +3,7 @@ import styles from './GenreItem.module.css';
 type GenreItemProps = {
   genreName: string;
   isSelected: boolean;
-  onSelect: (genreName: string) => void;
+  onSelect?: (genreName: string) => void;
 };
 
 export const GenreItem = ({
@@ -17,7 +17,7 @@ export const GenreItem = ({
     }
   }
   function onItemClickHandle() {
-    onSelect(genreName);
+    onSelect?.(genreName);
   }
   return (
     <li

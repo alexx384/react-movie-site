@@ -18,7 +18,6 @@ it('renders all genres passed in props', () => {
     <GenreSelect
       listOfGenres={listOfGenres}
       initiallySelectedGenreName={initiallySelectedGenreName}
-      onSelectGenre={() => {}}
     />
   );
 
@@ -35,7 +34,6 @@ it('highlights a selected genre passed in props', () => {
     <GenreSelect
       listOfGenres={listOfGenres}
       initiallySelectedGenreName={initiallySelectedGenreName}
-      onSelectGenre={() => {}}
     />
   );
 
@@ -71,7 +69,6 @@ it('not highlights a selected genre when it is not from the list', () => {
     <GenreSelect
       listOfGenres={[]}
       initiallySelectedGenreName={initiallySelectedGenreName}
-      onSelectGenre={() => {}}
     />
   );
 

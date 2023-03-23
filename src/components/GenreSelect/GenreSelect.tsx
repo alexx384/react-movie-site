@@ -5,7 +5,7 @@ import styles from './GenreSelect.module.css';
 type GenreSelectProps = {
   listOfGenres: string[];
   initiallySelectedGenreName: string;
-  onSelectGenre: (genreName: string) => void;
+  onSelectGenre?: (genreName: string) => void;
 };
 
 export const GenreSelect = ({
@@ -18,7 +18,7 @@ export const GenreSelect = ({
   );
   function onGenreItemSelectHandle(genreName: string) {
     setSelectedGenreName(genreName);
-    onSelectGenre(genreName);
+    onSelectGenre?.(genreName);
   }
 
   return (

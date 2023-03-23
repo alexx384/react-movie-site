@@ -6,21 +6,15 @@ import { GenreItem } from './GenreItem';
 const genreName = 'ALL';
 
 it('renders a genreName', () => {
-  render(
-    <GenreItem genreName={genreName} isSelected={true} onSelect={() => {}} />
-  );
+  render(<GenreItem genreName={genreName} isSelected={true} />);
 
   const listItem: HTMLLIElement = screen.getByRole('listitem');
   expect(listItem).toHaveTextContent(genreName);
 });
 
 it('renders list items with different classes based on isSelected attribute', () => {
-  render(
-    <GenreItem genreName={genreName} isSelected={true} onSelect={() => {}} />
-  );
-  render(
-    <GenreItem genreName={genreName} isSelected={false} onSelect={() => {}} />
-  );
+  render(<GenreItem genreName={genreName} isSelected={true} />);
+  render(<GenreItem genreName={genreName} isSelected={false} />);
 
   const selectedListItem: HTMLLIElement =
     screen.getByTestId('selectedGenreItem');

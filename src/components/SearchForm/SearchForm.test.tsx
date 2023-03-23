@@ -6,9 +6,7 @@ import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
 const initialSearchQuery: string = 'initial search query';
 
 it('renders an input with the value equal to initial value passed in props', () => {
-  render(
-    <SearchForm initialSearchQuery={initialSearchQuery} onSearch={() => {}} />
-  );
+  render(<SearchForm initialSearchQuery={initialSearchQuery} />);
 
   const searchInput: HTMLElement = screen.getByRole('textbox');
   expect(searchInput).toHaveValue(initialSearchQuery);

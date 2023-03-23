@@ -3,7 +3,7 @@ import styles from './SearchForm.module.css';
 
 type SearchFormProps = {
   initialSearchQuery: string;
-  onSearch: (searchQuery: string) => void;
+  onSearch?: (searchQuery: string) => void;
 };
 
 export const SearchForm = ({
@@ -13,7 +13,7 @@ export const SearchForm = ({
   const [searchQuery, setSearchQuery] = React.useState(initialSearchQuery);
 
   function onSearchClickHandle() {
-    onSearch(searchQuery);
+    onSearch?.(searchQuery);
   }
 
   function onInputKeydownHandle(event: React.KeyboardEvent<HTMLInputElement>) {
