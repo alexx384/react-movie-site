@@ -1,5 +1,3 @@
-import React from 'react';
-import './App.css';
 import { Counter } from './components/Counter';
 import { SearchForm } from './components/SearchForm';
 import { GenreSelect } from './components/GenreSelect';
@@ -15,7 +13,7 @@ export const App = () => {
       <GenreSelect
         listOfGenres={['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME']}
         initiallySelectedGenreName={'COMEDY'}
-        onSelect={(genreName) => console.log('Genre is', genreName)}
+        onSelectGenre={(genreName) => console.log('Genre is', genreName)}
       />
     </main>
   );
