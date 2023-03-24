@@ -12,7 +12,7 @@ it('renders an input with the value equal to initial value passed in props', () 
   expect(searchInput).toHaveValue(initialSearchQuery);
 });
 
-it('calls "onSelect" prop with proper value after typing to the input and a "click" event on the Submit button', async () => {
+it('calls "onSearch" prop with proper value after typing to the input and a "click" event on the Submit button', async () => {
   const userTyping: string = 'hello';
   const user: UserEvent = userEvent.setup();
   const handleSearch = jest.fn();
@@ -30,7 +30,7 @@ it('calls "onSelect" prop with proper value after typing to the input and a "cli
   expect(handleSearch).toBeCalledWith(initialSearchQuery + userTyping);
 });
 
-it('calls "onSelect" prop with proper value after typing to the input and pressing Enter key', async () => {
+it('calls "onSearch" prop with proper value after typing to the input and pressing Enter key', async () => {
   const userTyping: string = 'hello';
   const user: UserEvent = userEvent.setup();
   const handleSearch = jest.fn();
