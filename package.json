@@ -25,7 +25,9 @@
     "test:e2e": "cypress run",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "browserslist": {
     "production": [
@@ -45,6 +47,16 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/node-logger": "^6.5.16",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
     "babel-plugin-jsx-remove-data-test-id": "^3.0.0",
     "customize-cra": "^1.0.0",
     "cypress": "^12.8.1",
@@ -52,6 +64,7 @@
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^0.6.11",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.4",
