@@ -30,16 +30,18 @@ export const SearchForm = ({
   return (
     <div className={styles.searchForm}>
       <h1>FIND YOUR MOVIE</h1>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={handleSearchQueryChange}
-        onKeyDown={handleInputKeydown}
-        data-testid={SEARCH_FORM_INPUT}
-      />
-      <button type="button" onClick={handleSearchClick}>
-        SEARCH
-      </button>
+      <div className={styles.searchBlock}>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+          onKeyDown={handleInputKeydown}
+          data-testid={SEARCH_FORM_INPUT}
+        />
+        <button type="button" onClick={handleSearchClick}>
+          SEARCH
+        </button>
+      </div>
     </div>
   );
 };

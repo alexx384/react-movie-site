@@ -6,12 +6,16 @@
 }
 
 .counterBlock h1 {
+  line-height: normal;
   text-align: center;
+  font-size: 2rem;
   margin: 0.5rem;
+  display: block;
 }
 
 .incrementButton,
 .decrementButton {
+  margin: 0;
   height: 3rem;
   border-width: 0;
 }
