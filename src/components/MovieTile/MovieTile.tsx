@@ -18,7 +18,24 @@ export const MovieTile = ({
   genres,
   onClick,
 }: Props) => {
-  const [isContextMenuActive, setContextMenuActive] = React.useState(false);
+  const [contextMenuState, setContextMenuState] = React.useState({
+    isVisible: false,
+    positionX: 0,
+    positionY: 0,
+  });
+  React.useEffect(() => {
+    const handleClick = () =>
+      setContextMenuState({
+        isVisible: false,
+        positionX: 0,
+        positionY: 0,
+      });
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+
   function handleClick() {
     onClick?.();
   }
@@ -26,7 +43,11 @@ export const MovieTile = ({
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
     event.preventDefault(); // prevent the default behaviour when right clicked
-    setContextMenuActive(!isContextMenuActive);
+    setContextMenuState({
+      isVisible: true,
+      positionX: event.pageX,
+      positionY: event.pageY,
+    });
   }
   return (
     <div
@@ -40,8 +61,11 @@ export const MovieTile = ({
         <h2 className={styles.releaseYear}>{releaseYear}</h2>
       </div>
       <h2>{stringListToString(genres)}</h2>
-      {isContextMenuActive && (
-        <MenuContext>
+      {contextMenuState.isVisible && (
+        <MenuContext
+          absolutePositionX={contextMenuState.positionX}
+          absolutePositionY={contextMenuState.positionY}
+        >
           <ul>
             <li>Edit</li>
             <li>Delete</li>
