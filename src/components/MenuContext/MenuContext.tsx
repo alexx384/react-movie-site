@@ -13,17 +13,6 @@ export const MenuContext = ({ children, items, onSelectMenuItem }: Props) => {
     positionX: 0,
     positionY: 0,
   });
-  React.useEffect(() => {
-    const handleClick = () => {
-      setContextMenuState({ ...contextMenuState, isVisible: false });
-    };
-
-    document.addEventListener('click', handleClick);
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, [contextMenuState]);
-
   function handleContextMenu(
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
@@ -37,6 +26,9 @@ export const MenuContext = ({ children, items, onSelectMenuItem }: Props) => {
   function handleChange(itemName: string) {
     onSelectMenuItem?.(itemName);
   }
+  function handleHideMenu() {
+    setContextMenuState({ ...contextMenuState, isVisible: false });
+  }
   return (
     <div onContextMenu={handleContextMenu}>
       {children}
@@ -47,6 +39,7 @@ export const MenuContext = ({ children, items, onSelectMenuItem }: Props) => {
           items={items}
           width="150px"
           onChange={handleChange}
+          onHideMenu={handleHideMenu}
         />
       )}
     </div>

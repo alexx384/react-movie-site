@@ -17,19 +17,6 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
     selectedOption: selectedOption,
     width: '150px',
   });
-  React.useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
-        setMenuContext({ ...menuContext, isMenuVisible: false });
-      }
-    };
-
-    document.addEventListener('click', handleClick);
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, [menuContext]);
-
   function handleClick() {
     const current = boxRef.current;
     setMenuContext({
@@ -43,6 +30,11 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
   function handleChange(itemName: string) {
     setMenuContext({ ...menuContext, selectedOption: itemName });
     onSelect?.(itemName);
+  }
+  function handleHideMenu(event: MouseEvent) {
+    if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+      setMenuContext({ ...menuContext, isMenuVisible: false });
+    }
   }
 
   return (
@@ -61,6 +53,7 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
           items={options}
           width={menuContext.width}
           onChange={handleChange}
+          onHideMenu={handleHideMenu}
         />
       )}
     </>

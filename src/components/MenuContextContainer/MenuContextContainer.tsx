@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './MenuContextContainer.module.css';
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
   items: string[];
   width: string;
   onChange?: (itemName: string) => void;
+  onHideMenu?: (event: MouseEvent) => void;
 };
 
 export const MenuContextContainer = ({
@@ -14,7 +16,18 @@ export const MenuContextContainer = ({
   items,
   width,
   onChange,
+  onHideMenu,
 }: Props) => {
+  React.useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      onHideMenu?.(event);
+    };
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [onHideMenu]);
+
   function handleClick(itemName: string) {
     onChange?.(itemName);
   }
