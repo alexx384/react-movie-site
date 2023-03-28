@@ -7,7 +7,6 @@
 
 .menuContextList {
   padding: 0;
-  width: 150px;
 }
 
 .menuContextItem {
@@ -25,4 +24,5 @@
   background-color: #f65261;
   color: hsl(0, 0%, 100%);
   font-weight: 500;
+  cursor: pointer;
 }

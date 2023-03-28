@@ -1,17 +1,18 @@
-import React from 'react';
-import styles from './MenuContext.module.css';
+import styles from './MenuContextContainer.module.css';
 
 type Props = {
   absolutePositionX: number;
   absolutePositionY: number;
   items: string[];
+  width: string;
   onChange?: (itemName: string) => void;
 };
 
-export const MenuContext = ({
+export const MenuContextContainer = ({
   absolutePositionX,
   absolutePositionY,
   items,
+  width,
   onChange,
 }: Props) => {
   function handleClick(itemName: string) {
@@ -24,6 +25,7 @@ export const MenuContext = ({
         position: 'absolute',
         top: absolutePositionY,
         left: absolutePositionX,
+        width: width,
       }}
     >
       <ul className={styles.menuContextList}>
