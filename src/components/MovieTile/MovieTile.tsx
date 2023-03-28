@@ -55,22 +55,19 @@ export const MovieTile = ({
       onClick={handleClick}
       onContextMenu={handleContextMenu}
     >
-      <img src={imageUrl} alt={movieName} />
+      <img className={styles.moviePoster} src={imageUrl} alt={movieName} />
       <div className={styles.nameAndReleaseYear}>
-        <h1>{movieName}</h1>
+        <h1 className={styles.movieName}>{movieName}</h1>
         <h2 className={styles.releaseYear}>{releaseYear}</h2>
       </div>
-      <h2>{stringListToString(genres)}</h2>
+      <h2 className={styles.movieGenres}>{stringListToString(genres)}</h2>
       {contextMenuState.isVisible && (
         <MenuContext
           absolutePositionX={contextMenuState.positionX}
           absolutePositionY={contextMenuState.positionY}
-        >
-          <ul>
-            <li>Edit</li>
-            <li>Delete</li>
-          </ul>
-        </MenuContext>
+          items={['Edit', 'Delete']}
+          onChange={(itemName) => console.log(itemName)}
+        />
       )}
     </div>
   );

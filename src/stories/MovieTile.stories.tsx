@@ -12,8 +12,8 @@ const Template: ComponentStory<typeof MovieTile> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  imageUrl: 'logo192.png',
-  movieName: 'React',
-  releaseYear: 2022,
-  genres: ['Adventure'],
+  imageUrl: 'movies/1.png',
+  movieName: 'Pulp Fiction',
+  releaseYear: 2004,
+  genres: ['Action', 'Adventure'],
 };

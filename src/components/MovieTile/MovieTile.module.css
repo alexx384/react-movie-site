@@ -1,8 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
 .movieTile {
+  width: 322px;
+  height: 524px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.moviePoster {
+  width: 100%;
+  height: 85%;
 }
 
 .nameAndReleaseYear {
+  margin-top: 22px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.movieName {
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: inherit;
+  line-height: 22px;
+  color: hsla(0, 0%, 100%, 0.7);
+  padding: 0;
+  margin: 0;
 }
 
 .releaseYear {
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: hsla(0, 0%, 100%, 0.7);
+  padding: 4px 14px 5px 14px;
+  border: 1px solid #979797;
+  border-radius: 4px;
+  height: fit-content;
+  width: fit-content;
+  margin: 0;
+}
+
+.movieGenres {
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: hsla(0, 0%, 100%, 0.5);
+  margin: 0;
+  padding: 0;
 }

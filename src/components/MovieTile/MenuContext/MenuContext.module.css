@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
+.menuContext {
+  background-color: #232323;
+  border-radius: 4px;
+}
+
+.menuContextList {
+  padding: 0;
+  width: 150px;
+}
+
+.menuContextItem {
+  color: hsla(0, 0%, 100%, 0.8);
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 20px;
+  list-style-type: none;
+  padding: 6px 14px 7px 23px;
+}
+
+.menuContextItem:hover {
+  background-color: #f65261;
+  color: hsl(0, 0%, 100%);
+  font-weight: 500;
+}
