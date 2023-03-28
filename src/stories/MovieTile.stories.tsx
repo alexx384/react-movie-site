@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof MovieTile> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  imageUrl: 'movies/1.png',
+  imageUrl: 'https://test-9mn.pages.dev/1.png',
   movieName: 'Pulp Fiction',
   releaseYear: 2004,
   genres: ['Action', 'Adventure'],
