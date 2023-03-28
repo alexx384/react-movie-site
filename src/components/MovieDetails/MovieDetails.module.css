@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
+.movieDetails {
+  margin: 0;
+  display: flex;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.moviePoster {
+  margin: 0px 60px 0px 0px;
+}
+
+.movieTitleAndRating {
+  display: flex;
+}
+
+.movieTitle {
+  font-family: inherit;
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.5em;
+  letter-spacing: 1px;
+  text-align: left;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0px 25px 0px 0px;
+}
+
+.movieRating {
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.2em;
+  letter-spacing: 0px;
+  color: #ffffff;
+  padding: 1.1rem 0.9rem 1.1rem 0.9rem;
+  margin: 0;
+  border: 1px solid #ffffff;
+  border-radius: 100%;
+}
+
+.movieGenres {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.81em;
+  letter-spacing: 0px;
+  text-align: left;
+  color: hsla(0, 0%, 100%, 0.5);
+  margin: 4px 0px 0px 0px;
+}
+
+.movieYearAndTiming {
+  margin: 30px 0px 0px 0px;
+  display: flex;
+  color: #f65261;
+  font-family: Montserrat;
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.208em;
+  letter-spacing: 0px;
+}
+
+.movieYear {
+  margin: 0px 51px 0px 0px;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+.movieTiming {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+.movieDescription {
+  margin: 29px 0px 0px 0px;
+  color: hsla(0, 0%, 100%, 0.5);
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.2em;
+  letter-spacing: 0px;
+  text-align: left;
+}
