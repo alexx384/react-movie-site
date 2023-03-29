@@ -23,6 +23,7 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
   });
   function handleClick() {
     const current = boxRef.current;
+    console.log(menuContext.isMenuVisible);
     setMenuContext({
       ...menuContext,
       isMenuVisible: !menuContext.isMenuVisible,
@@ -39,8 +40,10 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
     });
     onSelect?.(itemName);
   }
-  function handleHideMenu() {
-    setMenuContext({ ...menuContext, isMenuVisible: false });
+  function handleHideMenu(event: MouseEvent) {
+    if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+      setMenuContext({ ...menuContext, isMenuVisible: false });
+    }
   }
 
   return (

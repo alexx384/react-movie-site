@@ -7,7 +7,7 @@ type Props = {
   menuItems: string[];
   width: string;
   onChange?: (itemName: string) => void;
-  onHideMenu?: () => void;
+  onHideMenu?: (event: MouseEvent) => void;
 };
 
 export const MenuContextContainer = ({
@@ -22,7 +22,7 @@ export const MenuContextContainer = ({
   React.useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
-        onHideMenu?.();
+        onHideMenu?.(event);
       }
     };
     document.addEventListener('click', handleClick);
