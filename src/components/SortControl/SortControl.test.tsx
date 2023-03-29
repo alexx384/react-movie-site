@@ -1,14 +1,164 @@
 import { render, screen } from '@testing-library/react';
-import { SortControl } from './SortControl';
+import { SortControl, SORT_BY, SHAMEFUL_TRIANGLE } from './SortControl';
+import userEvent from '@testing-library/user-event';
 
-it('renders a genreName', () => {
+it('renders sort buttons', () => {
+  const selectedOptionName = 'RELEASE DATE';
   render(
     <SortControl
-      options={['RELEASE DATE', 'TITLE']}
-      selectedOption={'RELEASE DATE'}
+      options={[selectedOptionName]}
+      selectedOption={selectedOptionName}
     />
   );
 
-  // const listItem: HTMLLIElement = screen.getByRole('listitem');
-  // expect(listItem).toHaveTextContent(genreName);
+  const sortByElement: HTMLElement | null = screen.queryByText(SORT_BY);
+  const selectedOptionElement: HTMLElement | null =
+    screen.queryByText(selectedOptionName);
+  const shamefulTriangleElement: HTMLElement | null =
+    screen.queryByText(SHAMEFUL_TRIANGLE);
+
+  expect(sortByElement).toBeInTheDocument();
+  expect(selectedOptionElement).toBeInTheDocument();
+  expect(shamefulTriangleElement).toBeInTheDocument();
+});
+
+it(`renders menu item on '${SORT_BY}' click`, async () => {
+  const user = userEvent.setup();
+  const selectedOptionName = 'RELEASE DATE';
+  render(
+    <SortControl
+      options={[selectedOptionName]}
+      selectedOption={selectedOptionName}
+    />
+  );
+
+  const sortByElement: HTMLElement = screen.getByText(SORT_BY);
+  await user.click(sortByElement);
+  const menuItems: HTMLElement[] | null = screen.queryAllByRole('listitem');
+  const menuItem = menuItems?.find(
+    (item) => item.textContent === selectedOptionName
+  );
+
+  expect(menuItem).toBeInTheDocument();
+});
+
+it(`renders menu item on 'RELEASE DATE' click`, async () => {
+  const user = userEvent.setup();
+  const selectedOptionName = 'RELEASE DATE';
+  render(
+    <SortControl
+      options={[selectedOptionName]}
+      selectedOption={selectedOptionName}
+    />
+  );
+
+  const selectedOptionElement: HTMLElement =
+    screen.getByText(selectedOptionName);
+  await user.click(selectedOptionElement);
+  const menuItems: HTMLElement[] | null = screen.queryAllByRole('listitem');
+  const menuItem = menuItems?.find(
+    (item) => item.textContent === selectedOptionName
+  );
+
+  expect(menuItem).toBeInTheDocument();
+});
+
+it(`renders menu item on '${SHAMEFUL_TRIANGLE}' click`, async () => {
+  const user = userEvent.setup();
+  const selectedOptionName = 'RELEASE DATE';
+  render(
+    <SortControl
+      options={[selectedOptionName]}
+      selectedOption={selectedOptionName}
+    />
+  );
+
+  const shamefulTriangleElement: HTMLElement =
+    screen.getByText(SHAMEFUL_TRIANGLE);
+  await user.click(shamefulTriangleElement);
+  const menuItems: HTMLElement[] | null = screen.queryAllByRole('listitem');
+  const menuItem = menuItems?.find(
+    (item) => item.textContent === selectedOptionName
+  );
+
+  expect(menuItem).toBeInTheDocument();
+});
+
+it(`hides menu item on '${SHAMEFUL_TRIANGLE}' click and option select`, async () => {
+  const user = userEvent.setup();
+  const selectedOptionName = 'RELEASE DATE';
+  render(
+    <SortControl
+      options={[selectedOptionName]}
+      selectedOption={selectedOptionName}
+    />
+  );
+
+  const shamefulTriangleElement: HTMLElement =
+    screen.getByText(SHAMEFUL_TRIANGLE);
+  await user.click(shamefulTriangleElement);
+  const menuItems: HTMLElement[] | null = screen.getAllByRole('listitem');
+  const menuItem = menuItems.find(
+    (item) => item.textContent === selectedOptionName
+  )!;
+  await user.click(menuItem);
+  const menuItemAfterSelect: HTMLElement | null =
+    screen.queryByRole('listitem');
+
+  expect(menuItemAfterSelect).not.toBeInTheDocument();
+});
+
+it(`invokes onSelect on '${SHAMEFUL_TRIANGLE}' click and option select`, async () => {
+  const user = userEvent.setup();
+  const selectedOptionName = 'RELEASE DATE';
+  const handleSelect = jest.fn();
+  render(
+    <SortControl
+      options={[selectedOptionName]}
+      selectedOption={selectedOptionName}
+      onSelect={handleSelect}
+    />
+  );
+
+  const shamefulTriangleElement: HTMLElement =
+    screen.getByText(SHAMEFUL_TRIANGLE);
+  await user.click(shamefulTriangleElement);
+  const menuItems: HTMLElement[] | null = screen.getAllByRole('listitem');
+  const menuItem = menuItems.find(
+    (item) => item.textContent === selectedOptionName
+  )!;
+  await user.click(menuItem);
+
+  expect(handleSelect).toBeCalledTimes(1);
+  expect(handleSelect).toBeCalledWith(selectedOptionName);
+});
+
+it(`hides menu item on '${SHAMEFUL_TRIANGLE}' click and not on menu item element click`, async () => {
+  const user = userEvent.setup();
+  const selectedOptionName = 'RELEASE DATE';
+  const notMenuItemElementText = 'Not a menu item element';
+  const handleSelect = jest.fn();
+  render(
+    <>
+      <SortControl
+        options={[selectedOptionName]}
+        selectedOption={selectedOptionName}
+        onSelect={handleSelect}
+      />
+      <h1>{notMenuItemElementText}</h1>
+    </>
+  );
+
+  const shamefulTriangleElement: HTMLElement =
+    screen.getByText(SHAMEFUL_TRIANGLE);
+  await user.click(shamefulTriangleElement);
+  const notMenuItemElement: HTMLElement = screen.getByRole('heading', {
+    name: notMenuItemElementText,
+  });
+  await user.click(notMenuItemElement);
+  const menuItemAfterSelect: HTMLElement | null =
+    screen.queryByRole('listitem');
+
+  expect(menuItemAfterSelect).not.toBeInTheDocument();
+  expect(handleSelect).not.toBeCalled();
 });

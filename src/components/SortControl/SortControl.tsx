@@ -8,6 +8,9 @@ type Props = {
   onSelect?: (option: string) => {};
 };
 
+export const SORT_BY = 'SORT BY';
+export const SHAMEFUL_TRIANGLE = '▼';
+
 export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
   const boxRef = React.useRef<HTMLDivElement>(null);
   const [menuContext, setMenuContext] = React.useState({
@@ -42,11 +45,13 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
   return (
     <>
       <div ref={boxRef} className={styles.sortControl} onClick={handleClick}>
-        <button className={styles.sortControlLabel}>SORT BY</button>
+        <button className={styles.sortControlLabel}>{SORT_BY}</button>
         <button className={styles.sortControlSelectedOption}>
           {menuContext.selectedOption ?? ''}
         </button>
-        <button className={styles.sortControlShamefulTriangle}>▼</button>
+        <button className={styles.sortControlShamefulTriangle}>
+          {SHAMEFUL_TRIANGLE}
+        </button>
       </div>
       {menuContext.isMenuVisible && (
         <MenuContextContainer
