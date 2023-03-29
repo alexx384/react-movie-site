@@ -4,16 +4,16 @@ import styles from './MenuContextContainer.module.css';
 type Props = {
   absolutePositionX: number;
   absolutePositionY: number;
-  items: string[];
+  menuItems: string[];
   width: string;
   onChange?: (itemName: string) => void;
-  onHideMenu?: (event: MouseEvent) => void;
+  onHideMenu?: () => void;
 };
 
 export const MenuContextContainer = ({
   absolutePositionX,
   absolutePositionY,
-  items,
+  menuItems,
   width,
   onChange,
   onHideMenu,
@@ -22,7 +22,7 @@ export const MenuContextContainer = ({
   React.useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
-        onHideMenu?.(event);
+        onHideMenu?.();
       }
     };
     document.addEventListener('click', handleClick);
@@ -46,7 +46,7 @@ export const MenuContextContainer = ({
       }}
     >
       <ul className={styles.menuContextList}>
-        {items.map((itemName) => (
+        {menuItems.map((itemName) => (
           <li
             className={styles.menuContextItem}
             onClick={() => handleClick(itemName)}

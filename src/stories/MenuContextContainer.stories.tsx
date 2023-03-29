@@ -14,6 +14,6 @@ export const PrimarySelect = Template.bind({});
 PrimarySelect.args = {
   absolutePositionX: 0,
   absolutePositionY: 0,
-  items: ['Edit', 'Delete'],
+  menuItems: ['Edit', 'Delete'],
   width: '150px',
 };

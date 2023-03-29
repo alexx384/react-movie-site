@@ -43,7 +43,7 @@ export const MenuContext = ({
         <MenuContextContainer
           absolutePositionX={contextMenuState.positionX}
           absolutePositionY={contextMenuState.positionY}
-          items={menuItems}
+          menuItems={menuItems}
           width={menuItemWidht}
           onChange={handleChange}
           onHideMenu={handleHideMenu}
