@@ -3,11 +3,15 @@ import { MenuContextContainer } from '../MenuContextContainer';
 
 type Props = {
   children: React.ReactNode;
-  items: string[];
+  menuItems: string[];
   onSelectMenuItem?: (itemName: string) => void;
 };
 
-export const MenuContext = ({ children, items, onSelectMenuItem }: Props) => {
+export const MenuContext = ({
+  children,
+  menuItems,
+  onSelectMenuItem,
+}: Props) => {
   const [contextMenuState, setContextMenuState] = React.useState({
     isVisible: false,
     positionX: 0,
@@ -25,6 +29,7 @@ export const MenuContext = ({ children, items, onSelectMenuItem }: Props) => {
   }
   function handleChange(itemName: string) {
     onSelectMenuItem?.(itemName);
+    handleHideMenu();
   }
   function handleHideMenu() {
     setContextMenuState({ ...contextMenuState, isVisible: false });
@@ -36,7 +41,7 @@ export const MenuContext = ({ children, items, onSelectMenuItem }: Props) => {
         <MenuContextContainer
           absolutePositionX={contextMenuState.positionX}
           absolutePositionY={contextMenuState.positionY}
-          items={items}
+          items={menuItems}
           width="150px"
           onChange={handleChange}
           onHideMenu={handleHideMenu}

@@ -18,9 +18,12 @@ export const MenuContextContainer = ({
   onChange,
   onHideMenu,
 }: Props) => {
+  const boxRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-      onHideMenu?.(event);
+      if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+        onHideMenu?.(event);
+      }
     };
     document.addEventListener('click', handleClick);
     return () => {
@@ -33,6 +36,7 @@ export const MenuContextContainer = ({
   }
   return (
     <div
+      ref={boxRef}
       className={styles.menuContext}
       style={{
         position: 'absolute',

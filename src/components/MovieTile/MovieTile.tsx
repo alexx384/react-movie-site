@@ -22,7 +22,7 @@ export const MovieTile = ({
   }
   return (
     <MenuContext
-      items={['Edit', 'Delete']}
+      menuItems={['Edit', 'Delete']}
       onSelectMenuItem={(itemName) => console.log('selected', itemName)}
     >
       <div className={styles.movieTile} onClick={handleClick}>
