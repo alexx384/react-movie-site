@@ -4,12 +4,14 @@ import { MenuContextContainer } from '../MenuContextContainer';
 type Props = {
   children: React.ReactNode;
   menuItems: string[];
+  menuItemWidht?: string;
   onSelectMenuItem?: (itemName: string) => void;
 };
 
 export const MenuContext = ({
   children,
   menuItems,
+  menuItemWidht = '150px',
   onSelectMenuItem,
 }: Props) => {
   const [contextMenuState, setContextMenuState] = React.useState({
@@ -20,7 +22,7 @@ export const MenuContext = ({
   function handleContextMenu(
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
-    event.preventDefault(); // prevent the default behaviour when right clicked
+    event.preventDefault();
     setContextMenuState({
       isVisible: true,
       positionX: event.pageX,
@@ -42,7 +44,7 @@ export const MenuContext = ({
           absolutePositionX={contextMenuState.positionX}
           absolutePositionY={contextMenuState.positionY}
           items={menuItems}
-          width="150px"
+          width={menuItemWidht}
           onChange={handleChange}
           onHideMenu={handleHideMenu}
         />
