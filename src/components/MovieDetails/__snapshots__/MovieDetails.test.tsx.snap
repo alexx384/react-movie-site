@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="movieDetails"
+>
+  <img
+    alt="React"
+    className="moviePoster"
+    src="logo192.png"
+  />
+  <div>
+    <div
+      className="movieTitleAndRating"
+    >
+      <h1
+        className="movieTitle"
+      >
+        React
+      </h1>
+      <h3
+        className="movieRating"
+      >
+        8.9
+      </h3>
+    </div>
+    <h4
+      className="movieGenres"
+    >
+      Adventure
+    </h4>
+    <div
+      className="movieYearAndTiming"
+    >
+      <h2
+        className="movieYear"
+      >
+        2022
+      </h2>
+      <h2
+        className="movieTiming"
+      >
+        2h 34min
+      </h2>
+    </div>
+    <p
+      className="movieDescription"
+    >
+      Whether you work on your own or with thousands of other developers, using React feels the same. It is designed to let you seamlessly combine components written by independent people, teams, and organizations.
+    </p>
+  </div>
+</div>
+`;
