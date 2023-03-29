@@ -1,5 +1,6 @@
 import React from 'react';
 import { MenuContextContainer } from '../MenuContextContainer';
+import { MENU_CONTEXT } from '../../constants/tests.constants';
 
 type Props = {
   children: React.ReactNode;
@@ -37,7 +38,7 @@ export const MenuContext = ({
     setContextMenuState({ ...contextMenuState, isVisible: false });
   }
   return (
-    <div onContextMenu={handleContextMenu}>
+    <div onContextMenu={handleContextMenu} data-testid={MENU_CONTEXT}>
       {children}
       {contextMenuState.isVisible && (
         <MenuContextContainer

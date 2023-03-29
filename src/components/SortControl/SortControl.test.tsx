@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { SortControl, SORT_BY, SHAMEFUL_TRIANGLE } from './SortControl';
 import userEvent from '@testing-library/user-event';
+import { MOVIE_SORT_CONTROL } from '../../constants/tests.constants';
 
 it('renders sort buttons', () => {
   const selectedOptionName = 'RELEASE DATE';
@@ -22,7 +23,7 @@ it('renders sort buttons', () => {
   expect(shamefulTriangleElement).toBeInTheDocument();
 });
 
-it(`renders menu item on '${SORT_BY}' click`, async () => {
+it(`renders menu item on SortControl click`, async () => {
   const user = userEvent.setup();
   const selectedOptionName = 'RELEASE DATE';
   render(
@@ -32,50 +33,9 @@ it(`renders menu item on '${SORT_BY}' click`, async () => {
     />
   );
 
-  const sortByElement: HTMLElement = screen.getByText(SORT_BY);
-  await user.click(sortByElement);
-  const menuItems: HTMLElement[] | null = screen.queryAllByRole('listitem');
-  const menuItem = menuItems?.find(
-    (item) => item.textContent === selectedOptionName
-  );
-
-  expect(menuItem).toBeInTheDocument();
-});
-
-it(`renders menu item on 'RELEASE DATE' click`, async () => {
-  const user = userEvent.setup();
-  const selectedOptionName = 'RELEASE DATE';
-  render(
-    <SortControl
-      options={[selectedOptionName]}
-      selectedOption={selectedOptionName}
-    />
-  );
-
-  const selectedOptionElement: HTMLElement =
-    screen.getByText(selectedOptionName);
-  await user.click(selectedOptionElement);
-  const menuItems: HTMLElement[] | null = screen.queryAllByRole('listitem');
-  const menuItem = menuItems?.find(
-    (item) => item.textContent === selectedOptionName
-  );
-
-  expect(menuItem).toBeInTheDocument();
-});
-
-it(`renders menu item on '${SHAMEFUL_TRIANGLE}' click`, async () => {
-  const user = userEvent.setup();
-  const selectedOptionName = 'RELEASE DATE';
-  render(
-    <SortControl
-      options={[selectedOptionName]}
-      selectedOption={selectedOptionName}
-    />
-  );
-
-  const shamefulTriangleElement: HTMLElement =
-    screen.getByText(SHAMEFUL_TRIANGLE);
-  await user.click(shamefulTriangleElement);
+  const sortControlElement: HTMLElement =
+    screen.getByTestId(MOVIE_SORT_CONTROL);
+  await user.click(sortControlElement);
   const menuItems: HTMLElement[] | null = screen.queryAllByRole('listitem');
   const menuItem = menuItems?.find(
     (item) => item.textContent === selectedOptionName

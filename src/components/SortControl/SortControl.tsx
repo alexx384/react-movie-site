@@ -1,6 +1,7 @@
 import styles from './SortControl.module.css';
 import React from 'react';
 import { MenuContextContainer } from '../MenuContextContainer';
+import { MOVIE_SORT_CONTROL } from '../../constants/tests.constants';
 
 type Props = {
   options: string[];
@@ -44,7 +45,12 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
 
   return (
     <>
-      <div ref={boxRef} className={styles.sortControl} onClick={handleClick}>
+      <div
+        ref={boxRef}
+        className={styles.sortControl}
+        onClick={handleClick}
+        data-testid={MOVIE_SORT_CONTROL}
+      >
         <button className={styles.sortControlLabel}>{SORT_BY}</button>
         <button className={styles.sortControlSelectedOption}>
           {menuContext.selectedOption ?? ''}

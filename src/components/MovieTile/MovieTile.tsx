@@ -1,6 +1,7 @@
 import styles from './MovieTile.module.css';
 import { stringListToString } from '../utils/string';
 import { MenuContext } from '../MenuContext';
+import { MOVIE_TILE } from '../../constants/tests.constants';
 
 type Props = {
   imageUrl: string;
@@ -25,7 +26,11 @@ export const MovieTile = ({
       menuItems={['Edit', 'Delete']}
       onSelectMenuItem={(itemName) => console.log('selected', itemName)}
     >
-      <div className={styles.movieTile} onClick={handleClick}>
+      <div
+        className={styles.movieTile}
+        onClick={handleClick}
+        data-testid={MOVIE_TILE}
+      >
         <img className={styles.moviePoster} src={imageUrl} alt={movieName} />
         <div className={styles.nameAndReleaseYear}>
           <h1 className={styles.movieName}>{movieName}</h1>
