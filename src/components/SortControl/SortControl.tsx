@@ -23,7 +23,6 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
   });
   function handleClick() {
     const current = boxRef.current;
-    console.log(menuContext.isMenuVisible);
     setMenuContext({
       ...menuContext,
       isMenuVisible: !menuContext.isMenuVisible,

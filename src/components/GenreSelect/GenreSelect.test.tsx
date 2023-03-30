@@ -7,7 +7,13 @@ import {
   GENRE_ITEM_UNSELECTED,
 } from '../../constants/tests.constants';
 
-const listOfGenres: string[] = [
+type Tuple<
+  T,
+  N extends number,
+  R extends readonly T[] = []
+> = R['length'] extends N ? R : Tuple<T, N, readonly [T, ...R]>;
+
+const listOfGenres: Tuple<string, 6> = [
   'ALL',
   'COMEDY',
   'HORROR',
@@ -17,10 +23,10 @@ const listOfGenres: string[] = [
 ];
 
 it('renders all genres passed in props', () => {
-  const initiallySelectedGenreName: string = listOfGenres[0]!;
+  const initiallySelectedGenreName = listOfGenres[0];
   render(
     <GenreSelect
-      listOfGenres={listOfGenres}
+      listOfGenres={[...listOfGenres]}
       initiallySelectedGenreName={initiallySelectedGenreName}
     />
   );
@@ -33,10 +39,10 @@ it('renders all genres passed in props', () => {
 });
 
 it('highlights a selected genre passed in props', () => {
-  const initiallySelectedGenreName: string = listOfGenres[0]!;
+  const initiallySelectedGenreName: string = listOfGenres[0];
   render(
     <GenreSelect
-      listOfGenres={listOfGenres}
+      listOfGenres={[...listOfGenres]}
       initiallySelectedGenreName={initiallySelectedGenreName}
     />
   );
@@ -48,12 +54,12 @@ it('highlights a selected genre passed in props', () => {
 });
 
 it('calls "onSelectGenre" callback and passes correct genre in arguments after a click event on a genre button', async () => {
-  const initiallySelectedGenreName: string = listOfGenres[0]!;
+  const initiallySelectedGenreName: string = listOfGenres[0];
   const user: UserEvent = userEvent.setup();
   const handleSelectGenre = jest.fn();
   render(
     <GenreSelect
-      listOfGenres={listOfGenres}
+      listOfGenres={[...listOfGenres]}
       initiallySelectedGenreName={initiallySelectedGenreName}
       onSelectGenre={handleSelectGenre}
     />
@@ -61,7 +67,7 @@ it('calls "onSelectGenre" callback and passes correct genre in arguments after a
   const unselectedGenreItems: HTMLElement[] = screen.getAllByTestId(
     GENRE_ITEM_UNSELECTED
   );
-  const unselectedGenreItem: HTMLElement = unselectedGenreItems[0]!;
+  const unselectedGenreItem = unselectedGenreItems[0] as HTMLElement;
 
   await user.click(unselectedGenreItem);
 

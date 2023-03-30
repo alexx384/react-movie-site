@@ -52,8 +52,7 @@ it('triggers onChange with menu item text only on click on menu item', async () 
     />
   );
 
-  const menuItems: HTMLElement[] = screen.getAllByRole('listitem');
-  const menuItem = menuItems.find((item) => item.textContent === menuItemText)!;
+  const menuItem: HTMLElement = screen.getByText(menuItemText);
   await user.click(menuItem);
 
   expect(handleChange).toBeCalledTimes(1);

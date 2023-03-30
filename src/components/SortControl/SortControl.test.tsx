@@ -60,7 +60,7 @@ it(`hides menu item on '${SHAMEFUL_TRIANGLE}' click and option select`, async ()
   const menuItems: HTMLElement[] | null = screen.getAllByRole('listitem');
   const menuItem = menuItems.find(
     (item) => item.textContent === selectedOptionName
-  )!;
+  ) as HTMLElement;
   await user.click(menuItem);
   const menuItemAfterSelect: HTMLElement | null =
     screen.queryByRole('listitem');
@@ -86,7 +86,7 @@ it(`invokes onSelect on '${SHAMEFUL_TRIANGLE}' click and option select`, async (
   const menuItems: HTMLElement[] | null = screen.getAllByRole('listitem');
   const menuItem = menuItems.find(
     (item) => item.textContent === selectedOptionName
-  )!;
+  ) as HTMLElement;
   await user.click(menuItem);
 
   expect(handleSelect).toBeCalledTimes(1);

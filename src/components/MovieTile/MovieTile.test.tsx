@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { MovieTile } from './MovieTile';
-import { stringListToString } from '../utils/string';
 import { MOVIE_TILE, MENU_CONTEXT } from '../../constants/tests.constants';
 import userEvent from '@testing-library/user-event';
 
@@ -8,13 +7,13 @@ it('renders an imageUrl, movieName, releaseYear, genres with the values equal to
   const imageUrl = 'https://example.com/';
   const movieName = 'Pulp Function';
   const releaseYear = 2004;
-  const genres = ['Adventure', 'Comedy'];
+  const genre = 'Adventure & Comedy';
   render(
     <MovieTile
       imageUrl={imageUrl}
       movieName={movieName}
       releaseYear={releaseYear}
-      genres={genres}
+      genre={genre}
     />
   );
 
@@ -26,7 +25,7 @@ it('renders an imageUrl, movieName, releaseYear, genres with the values equal to
     name: String(releaseYear),
   });
   const genreElement: HTMLElement | null = screen.queryByRole('heading', {
-    name: stringListToString(genres),
+    name: genre,
   });
 
   expect(imageElement).toBeInTheDocument();
@@ -45,7 +44,7 @@ it('invokes an onClick with movie name on movie tile click', async () => {
       imageUrl="https://example.com/"
       movieName={movieName}
       releaseYear={2004}
-      genres={['Adventure', 'Comedy']}
+      genre={'Adventure & Comedy'}
       onClick={handleClick}
     />
   );
@@ -63,7 +62,7 @@ it('renders with menu context', () => {
       imageUrl="https://example.com/"
       movieName="Pulp Function"
       releaseYear={2004}
-      genres={['Adventure', 'Comedy']}
+      genre={'Adventure & Comedy'}
     />
   );
 

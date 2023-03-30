@@ -15,5 +15,5 @@ Primary.args = {
   imageUrl: 'https://test-9mn.pages.dev/1.png',
   movieName: 'Pulp Fiction',
   releaseYear: 2004,
-  genres: ['Action', 'Adventure'],
+  genre: 'Action & Adventure',
 };

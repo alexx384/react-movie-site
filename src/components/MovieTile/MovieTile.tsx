@@ -1,5 +1,4 @@
 import styles from './MovieTile.module.css';
-import { stringListToString } from '../utils/string';
 import { MenuContext } from '../MenuContext';
 import { MOVIE_TILE } from '../../constants/tests.constants';
 
@@ -7,7 +6,7 @@ type Props = {
   imageUrl: string;
   movieName: string;
   releaseYear: number;
-  genres: string[];
+  genre: string;
   onClick?: (movieName: string) => void;
 };
 
@@ -15,7 +14,7 @@ export const MovieTile = ({
   imageUrl,
   movieName,
   releaseYear,
-  genres,
+  genre,
   onClick,
 }: Props) => {
   function handleClick() {
@@ -36,7 +35,7 @@ export const MovieTile = ({
           <h1 className={styles.movieName}>{movieName}</h1>
           <h2 className={styles.releaseYear}>{releaseYear}</h2>
         </div>
-        <h2 className={styles.movieGenres}>{stringListToString(genres)}</h2>
+        <h2 className={styles.movieGenres}>{genre}</h2>
       </div>
     </MenuContext>
   );

@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  stringListToString,
-  secondsToHoursAndMinutesString,
-} from '../utils/string';
+import { secondsToHoursAndMinutesString } from '../utils/string';
 import styles from './MovieDetails.module.css';
 
 type Props = {
@@ -10,7 +7,7 @@ type Props = {
   movieName: string;
   releaseYear: number;
   rating: number;
-  genres: string[];
+  genre: string;
   durationInSeconds: number;
   description: string;
 };
@@ -20,7 +17,7 @@ export const MovieDetails = ({
   movieName,
   releaseYear,
   rating,
-  genres,
+  genre,
   durationInSeconds,
   description,
 }: Props) => {
@@ -32,7 +29,7 @@ export const MovieDetails = ({
           <h1 className={styles.movieTitle}>{movieName}</h1>
           <h3 className={styles.movieRating}>{rating}</h3>
         </div>
-        <h4 className={styles.movieGenres}>{stringListToString(genres)}</h4>
+        <h4 className={styles.movieGenres}>{genre}</h4>
         <div className={styles.movieYearAndTiming}>
           <h2 className={styles.movieYear}>{releaseYear}</h2>
           <h2 className={styles.movieTiming}>

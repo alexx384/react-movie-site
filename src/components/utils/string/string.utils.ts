@@ -1,15 +1,3 @@
-export const stringListToString = (stringList: string[]): string => {
-  let resultString: string;
-  if (stringList.length === 1) {
-    resultString = stringList[0]!;
-  } else if (stringList.length === 2) {
-    resultString = `${stringList[0]} & ${stringList[1]}`;
-  } else {
-    resultString = stringList.join(', ');
-  }
-  return resultString;
-};
-
 export const secondsToHoursAndMinutesString = (seconds: number): string => {
   if (seconds < 1) {
     return '';
