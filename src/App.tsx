@@ -1,6 +1,7 @@
 import { Counter } from './components/Counter';
 import { SearchForm } from './components/SearchForm';
 import { GenreSelect } from './components/GenreSelect';
+import './App.css';
 
 export const App = () => {
   return (
