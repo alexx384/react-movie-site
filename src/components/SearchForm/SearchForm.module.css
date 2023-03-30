@@ -1,18 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
-
 .searchForm {
-  margin-left: 8vw;
-  margin-right: 8vw;
   margin-top: 10vh;
+  margin-right: 8vw;
   margin-bottom: 10vh;
-  font-family: 'Montserrat', sans-serif;
+  margin-left: 8vw;
 }
 
 .searchForm h1 {
   margin-top: 2rem;
   margin-bottom: 2rem;
-  font-weight: 300;
-  color: white;
 }
 
 .searchBlock {
@@ -21,27 +16,19 @@
 }
 
 .searchBlock input {
-  font-size: 1.25rem;
-  padding: 1.0625rem 1.1875rem 1rem;
-  border-radius: 4px;
-  border-width: 0;
-  color: hsla(0, 0%, 100%, 0.3);
-  background-color: hsla(0, 0%, 20%, 0.8);
-  width: 100%;
   margin-right: 0.4vw;
-  font-family: inherit;
-  font-weight: 400;
+  border-width: 0;
+  border-radius: 4px;
+  background-color: hsla(0, 0%, 20%, 0.8);
+  padding: 1.0625rem 1.1875rem 1rem;
+  width: 100%;
 }
 
 .searchBlock button {
-  background-color: #f65261;
+  cursor: pointer;
+  margin-left: 0.4vw;
   border-width: 0;
   border-radius: 4px;
-  font-size: 1.25rem;
-  color: white;
+  background-color: #f65261;
   padding: 1.125rem 4.5625rem 0.9375rem 4.625rem;
-  margin-left: 0.4vw;
-  font-family: inherit;
-  font-weight: 500;
-  cursor: pointer;
 }

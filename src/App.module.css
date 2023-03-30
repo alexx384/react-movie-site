@@ -1,0 +1,25 @@
+body {
+  background-color: #555555;
+}
+
+/* Text */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
+.title {
+  color: hsl(0, 0%, 100%);
+  font: 300 2.5rem/1.2em 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.submit-btn-text {
+  color: hsl(0, 0%, 100%);
+  font: 500 1.25rem/1.2em 'Montserrat', sans-serif;
+  text-transform: uppercase;
+}
+
+.input-text {
+  color: hsla(0, 0%, 100%, 0.3);
+  font: 400 1.25rem/1.2em 'Montserrat', sans-serif;
+}

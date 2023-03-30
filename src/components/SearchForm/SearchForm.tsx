@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './SearchForm.module.css';
 import { SEARCH_FORM_INPUT } from '../../constants/tests.constants';
+import globalStyles from '../../App.module.css';
 
 type SearchFormProps = {
   initialSearchQuery: string;
@@ -29,16 +30,21 @@ export const SearchForm = ({
 
   return (
     <div className={styles.searchForm}>
-      <h1>FIND YOUR MOVIE</h1>
+      <h1 className={globalStyles.title}>FIND YOUR MOVIE</h1>
       <div className={styles.searchBlock}>
         <input
+          className={globalStyles['input-text']}
           type="text"
           value={searchQuery}
           onChange={handleSearchQueryChange}
           onKeyDown={handleInputKeydown}
           data-testid={SEARCH_FORM_INPUT}
         />
-        <button type="button" onClick={handleSearchClick}>
+        <button
+          className={globalStyles['submit-btn-text']}
+          type="button"
+          onClick={handleSearchClick}
+        >
           SEARCH
         </button>
       </div>

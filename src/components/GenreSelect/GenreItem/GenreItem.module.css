@@ -2,17 +2,17 @@
 
 .selectedGenreItem,
 .unselectedGenreItem {
-  font-size: 1rem;
-  color: white;
-  list-style-type: none;
   display: inline-block;
-  padding-bottom: 1rem;
+  cursor: pointer;
   padding-top: 1rem;
   padding-right: 1.5rem;
+  padding-bottom: 1rem;
   padding-left: 1.5rem;
-  cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
+  color: white;
   font-weight: 500;
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  list-style-type: none;
 }
 
 .selectedGenreItem:hover,
