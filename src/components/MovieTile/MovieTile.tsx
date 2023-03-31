@@ -1,8 +1,8 @@
 import styles from './MovieTile.module.css';
-import { MenuContext } from '../MenuContext';
-import { MOVIE_TILE } from '../../constants/tests.constants';
+import { MOVIE_TILE, MOVIE_TILE_IMAGE } from '../../constants/tests.constants';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
+import { ThreeDotsButton } from './ThreeDotsButton';
 
 type Props = {
   id: string;
@@ -24,29 +24,30 @@ export const MovieTile = ({
   function handleClick() {
     onClick?.(id);
   }
+  function handleSelectOption(itemName: string) {
+    console.log(itemName);
+  }
+
   return (
-    <MenuContext
-      menuItems={['Edit', 'Delete']}
-      onSelectMenuItem={(itemName) => console.log('selected', itemName)}
-    >
-      <div
-        className={styles.block}
-        onClick={handleClick}
-        data-testid={MOVIE_TILE}
-      >
-        <img className={styles.poster} src={imageUrl} alt={movieName} />
-        <div className={styles['name-and-year']}>
-          <h1 className={classNames(fontStyles['tile-name'], styles.name)}>
-            {movieName}
-          </h1>
-          <h2 className={classNames(fontStyles['tile-year'], styles.year)}>
-            {releaseYear}
-          </h2>
-        </div>
-        <h2 className={classNames(fontStyles.subtitle, styles.genre)}>
-          {genre}
+    <div className={styles.block} data-testid={MOVIE_TILE}>
+      <ThreeDotsButton onSelectOption={handleSelectOption}>
+        <img
+          onClick={handleClick}
+          className={styles.poster}
+          src={imageUrl}
+          alt={movieName}
+          data-testid={MOVIE_TILE_IMAGE}
+        />
+      </ThreeDotsButton>
+      <div className={styles['name-and-year']}>
+        <h1 className={classNames(fontStyles['tile-name'], styles.name)}>
+          {movieName}
+        </h1>
+        <h2 className={classNames(fontStyles['tile-year'], styles.year)}>
+          {releaseYear}
         </h2>
       </div>
-    </MenuContext>
+      <h2 className={classNames(fontStyles.subtitle, styles.genre)}>{genre}</h2>
+    </div>
   );
 };

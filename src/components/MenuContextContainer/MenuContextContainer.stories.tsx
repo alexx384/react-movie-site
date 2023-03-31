@@ -12,8 +12,5 @@ const Template: ComponentStory<typeof MenuContextContainer> = (args) => (
 
 export const PrimarySelect = Template.bind({});
 PrimarySelect.args = {
-  absolutePositionX: 0,
-  absolutePositionY: 0,
   menuItems: ['Edit', 'Delete'],
-  width: '150px',
 };

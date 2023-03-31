@@ -1,9 +1,11 @@
 .block {
   border-radius: 4px;
   background-color: #232323;
+  width: 100%;
 }
 
 .list {
+  margin: 0;
   padding: 0;
 }
 

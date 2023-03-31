@@ -1,6 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { MovieTile } from './MovieTile';
-import { MOVIE_TILE, MENU_CONTEXT } from '../../constants/tests.constants';
+import {
+  THREE_DOTS_BUTTON_BLOCK,
+  MOVIE_TILE_IMAGE,
+} from '../../constants/tests.constants';
 import userEvent from '@testing-library/user-event';
 
 const MOVIE_ID = '1';
@@ -52,7 +55,7 @@ it('invokes an onClick with movie name on movie tile click', async () => {
     />
   );
 
-  const movieTile: HTMLElement = screen.getByTestId(MOVIE_TILE);
+  const movieTile: HTMLElement = screen.getByTestId(MOVIE_TILE_IMAGE);
   await user.click(movieTile);
 
   expect(handleClick).toBeCalledTimes(1);
@@ -70,7 +73,7 @@ it('renders with menu context', () => {
     />
   );
 
-  const menuContextElement = screen.queryByTestId(MENU_CONTEXT);
+  const menuContextElement = screen.queryByTestId(THREE_DOTS_BUTTON_BLOCK);
 
   expect(menuContextElement).toBeInTheDocument();
 });

@@ -4,19 +4,13 @@ import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 
 type Props = {
-  absolutePositionX: number;
-  absolutePositionY: number;
   menuItems: string[];
-  width: string;
   onChange?: (itemName: string) => void;
   onHideMenu?: (event: MouseEvent) => void;
 };
 
 export const MenuContextContainer = ({
-  absolutePositionX,
-  absolutePositionY,
   menuItems,
-  width,
   onChange,
   onHideMenu,
 }: Props) => {
@@ -37,16 +31,7 @@ export const MenuContextContainer = ({
     onChange?.(itemName);
   }
   return (
-    <div
-      ref={boxRef}
-      className={styles.block}
-      style={{
-        position: 'absolute',
-        top: absolutePositionY,
-        left: absolutePositionX,
-        width: width,
-      }}
-    >
+    <div ref={boxRef} className={styles.block}>
       <ul className={styles.list}>
         {menuItems.map((itemName) => (
           <li

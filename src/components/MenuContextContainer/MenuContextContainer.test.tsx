@@ -4,14 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 it('renders menu item with text', () => {
   const menuItemText = 'MenuItem';
-  render(
-    <MenuContextContainer
-      absolutePositionX={0}
-      absolutePositionY={0}
-      menuItems={[menuItemText]}
-      width="150px"
-    />
-  );
+  render(<MenuContextContainer menuItems={[menuItemText]} />);
 
   const menuItems: HTMLElement[] | null = screen.queryAllByRole('listitem');
   const menuItem = menuItems?.find((item) => item.textContent === menuItemText);
@@ -21,14 +14,7 @@ it('renders menu item with text', () => {
 
 it('renders menu item with empty width', () => {
   const menuItemText = 'MenuItem';
-  render(
-    <MenuContextContainer
-      absolutePositionX={0}
-      absolutePositionY={0}
-      menuItems={[menuItemText]}
-      width=""
-    />
-  );
+  render(<MenuContextContainer menuItems={[menuItemText]} />);
 
   const menuItems: HTMLElement[] | null = screen.queryAllByRole('listitem');
   const menuItem = menuItems?.find((item) => item.textContent === menuItemText);
@@ -43,10 +29,7 @@ it('triggers onChange with menu item text only on click on menu item', async () 
   const handleHideMenu = jest.fn();
   render(
     <MenuContextContainer
-      absolutePositionX={0}
-      absolutePositionY={0}
       menuItems={[menuItemText]}
-      width="150px"
       onChange={handleChange}
       onHideMenu={handleHideMenu}
     />
@@ -68,10 +51,7 @@ it('triggers onHideMenu only on click not on menu', async () => {
   render(
     <>
       <MenuContextContainer
-        absolutePositionX={0}
-        absolutePositionY={0}
         menuItems={[]}
-        width="150px"
         onChange={handleChange}
         onHideMenu={handleHideMenu}
       />
