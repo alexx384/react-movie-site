@@ -3,33 +3,36 @@ import { MovieTile } from './MovieTile';
 import { MOVIE_TILE, MENU_CONTEXT } from '../../constants/tests.constants';
 import userEvent from '@testing-library/user-event';
 
+const MOVIE_ID = '1';
+const IMAGE_URL = 'https://example.com/';
+const MOVIE_NAME = 'Pulp Function';
+const RELEASE_YEAR = 2004;
+const GENRE = 'Adventure & Comedy';
+
 it('renders an imageUrl, movieName, releaseYear, genres with the values equal to initial value passed in props', () => {
-  const imageUrl = 'https://example.com/';
-  const movieName = 'Pulp Function';
-  const releaseYear = 2004;
-  const genre = 'Adventure & Comedy';
   render(
     <MovieTile
-      imageUrl={imageUrl}
-      movieName={movieName}
-      releaseYear={releaseYear}
-      genre={genre}
+      id={MOVIE_ID}
+      imageUrl={IMAGE_URL}
+      movieName={MOVIE_NAME}
+      releaseYear={RELEASE_YEAR}
+      genre={GENRE}
     />
   );
 
   const imageElement: HTMLImageElement | null = screen.queryByRole('img');
   const movieNameElement: HTMLElement | null = screen.queryByRole('heading', {
-    name: movieName,
+    name: MOVIE_NAME,
   });
   const releaseYearElement: HTMLElement | null = screen.queryByRole('heading', {
-    name: String(releaseYear),
+    name: String(RELEASE_YEAR),
   });
   const genreElement: HTMLElement | null = screen.queryByRole('heading', {
-    name: genre,
+    name: GENRE,
   });
 
   expect(imageElement).toBeInTheDocument();
-  expect(imageElement).toHaveAttribute('src', imageUrl);
+  expect(imageElement).toHaveAttribute('src', IMAGE_URL);
   expect(movieNameElement).toBeInTheDocument();
   expect(releaseYearElement).toBeInTheDocument();
   expect(genreElement).toBeInTheDocument();
@@ -37,14 +40,14 @@ it('renders an imageUrl, movieName, releaseYear, genres with the values equal to
 
 it('invokes an onClick with movie name on movie tile click', async () => {
   const user = userEvent.setup();
-  const movieName = 'Pulp Function';
   const handleClick = jest.fn();
   render(
     <MovieTile
-      imageUrl="https://example.com/"
-      movieName={movieName}
-      releaseYear={2004}
-      genre={'Adventure & Comedy'}
+      id={MOVIE_ID}
+      imageUrl={IMAGE_URL}
+      movieName={MOVIE_NAME}
+      releaseYear={RELEASE_YEAR}
+      genre={GENRE}
       onClick={handleClick}
     />
   );
@@ -53,16 +56,17 @@ it('invokes an onClick with movie name on movie tile click', async () => {
   await user.click(movieTile);
 
   expect(handleClick).toBeCalledTimes(1);
-  expect(handleClick).toBeCalledWith(movieName);
+  expect(handleClick).toBeCalledWith(MOVIE_ID);
 });
 
 it('renders with menu context', () => {
   render(
     <MovieTile
-      imageUrl="https://example.com/"
-      movieName="Pulp Function"
-      releaseYear={2004}
-      genre={'Adventure & Comedy'}
+      id={MOVIE_ID}
+      imageUrl={IMAGE_URL}
+      movieName={MOVIE_NAME}
+      releaseYear={RELEASE_YEAR}
+      genre={GENRE}
     />
   );
 

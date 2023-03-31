@@ -5,6 +5,7 @@ import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 
 type Props = {
+  id: string;
   imageUrl: string;
   movieName: string;
   releaseYear: number;
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export const MovieTile = ({
+  id,
   imageUrl,
   movieName,
   releaseYear,
@@ -20,7 +22,7 @@ export const MovieTile = ({
   onClick,
 }: Props) => {
   function handleClick() {
-    onClick?.(movieName);
+    onClick?.(id);
   }
   return (
     <MenuContext
