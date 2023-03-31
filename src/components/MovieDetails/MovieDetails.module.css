@@ -1,89 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
-
-.movieDetails {
-  margin: 0;
+.block {
   display: flex;
-  font-family: 'Montserrat', sans-serif;
+  margin: 0;
 }
 
-.moviePoster {
+.poster {
   margin: 0px 60px 0px 0px;
 }
 
-.movieTitleAndRating {
+.title-and-rating {
   display: flex;
 }
 
-.movieTitle {
-  font-family: inherit;
-  font-size: 2.5rem;
-  font-weight: 300;
-  line-height: 1.5em;
-  letter-spacing: 1px;
-  text-align: left;
-  color: #ffffff;
-  text-transform: uppercase;
+.title {
   margin: 0px 25px 0px 0px;
+  color: hsl(0, 0%, 100%);
 }
 
-.movieRating {
-  font-family: inherit;
-  font-size: 1.25rem;
-  font-weight: 300;
-  line-height: 1.2em;
-  letter-spacing: 0px;
-  color: #ffffff;
-  padding: 1.1rem 0.9rem 1.1rem 0.9rem;
+.rating {
   margin: 0;
-  border: 1px solid #ffffff;
+  border: 1px solid hsl(0, 0%, 100%);
   border-radius: 100%;
+  padding: 1.1rem 0.9rem 1.1rem 0.9rem;
+  color: hsl(0, 0%, 100%);
 }
 
-.movieGenres {
-  font-family: inherit;
-  font-size: 0.9rem;
-  font-weight: 500;
-  line-height: 1.81em;
-  letter-spacing: 0px;
-  text-align: left;
-  color: hsla(0, 0%, 100%, 0.5);
+.genre {
   margin: 4px 0px 0px 0px;
+  color: hsla(0, 0%, 100%, 0.5);
 }
 
-.movieYearAndTiming {
-  margin: 30px 0px 0px 0px;
+.year-and-timing {
   display: flex;
-  color: #f65261;
-  font-family: Montserrat;
-  font-size: 1.5rem;
-  font-weight: 300;
-  line-height: 1.208em;
-  letter-spacing: 0px;
+  margin: 30px 0px 0px 0px;
 }
 
-.movieYear {
+.year {
   margin: 0px 51px 0px 0px;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
+  color: #f65261;
 }
 
-.movieTiming {
+.timing {
   margin: 0;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
+  color: #f65261;
 }
 
-.movieDescription {
+.description {
   margin: 29px 0px 0px 0px;
   color: hsla(0, 0%, 100%, 0.5);
-  font-family: inherit;
-  font-size: 1.25rem;
-  font-weight: 300;
-  line-height: 1.2em;
-  letter-spacing: 0px;
-  text-align: left;
 }

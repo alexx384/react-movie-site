@@ -2,49 +2,49 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="movieDetails"
+  className="block"
 >
   <img
     alt="React"
-    className="moviePoster"
+    className="poster"
     src="logo192.png"
   />
   <div>
     <div
-      className="movieTitleAndRating"
+      className="title-and-rating"
     >
       <h1
-        className="movieTitle"
+        className="title title"
       >
         React
       </h1>
       <h3
-        className="movieRating"
+        className="rating rating"
       >
         8.9
       </h3>
     </div>
     <h4
-      className="movieGenres"
+      className="subtitle genre"
     >
       Adventure
     </h4>
     <div
-      className="movieYearAndTiming"
+      className="year-and-timing"
     >
       <h2
-        className="movieYear"
+        className="key-detail year"
       >
         2022
       </h2>
       <h2
-        className="movieTiming"
+        className="key-detail timing"
       >
         2h 34min
       </h2>
     </div>
     <p
-      className="movieDescription"
+      className="description description"
     >
       Whether you work on your own or with thousands of other developers, using React feels the same. It is designed to let you seamlessly combine components written by independent people, teams, and organizations.
     </p>

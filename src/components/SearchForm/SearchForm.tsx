@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './SearchForm.module.css';
 import { SEARCH_FORM_INPUT } from '../../constants/tests.constants';
-import globalStyles from '../../App.module.css';
+import fontStyles from '../../Font.module.css';
+import classNames from 'classnames';
 
 type SearchFormProps = {
   initialSearchQuery: string;
@@ -29,11 +30,13 @@ export const SearchForm = ({
   }
 
   return (
-    <div className={styles.searchForm}>
-      <h1 className={globalStyles.title}>FIND YOUR MOVIE</h1>
-      <div className={styles.searchBlock}>
+    <div className={styles.form}>
+      <h1 className={classNames(fontStyles.title, styles.title)}>
+        FIND YOUR MOVIE
+      </h1>
+      <div className={styles.block}>
         <input
-          className={globalStyles['input-text']}
+          className={classNames(fontStyles.input, styles.input)}
           type="text"
           value={searchQuery}
           onChange={handleSearchQueryChange}
@@ -41,7 +44,7 @@ export const SearchForm = ({
           data-testid={SEARCH_FORM_INPUT}
         />
         <button
-          className={globalStyles['submit-btn-text']}
+          className={classNames(fontStyles['submit-btn'], styles['submit-btn'])}
           type="button"
           onClick={handleSearchClick}
         >

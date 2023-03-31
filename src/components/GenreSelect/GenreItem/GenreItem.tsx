@@ -4,6 +4,7 @@ import {
   GENRE_ITEM_SELECTED,
   GENRE_ITEM_UNSELECTED,
 } from '../../../constants/tests.constants';
+import fontStyles from '../../../Font.module.css';
 
 type GenreItemProps = {
   genreName: string;
@@ -28,10 +29,13 @@ export const GenreItem = ({
     <li
       onClick={handleItemClick}
       onKeyDown={handleItemKeyDown}
-      className={classNames({
-        [styles.selectedGenreItem]: isSelected,
-        [styles.unselectedGenreItem]: !isSelected,
-      })}
+      className={classNames(
+        {
+          [styles['selected-item']]: isSelected,
+          [styles['unselected-item']]: !isSelected,
+        },
+        fontStyles['filter-item']
+      )}
       tabIndex={0}
       data-testid={isSelected ? GENRE_ITEM_SELECTED : GENRE_ITEM_UNSELECTED}
     >

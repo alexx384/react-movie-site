@@ -1,34 +1,37 @@
-.searchForm {
+.form {
   margin-top: 10vh;
   margin-right: 8vw;
   margin-bottom: 10vh;
   margin-left: 8vw;
 }
 
-.searchForm h1 {
+.title {
   margin-top: 2rem;
   margin-bottom: 2rem;
+  color: hsl(0, 0%, 100%);
 }
 
-.searchBlock {
+.block {
   display: flex;
   flex-flow: row nowrap;
 }
 
-.searchBlock input {
+.input {
   margin-right: 0.4vw;
   border-width: 0;
   border-radius: 4px;
   background-color: hsla(0, 0%, 20%, 0.8);
   padding: 1.0625rem 1.1875rem 1rem;
   width: 100%;
+  color: hsla(0, 0%, 100%, 0.3);
 }
 
-.searchBlock button {
+.submit-btn {
   cursor: pointer;
   margin-left: 0.4vw;
   border-width: 0;
   border-radius: 4px;
   background-color: #f65261;
   padding: 1.125rem 4.5625rem 0.9375rem 4.625rem;
+  color: hsl(0, 0%, 100%);
 }

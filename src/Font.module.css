@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
+.title {
+  font: 300 2.5rem/1.2em 'Montserrat', sans-serif;
+  letter-spacing: 0.025em;
+}
+
+.submit-btn {
+  font: 500 1.25rem/1.2em 'Montserrat', sans-serif;
+}
+
+.input {
+  font: 400 1.25rem/1.2em 'Montserrat', sans-serif;
+}
+
+.filter-item {
+  font: 500 1rem/1.25em 'Montserrat', sans-serif;
+}
+
+.option {
+  font: 400 1rem/1.25em 'Montserrat', sans-serif;
+}
+
+.option:hover {
+  font: 500 1rem/1.25em 'Montserrat', sans-serif;
+}
+
+.rating {
+  font: 300 1.25rem/1.2em 'Montserrat', sans-serif;
+}
+
+.subtitle {
+  font: 500 0.9rem/1.8em 'Montserrat', sans-serif;
+}
+
+.key-detail {
+  font: 300 1.5rem/1.25em 'Montserrat', sans-serif;
+}
+
+.description {
+  font: 300 1.25rem/1.2em 'Montserrat', sans-serif;
+}
+
+.tile-name {
+  font: 500 1.1rem/1.25em 'Montserrat', sans-serif;
+}
+
+.tile-year {
+  font: 300 0.9rem/1.2em 'Montserrat', sans-serif;
+}
+
+.sort-label {
+  font: 400 1rem/1.25em 'Montserrat', sans-serif;
+  letter-spacing: 0.05em;
+}

@@ -2,6 +2,8 @@ import styles from './SortControl.module.css';
 import React from 'react';
 import { MenuContextContainer } from '../MenuContextContainer';
 import { MOVIE_SORT_CONTROL } from '../../constants/tests.constants';
+import fontStyles from '../../Font.module.css';
+import classNames from 'classnames';
 
 type Props = {
   options: string[];
@@ -49,15 +51,24 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
     <>
       <div
         ref={boxRef}
-        className={styles.sortControl}
+        className={styles.block}
         onClick={handleClick}
         data-testid={MOVIE_SORT_CONTROL}
       >
-        <button className={styles.sortControlLabel}>{SORT_BY}</button>
-        <button className={styles.sortControlSelectedOption}>
+        <button className={classNames(fontStyles['sort-label'], styles.label)}>
+          {SORT_BY}
+        </button>
+        <button
+          className={classNames(
+            fontStyles['filter-item'],
+            styles['selected-option']
+          )}
+        >
           {menuContext.selectedOption ?? ''}
         </button>
-        <button className={styles.sortControlShamefulTriangle}>
+        <button
+          className={classNames(fontStyles['filter-item'], styles.triangle)}
+        >
           {SHAMEFUL_TRIANGLE}
         </button>
       </div>

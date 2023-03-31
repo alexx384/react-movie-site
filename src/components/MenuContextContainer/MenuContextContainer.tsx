@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './MenuContextContainer.module.css';
+import fontStyles from '../../Font.module.css';
+import classNames from 'classnames';
 
 type Props = {
   absolutePositionX: number;
@@ -37,7 +39,7 @@ export const MenuContextContainer = ({
   return (
     <div
       ref={boxRef}
-      className={styles.menuContext}
+      className={styles.block}
       style={{
         position: 'absolute',
         top: absolutePositionY,
@@ -45,10 +47,10 @@ export const MenuContextContainer = ({
         width: width,
       }}
     >
-      <ul className={styles.menuContextList}>
+      <ul className={styles.list}>
         {menuItems.map((itemName) => (
           <li
-            className={styles.menuContextItem}
+            className={classNames(fontStyles.option, styles.item)}
             onClick={() => handleClick(itemName)}
             key={itemName}
           >

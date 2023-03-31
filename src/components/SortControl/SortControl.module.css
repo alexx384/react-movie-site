@@ -1,47 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
-
-.sortControl {
-  font-family: 'Montserrat', sans-serif;
+.block {
   width: fit-content;
 }
 
-.sortControlLabel {
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.25em;
-  letter-spacing: 0.05em;
-  text-align: left;
-  color: hsla(0, 0%, 100%, 0.6);
+.label {
   margin: 0px 31px 0px 0px;
-  padding: 0;
-  background-color: transparent;
   border-width: 0;
   border-color: transparent;
+  background-color: transparent;
+  padding: 0;
+  color: hsla(0, 0%, 100%, 0.6);
 }
 
-.sortControlSelectedOption {
-  font-family: inherit;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.25em;
-  letter-spacing: 0.05em;
-  text-align: left;
-  color: hsl(0, 0%, 100%);
+.selected-option {
   margin: 0px 13px 0px 0px;
-  background-color: transparent;
   border-width: 0;
-  padding: 0;
   border-color: transparent;
+  background-color: transparent;
+  padding: 0;
+  color: hsl(0, 0%, 100%);
 }
 
-.sortControlShamefulTriangle {
+.triangle {
   margin: 0;
-  font-size: 1rem;
-  color: #f65261;
-  background-color: transparent;
   border-width: 0;
-  padding: 0;
   border-color: transparent;
+  background-color: transparent;
+  padding: 0;
+  color: hsl(355, 90%, 64%);
 }

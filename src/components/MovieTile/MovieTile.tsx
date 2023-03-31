@@ -1,6 +1,8 @@
 import styles from './MovieTile.module.css';
 import { MenuContext } from '../MenuContext';
 import { MOVIE_TILE } from '../../constants/tests.constants';
+import fontStyles from '../../Font.module.css';
+import classNames from 'classnames';
 
 type Props = {
   imageUrl: string;
@@ -26,16 +28,22 @@ export const MovieTile = ({
       onSelectMenuItem={(itemName) => console.log('selected', itemName)}
     >
       <div
-        className={styles.movieTile}
+        className={styles.block}
         onClick={handleClick}
         data-testid={MOVIE_TILE}
       >
-        <img className={styles.moviePoster} src={imageUrl} alt={movieName} />
-        <div className={styles.nameAndReleaseYear}>
-          <h1 className={styles.movieName}>{movieName}</h1>
-          <h2 className={styles.releaseYear}>{releaseYear}</h2>
+        <img className={styles.poster} src={imageUrl} alt={movieName} />
+        <div className={styles['name-and-year']}>
+          <h1 className={classNames(fontStyles['tile-name'], styles.name)}>
+            {movieName}
+          </h1>
+          <h2 className={classNames(fontStyles['tile-year'], styles.year)}>
+            {releaseYear}
+          </h2>
         </div>
-        <h2 className={styles.movieGenres}>{genre}</h2>
+        <h2 className={classNames(fontStyles.subtitle, styles.genre)}>
+          {genre}
+        </h2>
       </div>
     </MenuContext>
   );

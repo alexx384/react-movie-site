@@ -1,6 +1,8 @@
 import React from 'react';
 import { secondsToHoursAndMinutesString } from '../utils/string';
 import styles from './MovieDetails.module.css';
+import fontStyles from '../../Font.module.css';
+import classNames from 'classnames';
 
 type Props = {
   imageUrl: string;
@@ -22,21 +24,31 @@ export const MovieDetails = ({
   description,
 }: Props) => {
   return (
-    <div className={styles.movieDetails}>
-      <img className={styles.moviePoster} src={imageUrl} alt={movieName} />
+    <div className={styles.block}>
+      <img className={styles.poster} src={imageUrl} alt={movieName} />
       <div>
-        <div className={styles.movieTitleAndRating}>
-          <h1 className={styles.movieTitle}>{movieName}</h1>
-          <h3 className={styles.movieRating}>{rating}</h3>
+        <div className={styles['title-and-rating']}>
+          <h1 className={classNames(fontStyles.title, styles.title)}>
+            {movieName}
+          </h1>
+          <h3 className={classNames(fontStyles.rating, styles.rating)}>
+            {rating}
+          </h3>
         </div>
-        <h4 className={styles.movieGenres}>{genre}</h4>
-        <div className={styles.movieYearAndTiming}>
-          <h2 className={styles.movieYear}>{releaseYear}</h2>
-          <h2 className={styles.movieTiming}>
+        <h4 className={classNames(fontStyles.subtitle, styles.genre)}>
+          {genre}
+        </h4>
+        <div className={styles['year-and-timing']}>
+          <h2 className={classNames(fontStyles['key-detail'], styles.year)}>
+            {releaseYear}
+          </h2>
+          <h2 className={classNames(fontStyles['key-detail'], styles.timing)}>
             {secondsToHoursAndMinutesString(durationInSeconds)}
           </h2>
         </div>
-        <p className={styles.movieDescription}>{description}</p>
+        <p className={classNames(fontStyles.description, styles.description)}>
+          {description}
+        </p>
       </div>
     </div>
   );

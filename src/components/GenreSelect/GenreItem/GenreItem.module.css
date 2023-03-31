@@ -1,25 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-
-.selectedGenreItem,
-.unselectedGenreItem {
+.selected-item,
+.unselected-item {
   display: inline-block;
   cursor: pointer;
   padding-top: 1rem;
   padding-right: 1.5rem;
   padding-bottom: 1rem;
   padding-left: 1.5rem;
-  color: white;
-  font-weight: 500;
-  font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
+  color: hsl(0, 0%, 100%);
   list-style-type: none;
 }
 
-.selectedGenreItem:hover,
-.unselectedGenreItem:hover {
+.selected-item:hover,
+.unselected-item:hover {
   background-color: hsl(0, 0%, 8%);
 }
 
-.selectedGenreItem {
+.selected-item {
   border-bottom: 1px solid red;
 }
