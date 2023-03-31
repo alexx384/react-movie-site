@@ -2,16 +2,17 @@ import { render, screen } from '@testing-library/react';
 import { MenuContext } from './MenuContext';
 import userEvent from '@testing-library/user-event';
 
+const CHILD_TEXT = 'Hello World';
+
 it('renders ReactNode children', () => {
-  const childText = 'Hello World';
   render(
     <MenuContext menuItems={[]}>
-      <h1>{childText}</h1>
+      <h1>{CHILD_TEXT}</h1>
     </MenuContext>
   );
 
   const childElement: HTMLElement | null = screen.queryByRole('heading', {
-    name: childText,
+    name: CHILD_TEXT,
   });
 
   expect(childElement).toBeInTheDocument();
@@ -19,16 +20,15 @@ it('renders ReactNode children', () => {
 
 it('renders menu item on context menu click', async () => {
   const user = userEvent.setup();
-  const childText = 'Hello World';
   const menuItemText = 'Edit';
   render(
     <MenuContext menuItems={[menuItemText]}>
-      <h1>{childText}</h1>
+      <h1>{CHILD_TEXT}</h1>
     </MenuContext>
   );
 
   const childElement: HTMLElement = screen.getByRole('heading', {
-    name: childText,
+    name: CHILD_TEXT,
   });
   await user.pointer({ keys: '[MouseRight>]', target: childElement });
   const menuItemElement: HTMLElement | null = screen.queryByText(menuItemText);
@@ -37,11 +37,10 @@ it('renders menu item on context menu click', async () => {
 });
 
 it('does not render menu item without context menu click', () => {
-  const childText = 'Hello World';
   const menuItemText = 'Edit';
   render(
     <MenuContext menuItems={[menuItemText]}>
-      <h1>{childText}</h1>
+      <h1>{CHILD_TEXT}</h1>
     </MenuContext>
   );
 
@@ -52,7 +51,6 @@ it('does not render menu item without context menu click', () => {
 
 it('returns context menu item text on context menu click and chose item', async () => {
   const user = userEvent.setup();
-  const childText = 'Hello World';
   const menuItemText = 'Edit';
   const handleSelectMenuItem = jest.fn();
   render(
@@ -60,12 +58,12 @@ it('returns context menu item text on context menu click and chose item', async 
       menuItems={[menuItemText]}
       onSelectMenuItem={handleSelectMenuItem}
     >
-      <h1>{childText}</h1>
+      <h1>{CHILD_TEXT}</h1>
     </MenuContext>
   );
 
   const childElement: HTMLElement = screen.getByRole('heading', {
-    name: childText,
+    name: CHILD_TEXT,
   });
   await user.pointer({ keys: '[MouseRight>]', target: childElement });
   const menuItemElement: HTMLElement = screen.getByText(menuItemText);
