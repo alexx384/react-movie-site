@@ -64,7 +64,7 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
             styles['selected-option']
           )}
         >
-          {menuContext.selectedOption ?? ''}
+          {menuContext.selectedOption}
         </button>
         <button
           className={classNames(fontStyles['filter-item'], styles.triangle)}
