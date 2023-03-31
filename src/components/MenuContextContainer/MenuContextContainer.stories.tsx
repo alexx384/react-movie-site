@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { MenuContextContainer } from '../components/MenuContextContainer';
+import { MenuContextContainer } from '.';
 
 export default {
   title: 'Stories/MenuContextContainer',

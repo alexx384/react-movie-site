@@ -1,5 +1,5 @@
 import React from 'react';
-import { secondsToHoursAndMinutesString } from '../utils/string';
+import { secondsToHoursAndMinutesString } from '../../utils/string';
 import styles from './MovieDetails.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';

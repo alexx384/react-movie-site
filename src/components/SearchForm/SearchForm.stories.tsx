@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SearchForm } from '../components/SearchForm';
+import { SearchForm } from '.';
 
 export default {
   title: 'Stories/SearchForm',

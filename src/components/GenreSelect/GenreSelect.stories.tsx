@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { GenreSelect } from '../components/GenreSelect';
+import { GenreSelect } from '.';
 
 export default {
   title: 'Stories/GenreSelect',

@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { MovieTile } from '../components/MovieTile';
+import { MovieTile } from '.';
 
 export default {
   title: 'Stories/MovieTile',

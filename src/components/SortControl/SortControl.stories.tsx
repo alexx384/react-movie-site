@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SortControl } from '../components/SortControl';
+import { SortControl } from '.';
 
 export default {
   title: 'Stories/SortControl',

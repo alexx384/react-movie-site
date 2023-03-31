@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { MovieDetails } from '../components/MovieDetails';
+import { MovieDetails } from '.';
 
 export default {
   title: 'Stories/MovieDetails',
