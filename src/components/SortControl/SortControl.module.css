@@ -1,0 +1,35 @@
+.block {
+  position: relative;
+  width: fit-content;
+}
+
+.label {
+  margin: 0px 31px 0px 0px;
+  border-width: 0;
+  border-color: transparent;
+  background-color: transparent;
+  padding: 0;
+  color: hsla(0, 0%, 100%, 0.6);
+}
+
+.selected-option {
+  margin: 0px 13px 0px 0px;
+  border-width: 0;
+  border-color: transparent;
+  background-color: transparent;
+  padding: 0;
+  color: hsl(0, 0%, 100%);
+}
+
+.triangle {
+  margin: 0;
+  border-width: 0;
+  border-color: transparent;
+  background-color: transparent;
+  padding: 0;
+  color: hsl(355, 90%, 64%);
+}
+
+.menu {
+  width: 100%;
+}

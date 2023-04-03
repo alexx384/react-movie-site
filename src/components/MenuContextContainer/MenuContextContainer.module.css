@@ -1,0 +1,22 @@
+.block {
+  border-radius: 4px;
+  background-color: #232323;
+  width: 100%;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  padding: 6px 14px 7px 23px;
+  color: hsla(0, 0%, 100%, 0.8);
+  list-style-type: none;
+}
+
+.item:hover {
+  cursor: pointer;
+  background-color: #f65261;
+  color: hsl(0, 0%, 100%);
+}
