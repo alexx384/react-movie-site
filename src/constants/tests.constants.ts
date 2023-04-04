@@ -9,3 +9,5 @@ export const MOVIE_SORT_CONTROL = 'movieSortControl';
 export const MOVIE_TILE = 'movieTile';
 export const MOVIE_TILE_IMAGE = 'movieTileImage';
 export const THREE_DOTS_BUTTON_BLOCK = 'threeDotsButtonBlock';
+
+export const DIALOG_X_BUTTON = 'DialogXButton';
