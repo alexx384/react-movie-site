@@ -1,0 +1,23 @@
+.chip {
+  background: #f65261;
+}
+
+.option {
+  background: hsla(0, 0%, 14%, 0.918);
+  color: white;
+}
+
+.multiSelectContainer ul {
+  border: 0;
+}
+
+.multiSelectContainer li:hover {
+  background-color: #f65261;
+  color: white;
+}
+
+input[type='checkbox'],
+.checkbox {
+  border-color: white;
+  color: white;
+}
