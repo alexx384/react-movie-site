@@ -52,6 +52,7 @@ export const TRIANGLE_UP = '⏶';
 
 export type MultiselectHandle = {
   getSelectedGenreIds: () => string[];
+  resetSelection: () => void;
 };
 
 export const Multiselect = forwardRef<MultiselectHandle, Props>(
@@ -69,15 +70,23 @@ export const Multiselect = forwardRef<MultiselectHandle, Props>(
           .filter((entry) => entry[1].isChecked)
           .map((entry) => entry[0]);
       },
+      resetSelection: () => {
+        setOptionDict(() =>
+          options.reduce((dict: OptionDict, option) => {
+            dict[option.id] = option;
+            return dict;
+          }, {})
+        );
+      },
     }));
     const handleCloseOptionList = () => {
       setIsShowOptionList(false);
     };
-    const handleChange = (isChecked: boolean, id: string) => {
+    const handleChange = (id: string) => {
       setOptionDict((prev) => {
         const result = Object.assign({}, prev);
         const changedItem = Object.assign({}, prev[id]);
-        changedItem.isChecked = isChecked;
+        changedItem.isChecked = !changedItem.isChecked;
         result[id] = changedItem;
         return result;
       });
@@ -113,7 +122,7 @@ export const Multiselect = forwardRef<MultiselectHandle, Props>(
                     key={entry[0]}
                     id={entry[0]}
                     value={entry[1].value}
-                    isInitiallyChecked={entry[1].isChecked}
+                    isChecked={entry[1].isChecked}
                     onChange={handleChange}
                   />
                 </div>

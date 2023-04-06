@@ -13,14 +13,14 @@ const Template: ComponentStory<typeof Checkbox> = (args) => (
 
 export const CheckedCheckbox = Template.bind({});
 CheckedCheckbox.args = {
-  isInitiallyChecked: true,
+  isChecked: true,
   id: 'one',
   value: 'One',
 };
 
 export const UncheckedCheckbox = Template.bind({});
 UncheckedCheckbox.args = {
-  isInitiallyChecked: false,
+  isChecked: false,
   id: 'one',
   value: 'One',
 };

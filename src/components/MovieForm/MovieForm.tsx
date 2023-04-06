@@ -5,13 +5,12 @@ import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 
 type FormData = {
-  title: string;
-  releaseDate: string;
-  movieURL: string;
-  rating: string;
-  genre: string[];
-  runtime: string;
-  overview: string;
+  title: HTMLInputElement;
+  releaseDate: HTMLInputElement;
+  movieURL: HTMLInputElement;
+  rating: HTMLInputElement;
+  runtime: HTMLInputElement;
+  overview: HTMLTextAreaElement;
 };
 
 type MovieInfo = {
@@ -31,19 +30,23 @@ type Props = {
 
 export const MovieForm = ({ onSubmit }: Props) => {
   const genreElementRef = React.useRef<MultiselectHandle>(null);
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as typeof event.target & FormData;
+    console.log(target);
     onSubmit({
-      title: target.title,
-      releaseDate: new Date(target.releaseDate),
-      movieURL: target.movieURL,
-      rating: Number(target.rating),
-      genre: target.genre,
-      runtime: Number(target.runtime),
-      overview: target.overview,
+      title: target.title.value,
+      releaseDate: new Date(target.releaseDate.value),
+      movieURL: target.movieURL.value,
+      rating: Number(target.rating.value),
+      genre: genreElementRef.current?.getSelectedGenreIds() ?? [],
+      runtime: Number(target.runtime.value),
+      overview: target.overview.value,
     });
-  }
+  };
+  const handleResetInput = () => {
+    genreElementRef.current?.resetSelection();
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div className={styles['input-row-container']}>
@@ -110,7 +113,7 @@ export const MovieForm = ({ onSubmit }: Props) => {
             step={0.1}
             name="rating"
             id="rating"
-            placeholder="minutes"
+            placeholder="7.8"
           />
         </div>
       </div>
@@ -156,6 +159,7 @@ export const MovieForm = ({ onSubmit }: Props) => {
       </div>
       <div className={styles['btn-block']}>
         <input
+          onClick={handleResetInput}
           className={fontStyles['submit-btn']}
           type="reset"
           value="RESET"

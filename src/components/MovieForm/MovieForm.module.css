@@ -1,12 +1,11 @@
-.label-and-input label {
+.label-and-input > label {
   display: block;
   margin-bottom: 1rem;
   color: #f65261;
 }
 
-.label-and-input input,
-.label-and-input textarea {
-  display: block;
+.label-and-input > input,
+.label-and-input > textarea {
   opacity: 0.8;
   mix-blend-mode: normal;
   box-sizing: border-box;
@@ -47,7 +46,7 @@
   margin-top: 3.75rem;
 }
 
-.btn-block input[type='reset'] {
+.btn-block > input[type='reset'] {
   margin-right: 1rem;
   border: 1.5px solid #f65261;
   border-radius: 4px;
@@ -56,7 +55,7 @@
   color: #f65261;
 }
 
-.btn-block input[type='submit'] {
+.btn-block > input[type='submit'] {
   border: 1.5px solid #f65261;
   border-radius: 4px;
   background: #f65261;

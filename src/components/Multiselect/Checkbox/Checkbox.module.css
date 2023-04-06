@@ -18,13 +18,13 @@
   height: 1.6em;
 }
 
-.container input:checked {
+input.checked {
   position: relative;
   border-color: #e44c5a;
   background-color: #e44c5a;
 }
 
-.container input:checked::before {
+input.checked::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   position: absolute;
