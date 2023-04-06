@@ -46,15 +46,18 @@ export const MovieForm = ({ onSubmit }: Props) => {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className={styles['input-row-container']}>
         <div
           className={classNames(
-            fontStyles['form-label'],
-            styles['label-and-input']
+            styles['label-and-input'],
+            styles['movie-title']
           )}
         >
-          <label htmlFor="title">TITLE</label>
+          <label className={fontStyles['form-label']} htmlFor="title">
+            TITLE
+          </label>
           <input
+            className={fontStyles.input}
             type="text"
             name="title"
             id="title"
@@ -64,11 +67,15 @@ export const MovieForm = ({ onSubmit }: Props) => {
         <div
           className={classNames(
             fontStyles['form-label'],
-            styles['label-and-input']
+            styles['label-and-input'],
+            styles['release-date']
           )}
         >
-          <label htmlFor="releaseDate">RELEASE DATE</label>
+          <label className={fontStyles['form-label']} htmlFor="releaseDate">
+            RELEASE DATE
+          </label>
           <input
+            className={fontStyles.input}
             type="date"
             name="releaseDate"
             id="releaseDate"
@@ -77,15 +84,15 @@ export const MovieForm = ({ onSubmit }: Props) => {
           />
         </div>
       </div>
-      <div>
+      <div className={styles['input-row-container']}>
         <div
-          className={classNames(
-            fontStyles['form-label'],
-            styles['label-and-input']
-          )}
+          className={classNames(styles['label-and-input'], styles['movie-url'])}
         >
-          <label htmlFor="movieURL">MOVIE URL</label>
+          <label className={fontStyles['form-label']} htmlFor="movieURL">
+            MOVIE URL
+          </label>
           <input
+            className={fontStyles.input}
             type="url"
             name="movieURL"
             id="movieURL"
@@ -93,14 +100,12 @@ export const MovieForm = ({ onSubmit }: Props) => {
             placeholder="https://"
           />
         </div>
-        <div
-          className={classNames(
-            fontStyles['form-label'],
-            styles['label-and-input']
-          )}
-        >
-          <label htmlFor="rating">RATING</label>
+        <div className={classNames(styles['label-and-input'], styles.rating)}>
+          <label className={fontStyles['form-label']} htmlFor="rating">
+            RATING
+          </label>
           <input
+            className={fontStyles.input}
             type="number"
             step={0.1}
             name="rating"
@@ -109,14 +114,11 @@ export const MovieForm = ({ onSubmit }: Props) => {
           />
         </div>
       </div>
-      <div>
-        <div
-          className={classNames(
-            fontStyles['form-label'],
-            styles['label-and-input']
-          )}
-        >
-          <label htmlFor="genre">GENRE</label>
+      <div className={styles['input-row-container']}>
+        <div className={classNames(styles['label-and-input'], styles.genre)}>
+          <label className={fontStyles['form-label']} htmlFor="genre">
+            GENRE
+          </label>
           <Multiselect
             ref={genreElementRef}
             options={[
@@ -127,8 +129,13 @@ export const MovieForm = ({ onSubmit }: Props) => {
             ]}
             placeholder="Select Genre"
           />
-          <label htmlFor="runtime">RUNTIME</label>
+        </div>
+        <div className={classNames(styles['label-and-input'], styles.runtime)}>
+          <label className={fontStyles['form-label']} htmlFor="runtime">
+            RUNTIME
+          </label>
           <input
+            className={fontStyles.input}
             type="number"
             name="runtime"
             id="runtime"
@@ -136,21 +143,29 @@ export const MovieForm = ({ onSubmit }: Props) => {
           />
         </div>
       </div>
-      <div
-        className={classNames(
-          fontStyles['form-label'],
-          styles['label-and-input']
-        )}
-      >
-        <label htmlFor="overview">OVERVIEW</label>
+      <div className={classNames(styles['label-and-input'])}>
+        <label className={fontStyles['form-label']} htmlFor="overview">
+          OVERVIEW
+        </label>
         <textarea
+          className={classNames(fontStyles.input, styles['movie-description'])}
           name="overview"
           id="overview"
           placeholder="Movie description"
         />
       </div>
-      <input type="reset" value="RESET" />
-      <input type="submit" value="SUBMIT" />
+      <div className={styles['btn-block']}>
+        <input
+          className={fontStyles['submit-btn']}
+          type="reset"
+          value="RESET"
+        />
+        <input
+          className={fontStyles['submit-btn']}
+          type="submit"
+          value="SUBMIT"
+        />
+      </div>
     </form>
   );
 };
