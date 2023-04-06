@@ -51,7 +51,7 @@ export const TRIANGLE_DOWN = '⏷';
 export const TRIANGLE_UP = '⏶';
 
 export type MultiselectHandle = {
-  getSelectedGenreIds: () => string[];
+  getSelectedGenreIds: () => Set<string>;
   resetSelection: () => void;
 };
 
@@ -66,9 +66,11 @@ export const Multiselect = forwardRef<MultiselectHandle, Props>(
     );
     React.useImperativeHandle(ref, () => ({
       getSelectedGenreIds: () => {
-        return Object.entries(optionDict)
-          .filter((entry) => entry[1].isChecked)
-          .map((entry) => entry[0]);
+        return new Set(
+          Object.entries(optionDict)
+            .filter((entry) => entry[1].isChecked)
+            .map((entry) => entry[0])
+        );
       },
       resetSelection: () => {
         setOptionDict(() =>
@@ -117,9 +119,8 @@ export const Multiselect = forwardRef<MultiselectHandle, Props>(
           >
             <ul className={styles['option-container']}>
               {Object.entries(optionDict).map((entry) => (
-                <div className={styles.option}>
+                <div key={entry[0]} className={styles.option}>
                   <Checkbox
-                    key={entry[0]}
                     id={entry[0]}
                     value={entry[1].value}
                     isChecked={entry[1].isChecked}

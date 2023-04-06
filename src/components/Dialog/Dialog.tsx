@@ -8,21 +8,25 @@ import { DIALOG_X_BUTTON } from '../../constants/tests.constants';
 
 export type DialogHandle = {
   showDialog: () => void;
+  hideDialog: () => void;
 };
 
-type Props = {
+export type DialogProps = {
   title: string;
   children: React.ReactNode;
   isInitiallyShowed?: boolean;
   onClose?: () => void;
 };
 
-export const Dialog = React.forwardRef<DialogHandle, Props>(
+export const Dialog = React.forwardRef<DialogHandle, DialogProps>(
   ({ title, children, onClose, isInitiallyShowed = true }, ref) => {
     const [isShowTrap, setIsShowTrap] = React.useState(isInitiallyShowed);
     React.useImperativeHandle(ref, () => ({
       showDialog: () => {
         setIsShowTrap(true);
+      },
+      hideDialog: () => {
+        setIsShowTrap(false);
       },
     }));
     function handleDeactivate() {

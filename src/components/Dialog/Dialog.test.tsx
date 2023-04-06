@@ -38,3 +38,19 @@ it('calls handleClose on X button click', async () => {
 
   expect(handleClose).toBeCalledTimes(1);
 });
+
+it('calls handleClose on Escape click', async () => {
+  const user = userEvent.setup();
+  const handleClose = jest.fn();
+
+  render(
+    <Dialog title={TITLE} onClose={handleClose}>
+      {BODY}
+    </Dialog>
+  );
+
+  const xButton = screen.getByTestId(DIALOG_X_BUTTON);
+  await user.keyboard('{Escape}');
+
+  expect(handleClose).toBeCalledTimes(1);
+});

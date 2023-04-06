@@ -1,21 +1,30 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentStory, ComponentMeta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Dialog, DialogHandle } from '.';
+import { Dialog, DialogHandle, DialogProps } from '.';
 import fontStyles from '../../Font.module.css';
 import searchFormStyles from '../SearchForm/SearchForm.module.css';
 import classNames from 'classnames';
 import { action } from '@storybook/addon-actions';
+import { MovieInfo } from '../MovieForm';
+import {
+  UnfilledMovieForm,
+  FilledMovieForm,
+} from '../MovieForm/MovieForm.stories';
 
 export default {
   title: 'Stories/Dialog',
   component: Dialog,
 } as ComponentMeta<typeof Dialog>;
 
-const Template: ComponentStory<typeof Dialog> = (args) => {
+const SimpleDialogTemplate: ComponentStory<typeof Dialog> = (args) => {
   const dialogRef = React.useRef<DialogHandle>(null);
-  function handleOpenModalDialog() {
+  const handleOpenModalDialog = () => {
     dialogRef.current?.showDialog();
-  }
+  };
+  const handleClick = () => {
+    action('onSubmit')();
+    dialogRef.current?.hideDialog();
+  };
   return (
     <>
       <button onClick={handleOpenModalDialog}>Click to open modal</button>
@@ -29,6 +38,7 @@ const Template: ComponentStory<typeof Dialog> = (args) => {
               fontStyles['submit-btn'],
               searchFormStyles['submit-btn']
             )}
+            onClick={handleClick}
           >
             CONFIRM
           </button>
@@ -38,7 +48,54 @@ const Template: ComponentStory<typeof Dialog> = (args) => {
   );
 };
 
-export const DeleteMovie = Template.bind({});
+export const DeleteMovie = SimpleDialogTemplate.bind({});
 DeleteMovie.args = {
   title: 'DELETE MOVIE',
+};
+
+export const AddMovie: ComponentStory<typeof Dialog> = (args) => {
+  const dialogRef = React.useRef<DialogHandle>(null);
+  const handleOpenModalDialog = () => {
+    dialogRef.current?.showDialog();
+  };
+  const handleSubmit = (movieInfo: MovieInfo) => {
+    action('onSubmit')(movieInfo);
+    dialogRef.current?.hideDialog();
+  };
+  return (
+    <>
+      <button onClick={handleOpenModalDialog}>Click to open modal</button>
+      <Dialog ref={dialogRef} {...args} onClose={action('onClose')}>
+        <UnfilledMovieForm
+          {...UnfilledMovieForm.args}
+          onSubmit={handleSubmit}
+        />
+      </Dialog>
+    </>
+  );
+};
+AddMovie.args = {
+  title: 'ADD MOVIE',
+};
+
+export const EditMovie: ComponentStory<typeof Dialog> = (args) => {
+  const dialogRef = React.useRef<DialogHandle>(null);
+  const handleOpenModalDialog = () => {
+    dialogRef.current?.showDialog();
+  };
+  const handleSubmit = (movieInfo: MovieInfo) => {
+    action('onSubmit')(movieInfo);
+    dialogRef.current?.hideDialog();
+  };
+  return (
+    <>
+      <button onClick={handleOpenModalDialog}>Click to open modal</button>
+      <Dialog ref={dialogRef} {...args} onClose={action('onClose')}>
+        <FilledMovieForm {...FilledMovieForm.args} onSubmit={handleSubmit} />
+      </Dialog>
+    </>
+  );
+};
+AddMovie.args = {
+  title: 'ADD MOVIE',
 };

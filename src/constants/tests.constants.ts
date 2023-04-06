@@ -11,3 +11,5 @@ export const MOVIE_TILE_IMAGE = 'movieTileImage';
 export const THREE_DOTS_BUTTON_BLOCK = 'threeDotsButtonBlock';
 
 export const DIALOG_X_BUTTON = 'DialogXButton';
+
+export const MOVIE_TITLE_INPUT = 'movieTitleInput';

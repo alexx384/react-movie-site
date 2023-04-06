@@ -1,1 +1,1 @@
-export { MovieForm } from './MovieForm';
+export { MovieForm, type MovieFormProps, type MovieInfo } from './MovieForm';

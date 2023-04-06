@@ -3,49 +3,71 @@ import { Multiselect, MultiselectHandle } from '../Multiselect';
 import styles from './MovieForm.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
+import { MOVIE_TITLE_INPUT } from '../../constants/tests.constants';
 
-type FormData = {
-  title: HTMLInputElement;
-  releaseDate: HTMLInputElement;
-  movieURL: HTMLInputElement;
-  rating: HTMLInputElement;
-  runtime: HTMLInputElement;
-  overview: HTMLTextAreaElement;
+export type MovieInfo = {
+  title?: string;
+  releaseDate?: Date;
+  movieURL?: string;
+  rating?: number;
+  genre?: Set<string>;
+  runtime?: number;
+  overview?: string;
 };
 
-type MovieInfo = {
-  title: string;
-  releaseDate: Date;
-  movieURL: string;
-  rating: number;
-  genre: string[];
-  runtime: number;
-  overview: string;
-};
-
-type Props = {
+export type MovieFormProps = {
   movieInfo?: MovieInfo;
-  onSubmit: (movieInfo: MovieInfo) => void;
+  onSubmit?: (movieInfo: MovieInfo) => void;
 };
 
-export const MovieForm = ({ onSubmit }: Props) => {
-  const genreElementRef = React.useRef<MultiselectHandle>(null);
+export const MOVIE_URL = 'MOVIE URL';
+export const RATING = 'RATING';
+export const GENRE = 'GENRE';
+export const RUNTIME = 'RUNTIME';
+export const OVERVIEW = 'OVERVIEW';
+export const SUBMIT_BUTTON = 'SUBMIT';
+export const RESET_BUTTON = 'RESET';
+
+const DEFAULT_MOVIE_GENRES = [
+  { id: 'crime', value: 'Crime', isChecked: false },
+  { id: 'documentary', value: 'Documentary', isChecked: false },
+  { id: 'horror', value: 'Horror', isChecked: false },
+  { id: 'comedy', value: 'Comedy', isChecked: false },
+];
+
+export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
+  const titleRef = React.useRef<HTMLInputElement>(null);
+  const releaseDateRef = React.useRef<HTMLInputElement>(null);
+  const movieURLRef = React.useRef<HTMLInputElement>(null);
+  const ratingRef = React.useRef<HTMLInputElement>(null);
+  const genreRef = React.useRef<MultiselectHandle>(null);
+  const runtimeRef = React.useRef<HTMLInputElement>(null);
+  const overviewRef = React.useRef<HTMLTextAreaElement>(null);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const target = event.target as typeof event.target & FormData;
-    console.log(target);
-    onSubmit({
-      title: target.title.value,
-      releaseDate: new Date(target.releaseDate.value),
-      movieURL: target.movieURL.value,
-      rating: Number(target.rating.value),
-      genre: genreElementRef.current?.getSelectedGenreIds() ?? [],
-      runtime: Number(target.runtime.value),
-      overview: target.overview.value,
+    const releaseDate =
+      releaseDateRef.current && releaseDateRef.current.value
+        ? new Date(releaseDateRef.current.value)
+        : undefined;
+    onSubmit?.({
+      title: titleRef.current?.value,
+      releaseDate: releaseDate,
+      movieURL: movieURLRef.current?.value,
+      rating: Number(ratingRef.current?.value),
+      genre: genreRef.current?.getSelectedGenreIds() ?? new Set(),
+      runtime: Number(runtimeRef.current?.value),
+      overview: overviewRef.current?.value,
     });
   };
+  const movieGenres = DEFAULT_MOVIE_GENRES.map((genre) =>
+    Object.assign({}, genre)
+  );
+  movieGenres
+    .filter((genre) => movieInfo?.genre?.has(genre.id) ?? false)
+    .forEach((genre) => (genre.isChecked = true));
   const handleResetInput = () => {
-    genreElementRef.current?.resetSelection();
+    genreRef.current?.resetSelection();
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -60,11 +82,14 @@ export const MovieForm = ({ onSubmit }: Props) => {
             TITLE
           </label>
           <input
+            ref={titleRef}
+            defaultValue={movieInfo?.title}
             className={fontStyles.input}
             type="text"
             name="title"
             id="title"
             placeholder="Movie Title"
+            data-testid={MOVIE_TITLE_INPUT}
           />
         </div>
         <div
@@ -78,6 +103,8 @@ export const MovieForm = ({ onSubmit }: Props) => {
             RELEASE DATE
           </label>
           <input
+            ref={releaseDateRef}
+            defaultValue={movieInfo?.releaseDate?.toISOString().slice(0, 10)}
             className={fontStyles.input}
             type="date"
             name="releaseDate"
@@ -92,9 +119,11 @@ export const MovieForm = ({ onSubmit }: Props) => {
           className={classNames(styles['label-and-input'], styles['movie-url'])}
         >
           <label className={fontStyles['form-label']} htmlFor="movieURL">
-            MOVIE URL
+            {MOVIE_URL}
           </label>
           <input
+            ref={movieURLRef}
+            defaultValue={movieInfo?.movieURL}
             className={fontStyles.input}
             type="url"
             name="movieURL"
@@ -105,9 +134,11 @@ export const MovieForm = ({ onSubmit }: Props) => {
         </div>
         <div className={classNames(styles['label-and-input'], styles.rating)}>
           <label className={fontStyles['form-label']} htmlFor="rating">
-            RATING
+            {RATING}
           </label>
           <input
+            ref={ratingRef}
+            defaultValue={movieInfo?.rating}
             className={fontStyles.input}
             type="number"
             step={0.1}
@@ -120,24 +151,21 @@ export const MovieForm = ({ onSubmit }: Props) => {
       <div className={styles['input-row-container']}>
         <div className={classNames(styles['label-and-input'], styles.genre)}>
           <label className={fontStyles['form-label']} htmlFor="genre">
-            GENRE
+            {GENRE}
           </label>
           <Multiselect
-            ref={genreElementRef}
-            options={[
-              { id: 'crime', value: 'Crime', isChecked: false },
-              { id: 'documentary', value: 'Documentary', isChecked: false },
-              { id: 'horror', value: 'Horror', isChecked: false },
-              { id: 'comedy', value: 'Comedy', isChecked: false },
-            ]}
+            ref={genreRef}
+            options={movieGenres}
             placeholder="Select Genre"
           />
         </div>
         <div className={classNames(styles['label-and-input'], styles.runtime)}>
           <label className={fontStyles['form-label']} htmlFor="runtime">
-            RUNTIME
+            {RUNTIME}
           </label>
           <input
+            ref={runtimeRef}
+            defaultValue={movieInfo?.runtime}
             className={fontStyles.input}
             type="number"
             name="runtime"
@@ -148,9 +176,11 @@ export const MovieForm = ({ onSubmit }: Props) => {
       </div>
       <div className={classNames(styles['label-and-input'])}>
         <label className={fontStyles['form-label']} htmlFor="overview">
-          OVERVIEW
+          {OVERVIEW}
         </label>
         <textarea
+          ref={overviewRef}
+          defaultValue={movieInfo?.overview}
           className={classNames(fontStyles.input, styles['movie-description'])}
           name="overview"
           id="overview"
@@ -162,12 +192,12 @@ export const MovieForm = ({ onSubmit }: Props) => {
           onClick={handleResetInput}
           className={fontStyles['submit-btn']}
           type="reset"
-          value="RESET"
+          value={RESET_BUTTON}
         />
         <input
           className={fontStyles['submit-btn']}
           type="submit"
-          value="SUBMIT"
+          value={SUBMIT_BUTTON}
         />
       </div>
     </form>
