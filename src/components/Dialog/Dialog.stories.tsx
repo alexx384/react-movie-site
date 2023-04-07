@@ -1,6 +1,6 @@
-import { ComponentStory, ComponentMeta, StoryObj } from '@storybook/react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
-import { Dialog, DialogHandle } from '.';
+import { Dialog } from '.';
 import fontStyles from '../../Font.module.css';
 import searchFormStyles from '../SearchForm/SearchForm.module.css';
 import classNames from 'classnames';
@@ -17,18 +17,22 @@ export default {
 } as ComponentMeta<typeof Dialog>;
 
 const SimpleDialogTemplate: ComponentStory<typeof Dialog> = (args) => {
-  const dialogRef = React.useRef<DialogHandle>(null);
+  const [isDialogOpened, setIsDialogOpened] = React.useState(true);
   const handleOpenModalDialog = () => {
-    dialogRef.current?.showDialog();
+    setIsDialogOpened(() => true);
   };
-  const handleClick = () => {
+  const handleSubmit = () => {
     action('onSubmit')();
-    dialogRef.current?.hideDialog();
+    setIsDialogOpened(() => false);
+  };
+  const handleClose = () => {
+    action('onClose')();
+    setIsDialogOpened(() => false);
   };
   return (
     <>
       <button onClick={handleOpenModalDialog}>Click to open modal</button>
-      <Dialog ref={dialogRef} {...args} onClose={action('onClose')}>
+      <Dialog isOpened={isDialogOpened} {...args} onClose={handleClose}>
         <p style={{ margin: '0 0 3rem 0' }}>
           Are you sure you want to delete this movie?
         </p>
@@ -38,7 +42,7 @@ const SimpleDialogTemplate: ComponentStory<typeof Dialog> = (args) => {
               fontStyles['submit-btn'],
               searchFormStyles['submit-btn']
             )}
-            onClick={handleClick}
+            onClick={handleSubmit}
           >
             CONFIRM
           </button>
@@ -54,18 +58,22 @@ DeleteMovie.args = {
 };
 
 export const AddMovie: ComponentStory<typeof Dialog> = (args) => {
-  const dialogRef = React.useRef<DialogHandle>(null);
+  const [isDialogOpened, setIsDialogOpened] = React.useState(true);
   const handleOpenModalDialog = () => {
-    dialogRef.current?.showDialog();
+    setIsDialogOpened(() => true);
   };
   const handleSubmit = (movieInfo: MovieInfo) => {
     action('onSubmit')(movieInfo);
-    dialogRef.current?.hideDialog();
+    setIsDialogOpened(() => false);
+  };
+  const handleClose = () => {
+    action('onClose')();
+    setIsDialogOpened(() => false);
   };
   return (
     <>
       <button onClick={handleOpenModalDialog}>Click to open modal</button>
-      <Dialog ref={dialogRef} {...args} onClose={action('onClose')}>
+      <Dialog isOpened={isDialogOpened} {...args} onClose={handleClose}>
         <UnfilledMovieForm
           {...UnfilledMovieForm.args}
           onSubmit={handleSubmit}
@@ -79,18 +87,22 @@ AddMovie.args = {
 };
 
 export const EditMovie: ComponentStory<typeof Dialog> = (args) => {
-  const dialogRef = React.useRef<DialogHandle>(null);
+  const [isDialogOpened, setIsDialogOpened] = React.useState(true);
   const handleOpenModalDialog = () => {
-    dialogRef.current?.showDialog();
+    setIsDialogOpened(() => true);
   };
   const handleSubmit = (movieInfo: MovieInfo) => {
     action('onSubmit')(movieInfo);
-    dialogRef.current?.hideDialog();
+    setIsDialogOpened(() => false);
+  };
+  const handleClose = () => {
+    action('onClose')();
+    setIsDialogOpened(() => false);
   };
   return (
     <>
       <button onClick={handleOpenModalDialog}>Click to open modal</button>
-      <Dialog ref={dialogRef} {...args} onClose={action('onClose')}>
+      <Dialog isOpened={isDialogOpened} {...args} onClose={handleClose}>
         <FilledMovieForm {...FilledMovieForm.args} onSubmit={handleSubmit} />
       </Dialog>
     </>
