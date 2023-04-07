@@ -4,6 +4,15 @@ import styles from './MovieForm.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 import { MOVIE_TITLE_INPUT } from '../../constants/tests.constants';
+import {
+  MOVIE_URL,
+  RATING,
+  GENRE,
+  RUNTIME,
+  OVERVIEW,
+  SUBMIT_BUTTON,
+  RESET_BUTTON,
+} from '../../constants/movieForm.constants';
 
 export type MovieInfo = {
   title?: string;
@@ -19,14 +28,6 @@ export type MovieFormProps = {
   movieInfo?: MovieInfo;
   onSubmit?: (movieInfo: MovieInfo) => void;
 };
-
-export const MOVIE_URL = 'MOVIE URL';
-export const RATING = 'RATING';
-export const GENRE = 'GENRE';
-export const RUNTIME = 'RUNTIME';
-export const OVERVIEW = 'OVERVIEW';
-export const SUBMIT_BUTTON = 'SUBMIT';
-export const RESET_BUTTON = 'RESET';
 
 const DEFAULT_MOVIE_GENRES = [
   { id: 'crime', value: 'Crime', isChecked: false },

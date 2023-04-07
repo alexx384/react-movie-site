@@ -2,13 +2,12 @@ import React from 'react';
 import styles from './ThreeDotsButton.module.css';
 import { MenuContextContainer } from '../../MenuContextContainer';
 import { THREE_DOTS_BUTTON_BLOCK } from '../../../constants/tests.constants';
+import { THREE_DOTS_SYMBOL } from '../../../constants/threeDotsButton.constants';
 
 type Props = {
   children: React.ReactNode;
   onSelectOption?: (itemName: string) => void;
 };
-
-export const THREE_DOTS_SYMBOL = '⋮';
 
 export const ThreeDotsButton = ({ children, onSelectOption }: Props) => {
   const [isMenuShown, setMenuShown] = React.useState(false);

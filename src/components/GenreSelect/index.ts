@@ -1,1 +1,1 @@
-export { GenreSelect } from './GenreSelect';
+export * from './GenreSelect';

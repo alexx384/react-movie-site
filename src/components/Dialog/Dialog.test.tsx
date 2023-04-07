@@ -49,7 +49,6 @@ it('calls handleClose on Escape click', async () => {
     </Dialog>
   );
 
-  const xButton = screen.getByTestId(DIALOG_X_BUTTON);
   await user.keyboard('{Escape}');
 
   expect(handleClose).toBeCalledTimes(1);

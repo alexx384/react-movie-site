@@ -3,6 +3,10 @@ import styles from './Multiselect.module.css';
 import classNames from 'classnames';
 import { Checkbox } from './Checkbox';
 import fontStyles from '../../Font.module.css';
+import {
+  TRIANGLE_UP,
+  TRIANGLE_DOWN,
+} from '../../constants/multiselect.constants';
 
 export type Option = {
   id: string;
@@ -10,7 +14,7 @@ export type Option = {
   isChecked: boolean;
 };
 
-type Props = {
+export type Props = {
   options: Option[];
   placeholder: string;
 };
@@ -46,9 +50,6 @@ const OutsideAlerter = (props: {
 };
 
 type OptionDict = { [key: string]: Option };
-
-export const TRIANGLE_DOWN = '⏷';
-export const TRIANGLE_UP = '⏶';
 
 export type MultiselectHandle = {
   getSelectedGenreIds: () => Set<string>;

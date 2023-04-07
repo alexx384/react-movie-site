@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
+import { MovieForm, MovieInfo } from './MovieForm';
 import {
-  MovieForm,
-  MovieInfo,
   MOVIE_URL,
   RATING,
   GENRE,
@@ -9,7 +8,7 @@ import {
   OVERVIEW,
   SUBMIT_BUTTON,
   RESET_BUTTON,
-} from './MovieForm';
+} from '../../constants/movieForm.constants';
 import userEvent from '@testing-library/user-event';
 import { MOVIE_TITLE_INPUT } from '../../constants/tests.constants';
 

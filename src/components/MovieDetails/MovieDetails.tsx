@@ -1,4 +1,3 @@
-import React from 'react';
 import { secondsToHoursAndMinutesString } from '../../utils/string';
 import styles from './MovieDetails.module.css';
 import fontStyles from '../../Font.module.css';

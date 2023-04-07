@@ -4,15 +4,16 @@ import { MenuContextContainer } from '../MenuContextContainer';
 import { MOVIE_SORT_CONTROL } from '../../constants/tests.constants';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
+import {
+  SHAMEFUL_TRIANGLE,
+  SORT_BY,
+} from '../../constants/sortControl.constants';
 
 type Props = {
   options: string[];
   selectedOption: string;
   onSelect?: (option: string) => {};
 };
-
-export const SORT_BY = 'SORT BY';
-export const SHAMEFUL_TRIANGLE = '▼';
 
 export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
   const [menuContext, setMenuContext] = React.useState({

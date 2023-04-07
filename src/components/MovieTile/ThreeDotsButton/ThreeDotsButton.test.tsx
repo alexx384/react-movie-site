@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { ThreeDotsButton, THREE_DOTS_SYMBOL } from './ThreeDotsButton';
+import { ThreeDotsButton } from './ThreeDotsButton';
 import userEvent from '@testing-library/user-event';
 import { THREE_DOTS_BUTTON_BLOCK } from '../../../constants/tests.constants';
+import { THREE_DOTS_SYMBOL } from '../../../constants/threeDotsButton.constants';
 
 it('renders menu items on hower and button click', async () => {
   const user = userEvent.setup();

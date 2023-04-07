@@ -1,1 +1,1 @@
-export { ThreeDotsButton } from './ThreeDotsButton';
+export * from './ThreeDotsButton';
