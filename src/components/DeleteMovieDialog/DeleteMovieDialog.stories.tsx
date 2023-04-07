@@ -1,14 +1,14 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
-import { Dialog } from '.';
+import { DeleteMovieDialog } from '.';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Stories/Dialog',
-  component: Dialog,
-} as ComponentMeta<typeof Dialog>;
+  title: 'Stories/DeleteMovieDialog',
+  component: DeleteMovieDialog,
+} as ComponentMeta<typeof DeleteMovieDialog>;
 
-const Template: ComponentStory<typeof Dialog> = (args) => {
+const Template: ComponentStory<typeof DeleteMovieDialog> = (args) => {
   const [isDialogOpened, setIsDialogOpened] = React.useState(true);
   const handleOpenModalDialog = () => {
     setIsDialogOpened(() => true);
@@ -17,15 +17,21 @@ const Template: ComponentStory<typeof Dialog> = (args) => {
     action('onClose')();
     setIsDialogOpened(() => false);
   };
+  const handleSubmit = () => {
+    action('onSubmit')();
+    setIsDialogOpened(() => false);
+  };
   return (
     <>
       <button onClick={handleOpenModalDialog}>Click to open modal</button>
-      <Dialog isOpened={isDialogOpened} {...args} onClose={handleClose} />
+      <DeleteMovieDialog
+        {...args}
+        isOpened={isDialogOpened}
+        onClose={handleClose}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 };
 
 export const Primary = Template.bind({});
-Primary.args = {
-  title: 'TEST',
-};
