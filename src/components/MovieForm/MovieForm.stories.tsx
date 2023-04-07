@@ -1,5 +1,4 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import React from 'react';
 import { MovieForm } from '.';
 
 export default {
@@ -16,6 +15,7 @@ export const UnfilledMovieForm = Template.bind({});
 export const FilledMovieForm = Template.bind({});
 FilledMovieForm.args = {
   movieInfo: {
+    id: '1',
     title: 'Moana',
     releaseDate: new Date('2016-11-14T00:00:00.000Z'),
     movieURL: 'https://www.moana.com',

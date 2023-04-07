@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Dialog, DialogHandle, DialogProps } from '.';
+import { Dialog, DialogHandle } from '.';
 import fontStyles from '../../Font.module.css';
 import searchFormStyles from '../SearchForm/SearchForm.module.css';
 import classNames from 'classnames';

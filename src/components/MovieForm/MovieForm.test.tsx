@@ -13,6 +13,7 @@ import userEvent from '@testing-library/user-event';
 import { MOVIE_TITLE_INPUT } from '../../constants/tests.constants';
 
 const MOVIE_INFO: MovieInfo = {
+  id: '1',
   title: 'Moana',
   releaseDate: new Date('2016-11-14T00:00:00.000Z'),
   movieURL: 'https://www.moana.com',
@@ -24,6 +25,7 @@ const MOVIE_INFO: MovieInfo = {
 };
 
 const EMPTY_MOVIE_INFO: MovieInfo = {
+  id: undefined,
   title: '',
   releaseDate: undefined,
   movieURL: '',

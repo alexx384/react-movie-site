@@ -15,6 +15,7 @@ import {
 } from '../../constants/movieForm.constants';
 
 export type MovieInfo = {
+  id?: string;
   title?: string;
   releaseDate?: Date;
   movieURL?: string;
@@ -52,6 +53,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
         ? new Date(releaseDateRef.current.value)
         : undefined;
     onSubmit?.({
+      id: movieInfo?.id,
       title: titleRef.current?.value,
       releaseDate: releaseDate,
       movieURL: movieURLRef.current?.value,
