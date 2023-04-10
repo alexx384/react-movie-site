@@ -13,11 +13,11 @@ export type Props = {
   onClose?: () => void;
 };
 
-const useEscapeHandler = (handleHideDialog: () => void) => {
+const useEscapeHandler = (handleHideDialog?: () => void) => {
   React.useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.code === 'Escape') {
-        handleHideDialog();
+        handleHideDialog?.();
       }
     };
     document.addEventListener('keydown', handleEscapeKey);
@@ -33,10 +33,7 @@ export const Dialog = ({
   onClose,
   isOpened = true,
 }: Props) => {
-  const handleHideDialog = React.useCallback(() => {
-    onClose?.();
-  }, [onClose]);
-  useEscapeHandler(handleHideDialog);
+  useEscapeHandler(onClose);
   return (
     <>
       {isOpened && (
@@ -50,7 +47,7 @@ export const Dialog = ({
               <div className={styles.block}>
                 <button
                   className={styles['close-btn']}
-                  onClick={handleHideDialog}
+                  onClick={onClose}
                   data-testid={DIALOG_X_BUTTON}
                 >
                   🗙

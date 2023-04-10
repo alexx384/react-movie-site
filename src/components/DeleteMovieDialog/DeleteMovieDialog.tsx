@@ -16,18 +16,8 @@ type Props = {
 };
 
 export const DeleteMovieDialog = ({ isOpened, onClose, onSubmit }: Props) => {
-  const handleSubmit = () => {
-    onSubmit?.();
-  };
-  const handleClose = () => {
-    onClose?.();
-  };
   return (
-    <Dialog
-      isOpened={isOpened}
-      title={DELETE_MOVIE_TITLE}
-      onClose={handleClose}
-    >
+    <Dialog isOpened={isOpened} title={DELETE_MOVIE_TITLE} onClose={onClose}>
       <p className={styles.question}>{DELETE_MOVIE_QUESTION}</p>
       <div className={styles['btn-block']}>
         <button
@@ -35,7 +25,7 @@ export const DeleteMovieDialog = ({ isOpened, onClose, onSubmit }: Props) => {
             fontStyles['submit-btn'],
             searchFormStyles['submit-btn']
           )}
-          onClick={handleSubmit}
+          onClick={onSubmit}
         >
           {DELETE_MOVIE_BUTTON}
         </button>

@@ -15,21 +15,9 @@ export const EditMovieDialog = ({
   onClose,
   onSubmit,
 }: Props) => {
-  const handleSubmit = (movieInfo: MovieInfo) => {
-    onSubmit?.(movieInfo);
-  };
-  const handleClose = () => {
-    onClose?.();
-  };
   return (
-    <>
-      <Dialog
-        isOpened={isOpened}
-        title={EDIT_MOVIE_TITLE}
-        onClose={handleClose}
-      >
-        <MovieForm movieInfo={movieInfo} onSubmit={handleSubmit} />
-      </Dialog>
-    </>
+    <Dialog isOpened={isOpened} title={EDIT_MOVIE_TITLE} onClose={onClose}>
+      <MovieForm movieInfo={movieInfo} onSubmit={onSubmit} />
+    </Dialog>
   );
 };

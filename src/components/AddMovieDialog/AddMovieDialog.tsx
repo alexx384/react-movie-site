@@ -9,15 +9,9 @@ type Props = {
 };
 
 export const AddMovieDialog = ({ isOpened, onClose, onSubmit }: Props) => {
-  const handleSubmit = (movieInfo: MovieInfo) => {
-    onSubmit?.(movieInfo);
-  };
-  const handleClose = () => {
-    onClose?.();
-  };
   return (
-    <Dialog isOpened={isOpened} title={ADD_MOVIE_TITLE} onClose={handleClose}>
-      <MovieForm onSubmit={handleSubmit} />
+    <Dialog isOpened={isOpened} title={ADD_MOVIE_TITLE} onClose={onClose}>
+      <MovieForm onSubmit={onSubmit} />
     </Dialog>
   );
 };
