@@ -4,7 +4,7 @@ import { SEARCH_FORM_INPUT } from '../../constants/tests.constants';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 
-type SearchFormProps = {
+export type SearchFormProps = {
   initialSearchQuery: string;
   onSearch?: (searchQuery: string) => void;
 };

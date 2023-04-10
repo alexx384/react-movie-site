@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
 
 .title {
   font: 300 2.5rem/1.2em 'Montserrat', sans-serif;
@@ -51,5 +51,10 @@
 
 .sort-label {
   font: 400 1rem/1.25em 'Montserrat', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.form-label {
+  font: 600 1rem/1.2em 'Montserrat', sans-serif;
   letter-spacing: 0.05em;
 }

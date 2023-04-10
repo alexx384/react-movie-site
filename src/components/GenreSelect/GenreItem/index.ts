@@ -1,1 +1,1 @@
-export { GenreItem } from './GenreItem';
+export * from './GenreItem';

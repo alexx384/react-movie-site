@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: 'PR: Deploy'
 run-name: '${{ github.actor }}: Deploy from ${{ github.ref }} to Github Pages'
 on:
   push:

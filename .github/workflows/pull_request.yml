@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: 'PR: Test & Build'
 run-name: '${{ github.actor }}: PR ${{ github.ref }}'
 on: [pull_request]
 jobs:

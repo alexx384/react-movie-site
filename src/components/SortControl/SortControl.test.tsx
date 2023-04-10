@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { SortControl, SORT_BY, SHAMEFUL_TRIANGLE } from './SortControl';
+import { SortControl } from './SortControl';
 import userEvent from '@testing-library/user-event';
 import { MOVIE_SORT_CONTROL } from '../../constants/tests.constants';
+import {
+  SHAMEFUL_TRIANGLE,
+  SORT_BY,
+} from '../../constants/sortControl.constants';
 
 it('renders sort buttons', () => {
   const selectedOptionName = 'RELEASE DATE';

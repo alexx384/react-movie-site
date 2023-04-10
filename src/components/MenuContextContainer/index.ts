@@ -1,1 +1,1 @@
-export { MenuContextContainer } from './MenuContextContainer';
+export * from './MenuContextContainer';
