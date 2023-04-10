@@ -50,7 +50,7 @@ export const Dialog = ({
                   onClick={onClose}
                   data-testid={DIALOG_X_BUTTON}
                 >
-                  🗙
+                  x
                 </button>
                 <h1 className={classNames(fontStyles.title, styles.title)}>
                   {title}
