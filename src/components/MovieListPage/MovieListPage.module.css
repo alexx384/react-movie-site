@@ -1,0 +1,56 @@
+.heading-with-background::before {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.3;
+  z-index: -1;
+  background-image: url(./searchFormBackgroun.png);
+  background-size: cover;
+  content: '';
+}
+
+.heading {
+  position: relative;
+  padding: 4vh 3vw 4vh 3vw;
+}
+
+.body {
+  margin: 0 3vw 0 3vw;
+}
+
+.body-settings {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 3px solid #424242;
+}
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 4rem;
+  justify-content: space-between;
+  padding: 0;
+  list-style: none;
+}
+
+.movie-list > li:nth-child(3n + 1) {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.movie-list > li:nth-child(3n + 2) {
+  display: flex;
+  justify-content: center;
+}
+
+.movie-list > li:nth-child(3n + 3) {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-body-separator {
+  background-color: #888888;
+  height: 10px;
+}

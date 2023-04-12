@@ -12,7 +12,9 @@ export default {
 } as ComponentMeta<typeof GenreSelect>;
 
 const Template: ComponentStory<typeof GenreSelect> = (args) => (
-  <GenreSelect {...args} />
+  <div style={{ margin: '6vh 3vw 6vh 3vw' }}>
+    <GenreSelect {...args} />
+  </div>
 );
 
 export const PrimarySelect = Template.bind({});
