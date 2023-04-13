@@ -1,0 +1,27 @@
+.result-info {
+  color: white;
+}
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 4rem;
+  justify-content: space-between;
+  padding: 0;
+  list-style: none;
+}
+
+.movie-list > li:nth-child(3n + 1) {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.movie-list > li:nth-child(3n + 2) {
+  display: flex;
+  justify-content: center;
+}
+
+.movie-list > li:nth-child(3n + 3) {
+  display: flex;
+  justify-content: flex-end;
+}

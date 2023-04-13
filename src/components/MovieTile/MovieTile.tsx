@@ -4,7 +4,7 @@ import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 import { ThreeDotsButton } from './ThreeDotsButton';
 
-type Props = {
+export type Props = {
   id: string;
   imageUrl: string;
   movieName: string;
