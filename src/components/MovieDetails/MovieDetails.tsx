@@ -1,17 +1,15 @@
-import { secondsToHoursAndMinutesString } from '../../utils/string';
+import { secondsToHoursAndMinutesString } from '../../utils';
 import styles from './MovieDetails.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
+import { MovieBasicInfo } from '../MovieTile';
 
-type Props = {
-  imageUrl: string;
-  movieName: string;
-  releaseYear: number;
+export interface MovieDetailsInfo extends MovieBasicInfo {
   rating: number;
   genre: string;
   durationInSeconds: number;
   description: string;
-};
+}
 
 export const MovieDetails = ({
   imageUrl,
@@ -21,7 +19,7 @@ export const MovieDetails = ({
   genre,
   durationInSeconds,
   description,
-}: Props) => {
+}: MovieDetailsInfo) => {
   return (
     <div className={styles.block}>
       <img className={styles.poster} src={imageUrl} alt={movieName} />

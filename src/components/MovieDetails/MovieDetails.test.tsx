@@ -5,6 +5,7 @@ it('renders correctly', () => {
   const tree = renderer
     .create(
       <MovieDetails
+        id="1"
         imageUrl="logo192.png"
         movieName="React"
         releaseYear={2022}

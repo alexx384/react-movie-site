@@ -4,25 +4,22 @@ import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 import { ThreeDotsButton } from './ThreeDotsButton';
 
-export type Props = {
+export interface MovieBasicInfo {
   id: string;
   imageUrl: string;
   movieName: string;
   releaseYear: number;
   genre: string;
-  onClick?: (movieName: string) => void;
+}
+
+export type Props = {
+  info: MovieBasicInfo;
+  onClick?: (movieId: string) => void;
 };
 
-export const MovieTile = ({
-  id,
-  imageUrl,
-  movieName,
-  releaseYear,
-  genre,
-  onClick,
-}: Props) => {
+export const MovieTile = ({ info, onClick }: Props) => {
   function handleClick() {
-    onClick?.(id);
+    onClick?.(info.id);
   }
   function handleSelectOption(itemName: string) {
     console.log(itemName);
@@ -34,20 +31,22 @@ export const MovieTile = ({
         <img
           onClick={handleClick}
           className={styles.poster}
-          src={imageUrl}
-          alt={movieName}
+          src={info.imageUrl}
+          alt={info.movieName}
           data-testid={MOVIE_TILE_IMAGE}
         />
       </ThreeDotsButton>
       <div className={styles['name-and-year']}>
         <h1 className={classNames(fontStyles['tile-name'], styles.name)}>
-          {movieName}
+          {info.movieName}
         </h1>
         <h2 className={classNames(fontStyles['tile-year'], styles.year)}>
-          {releaseYear}
+          {info.releaseYear}
         </h2>
       </div>
-      <h2 className={classNames(fontStyles.subtitle, styles.genre)}>{genre}</h2>
+      <h2 className={classNames(fontStyles.subtitle, styles.genre)}>
+        {info.genre}
+      </h2>
     </div>
   );
 };

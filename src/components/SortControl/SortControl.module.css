@@ -1,10 +1,12 @@
 .block {
   position: relative;
+  cursor: pointer;
   padding: 1rem 0 1rem 0;
   width: fit-content;
 }
 
 .label {
+  cursor: pointer;
   margin: 0px 31px 0px 0px;
   border-width: 0;
   border-color: transparent;
@@ -14,6 +16,7 @@
 }
 
 .selected-option {
+  cursor: pointer;
   margin: 0px 13px 0px 0px;
   border-width: 0;
   border-color: transparent;
@@ -23,6 +26,7 @@
 }
 
 .triangle {
+  cursor: pointer;
   margin: 0;
   border-width: 0;
   border-color: transparent;
@@ -32,5 +36,6 @@
 }
 
 .menu {
+  position: relative;
   width: 100%;
 }

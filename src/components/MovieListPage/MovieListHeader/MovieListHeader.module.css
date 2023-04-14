@@ -1,0 +1,29 @@
+.heading-with-background::before {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.3;
+  z-index: -1;
+  background-image: url(../../../assets/searchFormBackgroun.png);
+  background-size: cover;
+  content: '';
+}
+
+.heading {
+  position: relative;
+  padding: 4vh 3vw 4vh 3vw;
+}
+
+.controls {
+  margin: 0 0 1vw 0;
+  text-align: right;
+}
+
+.controls-search {
+  cursor: pointer;
+  border-color: transparent;
+  background-color: transparent;
+  color: #f65261;
+}

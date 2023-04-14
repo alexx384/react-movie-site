@@ -12,7 +12,7 @@ import {
 type Props = {
   options: string[];
   selectedOption: string;
-  onSelect?: (option: string) => {};
+  onSelect?: (option: string) => void;
 };
 
 export const SortControl = ({ options, selectedOption, onSelect }: Props) => {

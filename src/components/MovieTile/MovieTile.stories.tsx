@@ -12,9 +12,11 @@ const Template: ComponentStory<typeof MovieTile> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  id: '1',
-  imageUrl: 'https://test-9mn.pages.dev/1.png',
-  movieName: 'Pulp Fiction',
-  releaseYear: 2004,
-  genre: 'Action & Adventure',
+  info: {
+    id: '1',
+    imageUrl: 'https://test-9mn.pages.dev/1.png',
+    movieName: 'Pulp Fiction',
+    releaseYear: 2004,
+    genre: 'Action & Adventure',
+  },
 };

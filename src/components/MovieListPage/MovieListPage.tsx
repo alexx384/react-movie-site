@@ -1,90 +1,62 @@
 import React from 'react';
 import styles from './MovieListPage.module.css';
-import { SearchForm } from '../SearchForm';
 import { SortControl } from '../SortControl';
 import { GenreSelect } from '../GenreSelect';
-import { MovieDetails } from '../MovieDetails';
-import classNames from 'classnames';
+import { MovieDetailsInfo } from '../MovieDetails';
 import { MovieListResult } from './MovieListResult';
+import { MovieListHeader } from './MovieListHeader';
+import { Tuple } from '../../utils';
+import { MOVIE_LIST_ITEMS6 } from '../../constants/tests.constants';
 
-const movies = [
-  {
-    id: '1',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
-  },
-  {
-    id: '2',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
-  },
-  {
-    id: '3',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
-  },
-  {
-    id: '4',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
-  },
-  {
-    id: '5',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
-  },
-  {
-    id: '6',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
-  },
+const genres: Tuple<string, 5> = [
+  'ALL',
+  'DOCUMENTARY',
+  'COMEDY',
+  'HORROR',
+  'CRIME',
 ];
 
+const sortOptions: Tuple<string, 2> = ['RELEASE DATE', 'TITLE'];
+
 export const MovieListPage = () => {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedMovieId, setSelectedMovieId] = React.useState('');
+  const [selectedGenre, setSelectedGenre] = React.useState(genres[0]);
+  const [sortOption, setSortOption] = React.useState(sortOptions[0]);
+  const handleShowSearchForm = () => {
+    setSelectedMovieId('');
+  };
+  const movieMap = new Map<string, MovieDetailsInfo>(
+    MOVIE_LIST_ITEMS6.map((entry) => [entry.id, entry])
+  );
+  const selectedMovie = movieMap.get(selectedMovieId);
   return (
     <>
-      <div
-        className={classNames(
-          styles.heading,
-          styles['heading-with-background']
-        )}
-      >
-        {/* <MovieDetails
-          imageUrl="https://test-9mn.pages.dev/1.png"
-          movieName="Pulp Fiction"
-          releaseYear={2004}
-          rating={8.9}
-          genre="Adventure"
-          durationInSeconds={9240}
-          description="Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra"
-        /> */}
-        <SearchForm initialSearchQuery="" />
-      </div>
+      <MovieListHeader
+        searchQuery={searchQuery}
+        movieDetails={selectedMovie}
+        onSearch={setSearchQuery}
+        onShowSearchForm={handleShowSearchForm}
+      />
       <div className={styles['header-body-separator']}></div>
       <div className={styles.body}>
         <div className={styles['body-settings']}>
           <GenreSelect
-            listOfGenres={['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME']}
-            initiallySelectedGenreName="ALL"
+            listOfGenres={[...genres]}
+            initiallySelectedGenreName={selectedGenre}
+            onSelectGenre={setSelectedGenre}
           />
           <SortControl
-            options={['RELEASE DATE', 'TITLE']}
-            selectedOption={'RELEASE DATE'}
+            options={[...sortOptions]}
+            selectedOption={sortOption}
+            onSelect={setSortOption}
           />
         </div>
-        <MovieListResult movieList={movies} />
+        <MovieListResult
+          movieList={[...movieMap.values()]}
+          totalMovieNumber={String(movieMap.size)}
+          onMovieClick={setSelectedMovieId}
+        />
       </div>
     </>
   );
