@@ -1,13 +1,13 @@
-import { secondsToHoursAndMinutesString } from '../../utils';
 import styles from './MovieDetails.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 import { MovieBasicInfo } from '../MovieTile';
+import { minutesToHoursAndMinutesString } from '../../utils/string.utils';
 
 export interface MovieDetailsInfo extends MovieBasicInfo {
   rating: number;
   genre: string;
-  durationInSeconds: number;
+  durationInMinutes: number;
   description: string;
 }
 
@@ -17,7 +17,7 @@ export const MovieDetails = ({
   releaseYear,
   rating,
   genre,
-  durationInSeconds,
+  durationInMinutes,
   description,
 }: MovieDetailsInfo) => {
   return (
@@ -40,7 +40,7 @@ export const MovieDetails = ({
             {releaseYear}
           </h2>
           <h2 className={classNames(fontStyles['key-detail'], styles.timing)}>
-            {secondsToHoursAndMinutesString(durationInSeconds)}
+            {minutesToHoursAndMinutesString(durationInMinutes)}
           </h2>
         </div>
         <p className={classNames(fontStyles.description, styles.description)}>

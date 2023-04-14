@@ -8,6 +8,7 @@
   padding-left: 1.5rem;
   color: hsl(0, 0%, 100%);
   list-style-type: none;
+  text-transform: uppercase;
 }
 
 .selected-item:hover,

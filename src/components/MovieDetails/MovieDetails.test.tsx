@@ -11,7 +11,7 @@ it('renders correctly', () => {
         releaseYear={2022}
         rating={8.9}
         genre="Adventure"
-        durationInSeconds={9240}
+        durationInMinutes={154}
         description="Whether you work on your own or with thousands of other developers, using React feels the same. It is designed to let you seamlessly combine components written by independent people, teams, and organizations."
       />
     )
