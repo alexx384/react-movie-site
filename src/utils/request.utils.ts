@@ -11,7 +11,6 @@ export const customFetch = async (
 };
 
 export const abortRequestSafe = (key: string, reason = 'ABORTED') => {
-  console.log('The key to abort', key);
   ABORT_REQUEST_CONTROLLERS.get(key)?.abort?.(reason);
 };
 

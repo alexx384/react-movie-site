@@ -5,7 +5,6 @@ import { GenreSelect } from '../GenreSelect';
 import { MovieDetailsInfo } from '../MovieDetails';
 import { MovieListResult } from './MovieListResult';
 import { MovieListHeader } from './MovieListHeader';
-import { Tuple } from '../../utils';
 import { arrayToString } from '../../utils/string.utils';
 import { customFetch } from '../../utils/request.utils';
 import {
@@ -48,27 +47,25 @@ const useMovieData = <R,>(
 ): R | null => {
   const [data, setData] = React.useState<R | null>(null);
   React.useEffect(() => {
-    const startFetching = async (urlData: URL) => {
+    const startFetching = async (urlData: URL, key: string) => {
       try {
         const response = await customFetch(urlData, {
           headers: { accept: 'application/json' },
-          signalKey: urlData.toString(),
+          signalKey: key,
         });
         if (response.status < 200 && 299 > response.status) {
           return;
         }
         const data = await response.json();
         setData(data);
-      } catch (error) {
-        console.log('The movie request is aborted', error);
-      }
+      } catch (error) {}
     };
 
     const urlData = new URL(url);
     Object.entries(queryParams).forEach((entry) =>
       urlData.searchParams.append(entry[0], entry[1])
     );
-    startFetching(urlData);
+    startFetching(urlData, url);
     return () => {};
   }, [url, queryParams]);
   return data;
