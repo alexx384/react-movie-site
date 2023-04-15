@@ -86,14 +86,14 @@ const mapMovieDataToMovieDetailsInfo = (
 
 export const MovieListPage = () => {
   const [selectedMovieId, setSelectedMovieId] = React.useState('');
-  const [genreFilter, setGenreFilter] = React.useState(MOVIE_GENRES[1]);
+  const [genreFilter, setGenreFilter] = React.useState(MOVIE_GENRES[0]);
   const [sortBy, setSortBy] = React.useState(
     Object.keys(SORT_OPTIONS)[0] ?? ''
   );
   const [searchQuery, setSearchQuery] = React.useState(DEFAULT_SEARCH_QUERY);
   const queryFilter = React.useMemo(
     () => ({
-      [QUERY_GENRE_FILTER_PARAM]: genreFilter,
+      [QUERY_GENRE_FILTER_PARAM]: genreFilter !== 'All' ? genreFilter : '',
       [QUERY_LIMIT_PARAM]: DEFAULT_QUERY_LIMIT,
       [QUERY_SORT_BY]: SORT_OPTIONS[sortBy] ?? '',
       [QUERY_SEARCH]: searchQuery,
@@ -118,10 +118,6 @@ export const MovieListPage = () => {
   const handleShowSearchForm = () => {
     setSelectedMovieId('');
   };
-  const handleGenreSelect = (selectedGenre: string) => {
-    const genre = selectedGenre !== 'All' ? selectedGenre : '';
-    setGenreFilter(genre);
-  };
   return (
     <>
       <MovieListHeader
@@ -136,7 +132,7 @@ export const MovieListPage = () => {
           <GenreSelect
             listOfGenres={[...MOVIE_GENRES]}
             initiallySelectedGenreName={genreFilter}
-            onSelectGenre={handleGenreSelect}
+            onSelectGenre={setGenreFilter}
           />
           <SortControl
             options={Object.keys(SORT_OPTIONS)}
