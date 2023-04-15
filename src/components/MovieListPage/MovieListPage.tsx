@@ -7,6 +7,20 @@ import { MovieListResult } from './MovieListResult';
 import { MovieListHeader } from './MovieListHeader';
 import { Tuple } from '../../utils';
 import { arrayToString } from '../../utils/string.utils';
+import { customFetch } from '../../utils/request.utils';
+import {
+  DEFAULT_QUERY_LIMIT,
+  DEFAULT_SEARCH_BY_FIELD,
+  DEFAULT_SEARCH_QUERY,
+  MOVIE_GENRES,
+  QUERY_LIMIT_PARAM,
+  QUERY_SEARCH,
+  QUERY_SEARCH_BY,
+  QUERY_SORT_BY,
+  REQUEST_URI,
+  SORT_OPTIONS,
+} from '../../constants/movieListPage.constants';
+import { QUERY_GENRE_FILTER_PARAM } from '../../constants/movieListPage.constants';
 
 type MovieData = {
   id: string;
@@ -28,50 +42,35 @@ type MovieDataResponse = {
   data: MovieData[];
 };
 
-const genres: Tuple<string, 6> = [
-  'Drama',
-  'All',
-  'Documentary',
-  'Comedy',
-  'Horror',
-  'Crime',
-];
-
-const sortOptions: Tuple<string, 2> = ['release_date', 'title'];
-
 const useMovieData = <R,>(
   url: string,
-  limit: string,
-  sortBy: string,
-  search: string,
-  searchBy: string,
-  filter: string
+  queryParams: { [key: string]: string }
 ): R | null => {
   const [data, setData] = React.useState<R | null>(null);
   React.useEffect(() => {
-    if (!url) {
-      return () => {};
-    }
-    const urlData = new URL(url);
-    urlData.searchParams.append('limit', limit);
-    urlData.searchParams.append('sortBy', sortBy);
-    urlData.searchParams.append('search', search);
-    urlData.searchParams.append('searchBy', searchBy);
-    urlData.searchParams.append('filter', filter);
-    let ignore = false;
-    fetch(urlData, {
-      headers: { accept: 'application/json' },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (!ignore) {
-          setData(json);
+    const startFetching = async (urlData: URL) => {
+      try {
+        const response = await customFetch(urlData, {
+          headers: { accept: 'application/json' },
+          signalKey: urlData.toString(),
+        });
+        if (response.status < 200 && 299 > response.status) {
+          return;
         }
-      });
-    return () => {
-      ignore = true;
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.log('The movie request is aborted', error);
+      }
     };
-  }, [url, limit, sortBy, search, searchBy, filter]);
+
+    const urlData = new URL(url);
+    Object.entries(queryParams).forEach((entry) =>
+      urlData.searchParams.append(entry[0], entry[1])
+    );
+    startFetching(urlData);
+    return () => {};
+  }, [url, queryParams]);
   return data;
 };
 
@@ -89,18 +88,27 @@ const mapMovieDataToMovieDetailsInfo = (
 });
 
 export const MovieListPage = () => {
-  const [searchQuery, setSearchQuery] = React.useState('you');
-  const [selectedGenre, setSelectedGenre] = React.useState(genres[0]);
-  const [sortOption, setSortOption] = React.useState(sortOptions[0]);
   const [selectedMovieId, setSelectedMovieId] = React.useState('');
-  const movieDataNullableResponse = useMovieData<MovieDataResponse>(
-    'http://localhost:4000/movies',
-    '6',
-    sortOption,
-    searchQuery,
-    'title',
-    selectedGenre
+  const [genreFilter, setGenreFilter] = React.useState(MOVIE_GENRES[1]);
+  const [sortBy, setSortBy] = React.useState(
+    Object.keys(SORT_OPTIONS)[0] ?? ''
   );
+  const [searchQuery, setSearchQuery] = React.useState(DEFAULT_SEARCH_QUERY);
+  const queryFilter = React.useMemo(
+    () => ({
+      [QUERY_GENRE_FILTER_PARAM]: genreFilter,
+      [QUERY_LIMIT_PARAM]: DEFAULT_QUERY_LIMIT,
+      [QUERY_SORT_BY]: SORT_OPTIONS[sortBy] ?? '',
+      [QUERY_SEARCH]: searchQuery,
+      [QUERY_SEARCH_BY]: DEFAULT_SEARCH_BY_FIELD,
+    }),
+    [genreFilter, sortBy, searchQuery]
+  );
+  const movieDataNullableResponse = useMovieData<MovieDataResponse>(
+    `${REQUEST_URI}/movies`,
+    queryFilter
+  );
+
   const movieData: MovieDataResponse = movieDataNullableResponse ?? {
     totalAmount: 0,
     data: [],
@@ -108,10 +116,15 @@ export const MovieListPage = () => {
   const movieDetailsMap = movieData.data
     .map(mapMovieDataToMovieDetailsInfo)
     .reduce((map, current) => map.set(current.id, current), new Map());
+  const selectedMovie = movieDetailsMap.get(selectedMovieId);
+
   const handleShowSearchForm = () => {
     setSelectedMovieId('');
   };
-  const selectedMovie = movieDetailsMap.get(selectedMovieId);
+  const handleGenreSelect = (selectedGenre: string) => {
+    const genre = selectedGenre !== 'All' ? selectedGenre : '';
+    setGenreFilter(genre);
+  };
   return (
     <>
       <MovieListHeader
@@ -124,14 +137,15 @@ export const MovieListPage = () => {
       <div className={styles.body}>
         <div className={styles['body-settings']}>
           <GenreSelect
-            listOfGenres={[...genres]}
-            initiallySelectedGenreName={selectedGenre}
-            onSelectGenre={setSelectedGenre}
+            listOfGenres={[...MOVIE_GENRES]}
+            initiallySelectedGenreName={genreFilter}
+            onSelectGenre={handleGenreSelect}
           />
           <SortControl
-            options={[...sortOptions]}
-            selectedOption={sortOption}
-            onSelect={setSortOption}
+            options={Object.keys(SORT_OPTIONS)}
+            selectedOption={sortBy}
+            onSelect={setSortBy}
+            key={sortBy}
           />
         </div>
         <MovieListResult
