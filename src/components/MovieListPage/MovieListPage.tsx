@@ -127,7 +127,7 @@ export const MovieListPage = () => {
       />
       <div className={styles['header-body-separator']}></div>
       <div className={styles.body}>
-        <div className={styles['body-settings']}>
+        <div className={styles['search-settings']}>
           <GenreSelect
             listOfGenres={[...MOVIE_GENRES]}
             initiallySelectedGenreName={genreFilter}

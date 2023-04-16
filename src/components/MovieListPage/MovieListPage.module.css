@@ -1,8 +1,10 @@
 .body {
-  margin: 0 3vw 0 3vw;
+  margin: 0;
+  background-color: #232323;
+  padding: 0 3vw 0 3vw;
 }
 
-.body-settings {
+.search-settings {
   display: flex;
   justify-content: space-between;
   border-bottom: 3px solid #424242;
