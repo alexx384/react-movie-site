@@ -11,6 +11,7 @@ import {
   DEFAULT_QUERY_LIMIT,
   DEFAULT_SEARCH_BY_FIELD,
   DEFAULT_SEARCH_QUERY,
+  DEFAULT_SORT_OPTION_KEY,
   MOVIE_GENRES,
   QUERY_LIMIT_PARAM,
   QUERY_SEARCH,
@@ -21,7 +22,7 @@ import {
 } from '../../constants/movieListPage.constants';
 import { QUERY_GENRE_FILTER_PARAM } from '../../constants/movieListPage.constants';
 
-type MovieData = {
+export type MovieData = {
   id: string;
   title: string;
   tagline: string;
@@ -36,7 +37,7 @@ type MovieData = {
   runtime: number;
 };
 
-type MovieDataResponse = {
+export type MovieDataResponse = {
   totalAmount: number;
   data: MovieData[];
 };
@@ -87,9 +88,7 @@ const mapMovieDataToMovieDetailsInfo = (
 export const MovieListPage = () => {
   const [selectedMovieId, setSelectedMovieId] = React.useState('');
   const [genreFilter, setGenreFilter] = React.useState(MOVIE_GENRES[0]);
-  const [sortBy, setSortBy] = React.useState(
-    Object.keys(SORT_OPTIONS)[0] ?? ''
-  );
+  const [sortBy, setSortBy] = React.useState(DEFAULT_SORT_OPTION_KEY);
   const [searchQuery, setSearchQuery] = React.useState(DEFAULT_SEARCH_QUERY);
   const queryFilter = React.useMemo(
     () => ({

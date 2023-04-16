@@ -1,9 +1,9 @@
-import React from 'react';
 import { MovieDetails, MovieDetailsInfo } from '../../MovieDetails';
 import classNames from 'classnames';
 import styles from './MovieListHeader.module.css';
 import { SearchForm } from '../../SearchForm';
 import '../../../Font.module.css';
+import { MOVIE_HEADER_SEARCH_ICON } from '../../../constants/tests.constants';
 
 type Props = {
   movieDetails?: MovieDetailsInfo;
@@ -33,6 +33,7 @@ export const MovieListHeader = ({
                 styles['controls-search']
               )}
               onClick={onShowSearchForm}
+              data-testid={MOVIE_HEADER_SEARCH_ICON}
             >
               search
             </button>

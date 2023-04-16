@@ -5,6 +5,14 @@ export const SEARCH_FORM_INPUT = 'searchMovieInput';
 export const GENRE_ITEM_SELECTED = 'selectedGenreItem';
 export const GENRE_ITEM_UNSELECTED = 'unselectedGenreItem';
 
+export const MOVIE_HEADER_SEARCH_ICON = 'movieHeaderSearchIcon';
+export const MOVIE_DETAILS_NAME = 'movieDetailsName';
+export const MOVIE_DETAILS_DESCRIPTION = 'movieDetailsDescription';
+export const MOVIE_DETAILS_RATING = 'movieDetailsRating';
+export const MOVIE_DETAILS_IMAGE = 'movieDetailsImage';
+
+export const MENU_CONTEXT_CONTAINER = 'menuContextContainer';
+export const MOVIE_SELECTED_SORT_OPTION = 'movieSelectedSortOption';
 export const MOVIE_SORT_CONTROL = 'movieSortControl';
 export const MOVIE_TILE = 'movieTile';
 export const MOVIE_TILE_IMAGE = 'movieTileImage';

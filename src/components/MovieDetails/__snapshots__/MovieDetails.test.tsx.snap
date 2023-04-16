@@ -7,6 +7,7 @@ exports[`renders correctly 1`] = `
   <img
     alt="React"
     className="poster"
+    data-testid="movieDetailsImage"
     src="logo192.png"
   />
   <div>
@@ -15,11 +16,13 @@ exports[`renders correctly 1`] = `
     >
       <h1
         className="title title"
+        data-testid="movieDetailsName"
       >
         React
       </h1>
       <h3
         className="rating rating"
+        data-testid="movieDetailsRating"
       >
         8.9
       </h3>
@@ -45,6 +48,7 @@ exports[`renders correctly 1`] = `
     </div>
     <p
       className="description description"
+      data-testid="movieDetailsDescription"
     >
       Whether you work on your own or with thousands of other developers, using React feels the same. It is designed to let you seamlessly combine components written by independent people, teams, and organizations.
     </p>

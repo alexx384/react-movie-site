@@ -1,7 +1,10 @@
 import styles from './SortControl.module.css';
 import React from 'react';
 import { MenuContextContainer } from '../MenuContextContainer';
-import { MOVIE_SORT_CONTROL } from '../../constants/tests.constants';
+import {
+  MOVIE_SELECTED_SORT_OPTION,
+  MOVIE_SORT_CONTROL,
+} from '../../constants/tests.constants';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 import {
@@ -55,6 +58,7 @@ export const SortControl = ({ options, selectedOption, onSelect }: Props) => {
           fontStyles['filter-item'],
           styles['selected-option']
         )}
+        data-testid={MOVIE_SELECTED_SORT_OPTION}
       >
         {menuContext.selectedOption}
       </button>
