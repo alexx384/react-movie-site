@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './MenuContextContainer.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
+import { MENU_CONTEXT_CONTAINER } from '../../constants/tests.constants';
 
 type Props = {
   menuItems: string[];
@@ -31,7 +32,11 @@ export const MenuContextContainer = ({
     onChange?.(itemName);
   }
   return (
-    <div ref={boxRef} className={styles.block}>
+    <div
+      ref={boxRef}
+      className={styles.block}
+      data-testid={MENU_CONTEXT_CONTAINER}
+    >
       <ul className={styles.list}>
         {menuItems.map((itemName) => (
           <li

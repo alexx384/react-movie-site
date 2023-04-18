@@ -6,12 +6,7 @@ import {
   GENRE_ITEM_SELECTED,
   GENRE_ITEM_UNSELECTED,
 } from '../../constants/tests.constants';
-
-type Tuple<
-  T,
-  N extends number,
-  R extends readonly T[] = []
-> = R['length'] extends N ? R : Tuple<T, N, readonly [T, ...R]>;
+import { Tuple } from '../../utils';
 
 const listOfGenres: Tuple<string, 6> = [
   'ALL',

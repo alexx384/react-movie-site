@@ -1,17 +1,21 @@
-import { secondsToHoursAndMinutesString } from '../../utils/string';
 import styles from './MovieDetails.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
+import { MovieBasicInfo } from '../MovieTile';
+import { minutesToHoursAndMinutesString } from '../../utils/string.utils';
+import {
+  MOVIE_DETAILS_DESCRIPTION,
+  MOVIE_DETAILS_IMAGE,
+  MOVIE_DETAILS_NAME,
+  MOVIE_DETAILS_RATING,
+} from '../../constants/tests.constants';
 
-type Props = {
-  imageUrl: string;
-  movieName: string;
-  releaseYear: number;
+export interface MovieDetailsInfo extends MovieBasicInfo {
   rating: number;
   genre: string;
-  durationInSeconds: number;
+  durationInMinutes: number;
   description: string;
-};
+}
 
 export const MovieDetails = ({
   imageUrl,
@@ -19,18 +23,29 @@ export const MovieDetails = ({
   releaseYear,
   rating,
   genre,
-  durationInSeconds,
+  durationInMinutes,
   description,
-}: Props) => {
+}: MovieDetailsInfo) => {
   return (
     <div className={styles.block}>
-      <img className={styles.poster} src={imageUrl} alt={movieName} />
+      <img
+        className={styles.poster}
+        src={imageUrl}
+        alt={movieName}
+        data-testid={MOVIE_DETAILS_IMAGE}
+      />
       <div>
         <div className={styles['title-and-rating']}>
-          <h1 className={classNames(fontStyles.title, styles.title)}>
+          <h1
+            className={classNames(fontStyles.title, styles.title)}
+            data-testid={MOVIE_DETAILS_NAME}
+          >
             {movieName}
           </h1>
-          <h3 className={classNames(fontStyles.rating, styles.rating)}>
+          <h3
+            className={classNames(fontStyles.rating, styles.rating)}
+            data-testid={MOVIE_DETAILS_RATING}
+          >
             {rating}
           </h3>
         </div>
@@ -42,10 +57,13 @@ export const MovieDetails = ({
             {releaseYear}
           </h2>
           <h2 className={classNames(fontStyles['key-detail'], styles.timing)}>
-            {secondsToHoursAndMinutesString(durationInSeconds)}
+            {minutesToHoursAndMinutesString(durationInMinutes)}
           </h2>
         </div>
-        <p className={classNames(fontStyles.description, styles.description)}>
+        <p
+          className={classNames(fontStyles.description, styles.description)}
+          data-testid={MOVIE_DETAILS_DESCRIPTION}
+        >
           {description}
         </p>
       </div>

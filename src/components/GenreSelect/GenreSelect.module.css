@@ -1,7 +1,5 @@
-.genreSelect {
-  margin: 6vh 3vw 6vh 3vw;
-}
-
 .genreSelect ul {
+  margin: 0;
   background-color: #232323;
+  padding: 0;
 }

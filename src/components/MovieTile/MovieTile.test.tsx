@@ -15,11 +15,13 @@ const GENRE = 'Adventure & Comedy';
 it('renders an imageUrl, movieName, releaseYear, genres with the values equal to initial value passed in props', () => {
   render(
     <MovieTile
-      id={MOVIE_ID}
-      imageUrl={IMAGE_URL}
-      movieName={MOVIE_NAME}
-      releaseYear={RELEASE_YEAR}
-      genre={GENRE}
+      info={{
+        id: MOVIE_ID,
+        imageUrl: IMAGE_URL,
+        movieName: MOVIE_NAME,
+        releaseYear: RELEASE_YEAR,
+        genre: GENRE,
+      }}
     />
   );
 
@@ -46,11 +48,13 @@ it('invokes an onClick with movie name on movie tile click', async () => {
   const handleClick = jest.fn();
   render(
     <MovieTile
-      id={MOVIE_ID}
-      imageUrl={IMAGE_URL}
-      movieName={MOVIE_NAME}
-      releaseYear={RELEASE_YEAR}
-      genre={GENRE}
+      info={{
+        id: MOVIE_ID,
+        imageUrl: IMAGE_URL,
+        movieName: MOVIE_NAME,
+        releaseYear: RELEASE_YEAR,
+        genre: GENRE,
+      }}
       onClick={handleClick}
     />
   );
@@ -65,11 +69,13 @@ it('invokes an onClick with movie name on movie tile click', async () => {
 it('renders with menu context', () => {
   render(
     <MovieTile
-      id={MOVIE_ID}
-      imageUrl={IMAGE_URL}
-      movieName={MOVIE_NAME}
-      releaseYear={RELEASE_YEAR}
-      genre={GENRE}
+      info={{
+        id: MOVIE_ID,
+        imageUrl: IMAGE_URL,
+        movieName: MOVIE_NAME,
+        releaseYear: RELEASE_YEAR,
+        genre: GENRE,
+      }}
     />
   );
 

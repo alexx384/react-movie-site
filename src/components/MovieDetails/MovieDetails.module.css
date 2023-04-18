@@ -1,6 +1,7 @@
 .block {
   display: flex;
   margin: 0;
+  text-align: left;
 }
 
 .poster {
