@@ -24,7 +24,7 @@ export const MovieListHeader = ({
         [styles['heading-with-background']]: !movieDetails,
       })}
     >
-      {movieDetails && (
+      {movieDetails ? (
         <>
           <div className={styles.controls}>
             <button
@@ -40,8 +40,7 @@ export const MovieListHeader = ({
           </div>
           <MovieDetails {...movieDetails} />
         </>
-      )}
-      {!movieDetails && (
+      ) : (
         <SearchForm initialSearchQuery={searchQuery} onSearch={onSearch} />
       )}
     </div>

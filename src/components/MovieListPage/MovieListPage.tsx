@@ -2,11 +2,8 @@ import React from 'react';
 import styles from './MovieListPage.module.css';
 import { SortControl } from '../SortControl';
 import { GenreSelect } from '../GenreSelect';
-import { MovieDetailsInfo } from '../MovieDetails';
 import { MovieListResult } from './MovieListResult';
 import { MovieListHeader } from './MovieListHeader';
-import { arrayToString } from '../../utils/string.utils';
-import { customFetch } from '../../utils/request.utils';
 import {
   DEFAULT_QUERY_LIMIT,
   DEFAULT_SEARCH_BY_FIELD,
@@ -21,76 +18,21 @@ import {
   SORT_OPTIONS,
 } from '../../constants/movieListPage.constants';
 import { QUERY_GENRE_FILTER_PARAM } from '../../constants/movieListPage.constants';
-
-export type MovieData = {
-  id: string;
-  title: string;
-  tagline: string;
-  vote_average: number;
-  vote_count: number;
-  release_date: string;
-  poster_path: string;
-  overview: string;
-  budget: number;
-  revenue: number;
-  genres: string[];
-  runtime: number;
-};
-
-export type MovieDataResponse = {
-  totalAmount: number;
-  data: MovieData[];
-};
-
-const useMovieData = <R,>(
-  url: string,
-  queryParams: { [key: string]: string }
-): R | null => {
-  const [data, setData] = React.useState<R | null>(null);
-  React.useEffect(() => {
-    const startFetching = async (urlData: URL, key: string) => {
-      try {
-        const response = await customFetch(urlData, {
-          headers: { accept: 'application/json' },
-          signalKey: key,
-        });
-        if (response.status < 200 && 299 > response.status) {
-          return;
-        }
-        const data = await response.json();
-        setData(data);
-      } catch (error) {}
-    };
-
-    const urlData = new URL(url);
-    Object.entries(queryParams).forEach((entry) =>
-      urlData.searchParams.append(entry[0], entry[1])
-    );
-    startFetching(urlData, url);
-    return () => {};
-  }, [url, queryParams]);
-  return data;
-};
-
-const mapMovieDataToMovieDetailsInfo = (
-  movieData: MovieData
-): MovieDetailsInfo => ({
-  id: movieData.id,
-  imageUrl: movieData.poster_path,
-  movieName: movieData.title,
-  releaseYear: new Date(movieData.release_date).getFullYear(),
-  genre: arrayToString(movieData.genres),
-  description: movieData.overview,
-  durationInMinutes: movieData.runtime,
-  rating: movieData.vote_average,
-});
+import {
+  useMovieData,
+  mapMovieDataToMovieDetailsInfo,
+} from './MovieListPage.utils';
+import {
+  MovieDataResponse,
+  MovieListFilterSettings,
+} from './MovieListPage.types';
 
 export const MovieListPage = () => {
   const [selectedMovieId, setSelectedMovieId] = React.useState('');
   const [genreFilter, setGenreFilter] = React.useState(MOVIE_GENRES[0]);
   const [sortBy, setSortBy] = React.useState(DEFAULT_SORT_OPTION_KEY);
   const [searchQuery, setSearchQuery] = React.useState(DEFAULT_SEARCH_QUERY);
-  const queryFilter = React.useMemo(
+  const queryFilter: MovieListFilterSettings = React.useMemo(
     () => ({
       [QUERY_GENRE_FILTER_PARAM]: genreFilter !== 'All' ? genreFilter : '',
       [QUERY_LIMIT_PARAM]: DEFAULT_QUERY_LIMIT,
@@ -105,14 +47,22 @@ export const MovieListPage = () => {
     queryFilter
   );
 
-  const movieData: MovieDataResponse = movieDataNullableResponse ?? {
-    totalAmount: 0,
-    data: [],
-  };
-  const movieDetailsMap = movieData.data
-    .map(mapMovieDataToMovieDetailsInfo)
-    .reduce((map, current) => map.set(current.id, current), new Map());
-  const selectedMovie = movieDetailsMap.get(selectedMovieId);
+  const movieData: MovieDataResponse = React.useMemo(
+    () =>
+      movieDataNullableResponse ?? {
+        totalAmount: 0,
+        data: [],
+      },
+    [movieDataNullableResponse]
+  );
+  const movieDetailsArray = React.useMemo(
+    () => movieData.data.map(mapMovieDataToMovieDetailsInfo),
+    [movieData]
+  );
+  const selectedMovie = React.useMemo(
+    () => movieDetailsArray.find((data) => data.id === selectedMovieId),
+    [movieDetailsArray, selectedMovieId]
+  );
 
   const handleShowSearchForm = () => {
     setSelectedMovieId('');
@@ -141,7 +91,7 @@ export const MovieListPage = () => {
           />
         </div>
         <MovieListResult
-          movieList={[...movieDetailsMap.values()]}
+          movieList={movieDetailsArray}
           totalMovieNumber={String(movieData.totalAmount)}
           onMovieClick={setSelectedMovieId}
         />
