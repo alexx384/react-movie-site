@@ -27,7 +27,13 @@ export const DEFAULT_SEARCH_QUERY = '';
 export const DEFAULT_QUERY_LIMIT = '6';
 export const DEFAULT_SEARCH_BY_FIELD = 'title';
 
-export const REQUEST_HOSTNAME: string = 'localhost';
-export const REQUEST_PORT: number = 4000;
-export const REQUEST_SCHEMA: string = 'http';
-export const REQUEST_URI = `${REQUEST_SCHEMA}://${REQUEST_HOSTNAME}:${REQUEST_PORT}`;
+export const REQUEST_HOSTNAME: string = process.env[
+  'REACT_APP_MOVIE_BACKEND_HOSTNAME'
+] as string;
+export const REQUEST_PORT: string = process.env[
+  'REACT_APP_MOVIE_BACKEND_PORT'
+] as string;
+export const REQUEST_PROTOCOL: string = process.env[
+  'REACT_APP_MOVIE_BACKEND_PROTOCOL'
+] as string;
+export const REQUEST_URI = `${REQUEST_PROTOCOL}://${REQUEST_HOSTNAME}:${REQUEST_PORT}`;

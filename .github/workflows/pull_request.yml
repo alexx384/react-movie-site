@@ -16,3 +16,7 @@ jobs:
       - run: npm ci
       - run: npm run test
       - run: npm run build
+        env:
+          MOVIE_BACKEND_HOSTNAME: ${{ env.MOVIE_BACKEND_HOSTNAME }}
+          MOVIE_BACKEND_PORT: ${{ env.MOVIE_BACKEND_PORT }}
+          MOVIE_BACKEND_PROTOCOL: ${{ env.MOVIE_BACKEND_PROTOCOL }}
