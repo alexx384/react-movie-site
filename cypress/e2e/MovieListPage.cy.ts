@@ -12,7 +12,6 @@ import {
 } from '../../src/constants/tests.constants';
 import {
   DEFAULT_SORT_OPTION_KEY,
-  REQUEST_URI,
   SORT_OPTIONS,
 } from '../../src/constants/movieListPage.constants';
 import {
@@ -26,7 +25,7 @@ import {
 
 describe('Movie search', () => {
   beforeEach(() => {
-    cy.intercept('GET', `${REQUEST_URI}/movies*`, {
+    cy.intercept('GET', `${Cypress.env('REQUEST_URI')}/movies*`, {
       fixture: 'movieResponse.json',
     }).as('movieResponse');
     cy.intercept('GET', '/test/media/how_to_train_your_dragon_2.jpg', {
@@ -55,7 +54,7 @@ describe('Movie search', () => {
     cy.intercept(
       {
         method: 'GET',
-        url: `${REQUEST_URI}/movies*`,
+        url: `${Cypress.env('REQUEST_URI')}/movies*`,
         query: {
           search: userRequest,
         },
@@ -76,7 +75,7 @@ describe('Movie search', () => {
     cy.intercept(
       {
         method: 'GET',
-        url: `${REQUEST_URI}/movies*`,
+        url: `${Cypress.env('REQUEST_URI')}/movies*`,
         query: {
           filter: dramaGenre,
         },
@@ -111,7 +110,7 @@ describe('Movie search', () => {
     cy.intercept(
       {
         method: 'GET',
-        url: `${REQUEST_URI}/movies*`,
+        url: `${Cypress.env('REQUEST_URI')}/movies*`,
         query: {
           sortBy: unselectedSortOptionSetting,
         },
