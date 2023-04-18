@@ -20,7 +20,7 @@ export const MovieListResult = ({
         <b>{totalMovieNumber}</b> movies found
       </h3>
       <ul className={styles['movie-list']}>
-        {movieList.slice(0, 6).map((movieInfo) => (
+        {movieList.map((movieInfo) => (
           <li key={movieInfo.id}>
             <MovieTile info={movieInfo} onClick={onMovieClick} />
           </li>

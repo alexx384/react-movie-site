@@ -1,6 +1,5 @@
 import {
   QUERY_GENRE_FILTER_PARAM,
-  QUERY_LIMIT_PARAM,
   QUERY_SEARCH,
   QUERY_SEARCH_BY,
   QUERY_SORT_BY,
@@ -28,7 +27,6 @@ export type MovieDataResponse = {
 
 export type MovieListFilterSettings = {
   [QUERY_GENRE_FILTER_PARAM]: string;
-  [QUERY_LIMIT_PARAM]: string;
   [QUERY_SORT_BY]: string;
   [QUERY_SEARCH]: string;
   [QUERY_SEARCH_BY]: string;

@@ -5,12 +5,10 @@ import { GenreSelect } from '../GenreSelect';
 import { MovieListResult } from './MovieListResult';
 import { MovieListHeader } from './MovieListHeader';
 import {
-  DEFAULT_QUERY_LIMIT,
   DEFAULT_SEARCH_BY_FIELD,
   DEFAULT_SEARCH_QUERY,
   DEFAULT_SORT_OPTION_KEY,
   MOVIE_GENRES,
-  QUERY_LIMIT_PARAM,
   QUERY_SEARCH,
   QUERY_SEARCH_BY,
   QUERY_SORT_BY,
@@ -35,7 +33,6 @@ export const MovieListPage = () => {
   const queryFilter: MovieListFilterSettings = React.useMemo(
     () => ({
       [QUERY_GENRE_FILTER_PARAM]: genreFilter !== 'All' ? genreFilter : '',
-      [QUERY_LIMIT_PARAM]: DEFAULT_QUERY_LIMIT,
       [QUERY_SORT_BY]: SORT_OPTIONS[sortBy] ?? '',
       [QUERY_SEARCH]: searchQuery,
       [QUERY_SEARCH_BY]: DEFAULT_SEARCH_BY_FIELD,
@@ -47,18 +44,16 @@ export const MovieListPage = () => {
     queryFilter
   );
 
-  const movieData: MovieDataResponse = React.useMemo(
-    () =>
-      movieDataNullableResponse ?? {
-        totalAmount: 0,
-        data: [],
-      },
-    [movieDataNullableResponse]
-  );
-  const movieDetailsArray = React.useMemo(
-    () => movieData.data.map(mapMovieDataToMovieDetailsInfo),
-    [movieData]
-  );
+  const [totalMovieNumber, movieDetailsArray] = React.useMemo(() => {
+    const movieData: MovieDataResponse = movieDataNullableResponse ?? {
+      totalAmount: 0,
+      data: [],
+    };
+    const movieDetailsArray = movieData.data.map(
+      mapMovieDataToMovieDetailsInfo
+    );
+    return [movieData.totalAmount, movieDetailsArray];
+  }, [movieDataNullableResponse]);
   const selectedMovie = React.useMemo(
     () => movieDetailsArray.find((data) => data.id === selectedMovieId),
     [movieDetailsArray, selectedMovieId]
@@ -92,7 +87,7 @@ export const MovieListPage = () => {
         </div>
         <MovieListResult
           movieList={movieDetailsArray}
-          totalMovieNumber={String(movieData.totalAmount)}
+          totalMovieNumber={String(totalMovieNumber)}
           onMovieClick={setSelectedMovieId}
         />
       </div>
