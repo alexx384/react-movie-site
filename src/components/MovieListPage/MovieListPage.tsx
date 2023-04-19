@@ -5,40 +5,39 @@ import { GenreSelect } from '../GenreSelect';
 import { MovieListResult } from './MovieListResult';
 import { MovieListHeader } from './MovieListHeader';
 import {
-  DEFAULT_SEARCH_BY_FIELD,
-  DEFAULT_SEARCH_QUERY,
-  DEFAULT_SORT_OPTION_KEY,
   MOVIE_GENRES,
-  QUERY_SEARCH,
-  QUERY_SEARCH_BY,
-  QUERY_SORT_BY,
   REQUEST_URI,
   SORT_OPTIONS,
 } from '../../constants/movieListPage.constants';
-import { QUERY_GENRE_FILTER_PARAM } from '../../constants/movieListPage.constants';
 import {
   useMovieData,
   mapMovieDataToMovieDetailsInfo,
+  getDefaultSearchParams,
+  getGenreFilterFromUrlSearchParam,
+  getSortByFromUrlSearchParams,
+  getSearchQueryFromUrlSearchParams,
+  useMovieRequestParams,
+  setGenreFilterToUrlSearchParams,
+  setSearchQueryToUrlSearchParams,
+  setSortByToUrlSearchParams,
 } from './MovieListPage.utils';
 import {
   MovieDataResponse,
   MovieListFilterSettings,
 } from './MovieListPage.types';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 export const MovieListPage = () => {
-  const [selectedMovieId, setSelectedMovieId] = React.useState('');
-  const [genreFilter, setGenreFilter] = React.useState(MOVIE_GENRES[0]);
-  const [sortBy, setSortBy] = React.useState(DEFAULT_SORT_OPTION_KEY);
-  const [searchQuery, setSearchQuery] = React.useState(DEFAULT_SEARCH_QUERY);
-  const queryFilter: MovieListFilterSettings = React.useMemo(
-    () => ({
-      [QUERY_GENRE_FILTER_PARAM]: genreFilter !== 'All' ? genreFilter : '',
-      [QUERY_SORT_BY]: SORT_OPTIONS[sortBy] ?? '',
-      [QUERY_SEARCH]: searchQuery,
-      [QUERY_SEARCH_BY]: DEFAULT_SEARCH_BY_FIELD,
-    }),
-    [genreFilter, sortBy, searchQuery]
+  const [searchParams, setSearchParams] = useSearchParams(
+    getDefaultSearchParams()
   );
+  const genreFilter = getGenreFilterFromUrlSearchParam(searchParams);
+  const sortBy = getSortByFromUrlSearchParams(searchParams);
+  const searchQuery = getSearchQueryFromUrlSearchParams(searchParams);
+
+  const [selectedMovieId, setSelectedMovieId] = React.useState('');
+  const queryFilter: MovieListFilterSettings =
+    useMovieRequestParams(searchParams);
   const movieDataNullableResponse = useMovieData<MovieDataResponse>(
     `${REQUEST_URI}/movies`,
     queryFilter
@@ -59,6 +58,19 @@ export const MovieListPage = () => {
     [movieDetailsArray, selectedMovieId]
   );
 
+  const handleSelectSortOption = (sortByOption: string) => {
+    setSearchParams((prev) => setSortByToUrlSearchParams(prev, sortByOption));
+  };
+  const handleSearchMovie = (movieQuery: string) => {
+    setSearchParams((prev) =>
+      setSearchQueryToUrlSearchParams(prev, movieQuery)
+    );
+  };
+  const handleGenreFilter = (genreFilter: string) => {
+    setSearchParams((prev) =>
+      setGenreFilterToUrlSearchParams(prev, genreFilter)
+    );
+  };
   const handleShowSearchForm = () => {
     setSelectedMovieId('');
   };
@@ -67,7 +79,7 @@ export const MovieListPage = () => {
       <MovieListHeader
         searchQuery={searchQuery}
         movieDetails={selectedMovie}
-        onSearch={setSearchQuery}
+        onSearch={handleSearchMovie}
         onShowSearchForm={handleShowSearchForm}
       />
       <div className={styles['header-body-separator']}></div>
@@ -76,20 +88,22 @@ export const MovieListPage = () => {
           <GenreSelect
             listOfGenres={[...MOVIE_GENRES]}
             initiallySelectedGenreName={genreFilter}
-            onSelectGenre={setGenreFilter}
+            onSelectGenre={handleGenreFilter}
           />
           <SortControl
             options={Object.keys(SORT_OPTIONS)}
             selectedOption={sortBy}
-            onSelect={setSortBy}
+            onSelect={handleSelectSortOption}
             key={sortBy}
           />
         </div>
-        <MovieListResult
-          movieList={movieDetailsArray}
-          totalMovieNumber={String(totalMovieNumber)}
-          onMovieClick={setSelectedMovieId}
-        />
+        <div className={styles['movie-list-result']}>
+          <MovieListResult
+            movieList={movieDetailsArray}
+            totalMovieNumber={String(totalMovieNumber)}
+            onMovieClick={setSelectedMovieId}
+          />
+        </div>
       </div>
     </>
   );

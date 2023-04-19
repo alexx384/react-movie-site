@@ -8,6 +8,7 @@ export const MOVIE_GENRES: Tuple<string, 6> = [
   'Horror',
   'Crime',
 ];
+export const DEFAULT_MOVIE_GENRE: string = MOVIE_GENRES[0];
 
 export const SORT_OPTION_ENTRIES: Tuple<Tuple<string, 2>, 2> = [
   ['RELEASE DATE', 'release_date'],
