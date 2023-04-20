@@ -17,7 +17,7 @@ import { URLSearchParamsInit } from 'react-router-dom';
 export const mapMovieDataToMovieDetailsInfo = (
   movieData: MovieData
 ): MovieDetailsInfo => ({
-  id: movieData.id,
+  id: String(movieData.id),
   imageUrl: movieData.poster_path,
   movieName: movieData.title,
   releaseYear: new Date(movieData.release_date).getFullYear(),

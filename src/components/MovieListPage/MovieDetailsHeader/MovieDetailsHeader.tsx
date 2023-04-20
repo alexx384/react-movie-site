@@ -13,7 +13,7 @@ export const MovieDetailsHeader = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const movieData = movieDataNullableResponse ?? {
-    id: '',
+    id: 0,
     title: '',
     tagline: '',
     vote_average: 0,

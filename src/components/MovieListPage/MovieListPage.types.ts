@@ -6,7 +6,7 @@ import {
 } from '../../constants/movieListPage.constants';
 
 export type MovieData = {
-  id: string;
+  id: number;
   title: string;
   tagline: string;
   vote_average: number;
