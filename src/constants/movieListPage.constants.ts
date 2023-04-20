@@ -25,14 +25,3 @@ export const QUERY_SEARCH_BY = 'searchBy';
 
 export const DEFAULT_SEARCH_QUERY = '';
 export const DEFAULT_SEARCH_BY_FIELD = 'title';
-
-export const REQUEST_HOSTNAME: string = process.env[
-  'REACT_APP_MOVIE_BACKEND_HOSTNAME'
-] as string;
-export const REQUEST_PORT: string = process.env[
-  'REACT_APP_MOVIE_BACKEND_PORT'
-] as string;
-export const REQUEST_PROTOCOL: string = process.env[
-  'REACT_APP_MOVIE_BACKEND_PROTOCOL'
-] as string;
-export const REQUEST_URI = `${REQUEST_PROTOCOL}://${REQUEST_HOSTNAME}:${REQUEST_PORT}`;

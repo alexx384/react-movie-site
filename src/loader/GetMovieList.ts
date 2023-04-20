@@ -1,0 +1,23 @@
+import { LoaderFunctionArgs } from 'react-router-dom';
+import { MovieDataResponse } from '../components/MovieListPage';
+import { mapSearchQueryParamsToMoviesRequestParams } from '../components/MovieListPage/MovieListPage.utils';
+import { REQUEST_URI } from '../constants/loader.constants';
+
+export type GetMovieListResponse = null | MovieDataResponse;
+
+export const getMovieList = async ({ request }: LoaderFunctionArgs) => {
+  const searchParams = new URL(request.url).searchParams;
+  const queryParams = mapSearchQueryParamsToMoviesRequestParams(searchParams);
+  const newUrl = new URL(`${REQUEST_URI}/movies`);
+  Object.entries(queryParams).forEach((entry) =>
+    newUrl.searchParams.append(entry[0], entry[1])
+  );
+  const response = await fetch(newUrl, {
+    headers: { accept: 'application/json' },
+    signal: request.signal,
+  });
+  if (response.status < 200 && 299 > response.status) {
+    return null;
+  }
+  return (await response.json()) as MovieDataResponse;
+};

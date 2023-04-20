@@ -25,12 +25,6 @@ export type MovieDataResponse = {
   data: MovieData[];
 };
 
-export type MovieListSearchParams = {
-  [QUERY_GENRE_FILTER_PARAM]: string;
-  [QUERY_SORT_BY]: string;
-  [QUERY_SEARCH]: string;
-};
-
 export type MovieListFilterSettings = {
   [QUERY_GENRE_FILTER_PARAM]: string;
   [QUERY_SORT_BY]: string;
