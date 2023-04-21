@@ -13,8 +13,10 @@ import {
   getSortByFromUrlSearchParams,
   setGenreFilterToUrlSearchParams,
   setSortByToUrlSearchParams,
+  getSearchQueryFromUrlSearchParams,
+  setSearchQueryToUrlSearchParams,
 } from './MovieListPage.utils';
-import { MovieDataResponse } from './MovieListPage.types';
+import { MovieListPageContext, MovieDataResponse } from './MovieListPage.types';
 import {
   Outlet,
   useLoaderData,
@@ -27,6 +29,7 @@ export const MovieListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const genreFilter = getGenreFilterFromUrlSearchParam(searchParams);
   const sortBy = getSortByFromUrlSearchParams(searchParams);
+  const searchQuery = getSearchQueryFromUrlSearchParams(searchParams);
   const movieDataNullableResponse = useLoaderData() as GetMovieListResponse;
   const [totalMovieNumber, movieDetailsArray] = React.useMemo(() => {
     const movieData: MovieDataResponse = movieDataNullableResponse ?? {
@@ -51,9 +54,22 @@ export const MovieListPage = () => {
   const handleMovieListResultClick = (movieId: string) => {
     navigate(`/${movieId}?${searchParams}`);
   };
+  const handleOpenSearchForm = () => {
+    navigate(`/?${searchParams}`);
+  };
+  const handleSendSearchQuery = (searchQuery: string) => {
+    setSearchParams((prev) =>
+      setSearchQueryToUrlSearchParams(prev, searchQuery)
+    );
+  };
+  const outletContext: MovieListPageContext = {
+    initialSearchQuery: searchQuery,
+    onOpenSearchForm: handleOpenSearchForm,
+    onSendSearchQuery: handleSendSearchQuery,
+  };
   return (
     <>
-      <Outlet />
+      <Outlet context={outletContext} />
       <div className={styles['header-body-separator']}></div>
       <div className={styles.body}>
         <div className={styles['search-settings']}>

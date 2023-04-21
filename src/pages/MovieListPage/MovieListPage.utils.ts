@@ -1,5 +1,11 @@
 import { arrayToString } from '../../utils/string.utils';
-import { MovieData, MovieListFilterSettings } from '.';
+import {
+  MovieData,
+  MovieDetailsContext,
+  MovieListFilterSettings,
+  MovieListPageContext,
+  SearchFormContext,
+} from '.';
 import { MovieDetailsInfo } from '../../components/MovieDetails';
 import {
   DEFAULT_MOVIE_GENRE,
@@ -12,7 +18,7 @@ import {
   QUERY_SORT_BY,
   SORT_OPTIONS,
 } from '../../constants/movieListPage.constants';
-import { URLSearchParamsInit } from 'react-router-dom';
+import { URLSearchParamsInit, useOutletContext } from 'react-router-dom';
 
 export const mapMovieDataToMovieDetailsInfo = (
   movieData: MovieData
@@ -85,3 +91,11 @@ export const setSearchQueryToUrlSearchParams = (
   ...Object.fromEntries(urlSearchParams.entries()),
   [QUERY_SEARCH]: movieQuery,
 });
+
+export const useSearchFormContext = (): SearchFormContext => {
+  return useOutletContext<MovieListPageContext>();
+};
+
+export const useMovieDetailsContext = (): MovieDetailsContext => {
+  return useOutletContext<MovieListPageContext>();
+};

@@ -2,17 +2,12 @@ import styles from './SearchFormHeader.module.css';
 import headerStyles from '../MovieListHeader.module.css';
 import classNames from 'classnames';
 import { SearchForm } from '../../../components/SearchForm';
-import { useSearchParams } from 'react-router-dom';
-import {
-  getSearchQueryFromUrlSearchParams,
-  setSearchQueryToUrlSearchParams,
-} from '../MovieListPage.utils';
+import { useSearchFormContext } from '../MovieListPage.utils';
 
 export const SearchFormHeader = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = getSearchQueryFromUrlSearchParams(searchParams);
+  const { initialSearchQuery, onSendSearchQuery } = useSearchFormContext();
   const handleSearch = (query: string) => {
-    setSearchParams((prev) => setSearchQueryToUrlSearchParams(prev, query));
+    onSendSearchQuery(query);
   };
   return (
     <div
@@ -21,7 +16,10 @@ export const SearchFormHeader = () => {
         styles['header-with-background']
       )}
     >
-      <SearchForm initialSearchQuery={searchQuery} onSearch={handleSearch} />
+      <SearchForm
+        initialSearchQuery={initialSearchQuery}
+        onSearch={handleSearch}
+      />
     </div>
   );
 };
