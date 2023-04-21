@@ -196,7 +196,7 @@ describe('Movie search', () => {
         cy.location().should(
           'have.property',
           'pathname',
-          `/:${firstMovieResponse.id}`
+          `/${firstMovieResponse.id}`
         );
       }
     );
@@ -253,7 +253,7 @@ describe('Movie search', () => {
       [QUERY_SORT_BY]: sortBy,
     });
 
-    cy.visit(`/:${movieId}?${queryParams}`);
+    cy.visit(`/${movieId}?${queryParams}`);
 
     cy.get(`[data-testid="${GENRE_ITEM_SELECTED}"]`).should(
       'have.text',
