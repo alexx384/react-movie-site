@@ -12,7 +12,7 @@ export const getMovieById = async ({ params, request }: LoaderFunctionArgs) => {
     headers: { accept: 'application/json' },
     signal: request.signal,
   });
-  if (response.status < 200 && 299 > response.status) {
+  if (!response.ok) {
     return null;
   }
   return (await response.json()) as MovieData;

@@ -16,7 +16,7 @@ export const getMovieList = async ({ request }: LoaderFunctionArgs) => {
     headers: { accept: 'application/json' },
     signal: request.signal,
   });
-  if (response.status < 200 && 299 > response.status) {
+  if (!response.ok) {
     return null;
   }
   return (await response.json()) as MovieDataResponse;
