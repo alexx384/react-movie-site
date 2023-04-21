@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { MovieListPage } from '.';
 
 export default {
-  title: 'Stories/MovieListPage',
+  title: 'Pages/MovieListPage',
   component: MovieListPage,
   parameters: {
     layout: 'fullscreen',

@@ -5,21 +5,21 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import './App.module.css';
-import { MovieListPage } from './components/MovieListPage';
-import { MovieDetailsHeader } from './components/MovieListPage/MovieDetailsHeader';
-import { SearchFormHeader } from './components/MovieListPage/SearchFormHeader';
+import { MovieListPage } from './pages/MovieListPage';
+import { MovieDetailsHeader } from './pages/MovieListPage/MovieDetailsHeader';
+import { SearchFormHeader } from './pages/MovieListPage/SearchFormHeader';
 import { ROOT_MOVIE_ID } from './constants/router.constants';
-import { getMovieById } from './loader/GetMovieById';
-import { getMovieList } from './loader/GetMovieList';
+import { getMovieByIdLoader } from './loaders/GetMovieByIdLoader';
+import { getMovieListLoader } from './loaders/GetMovieListLoader';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<MovieListPage />} loader={getMovieList}>
+    <Route path="/" element={<MovieListPage />} loader={getMovieListLoader}>
       <Route index element={<SearchFormHeader />} />
       <Route
         path={`:${ROOT_MOVIE_ID}`}
         element={<MovieDetailsHeader />}
-        loader={getMovieById}
+        loader={getMovieByIdLoader}
       />
     </Route>
   )

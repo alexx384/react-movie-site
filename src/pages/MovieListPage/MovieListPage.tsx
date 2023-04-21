@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './MovieListPage.module.css';
-import { SortControl } from '../SortControl';
-import { GenreSelect } from '../GenreSelect';
+import { SortControl } from '../../components/SortControl';
+import { GenreSelect } from '../../components/GenreSelect';
 import { MovieListResult } from './MovieListResult';
 import {
   MOVIE_GENRES,
@@ -21,7 +21,7 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { GetMovieListResponse } from '../../loader/GetMovieList';
+import { GetMovieListResponse } from '../../loaders/GetMovieListLoader';
 
 export const MovieListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,7 +49,7 @@ export const MovieListPage = () => {
     );
   };
   const handleMovieListResultClick = (movieId: string) => {
-    navigate(`/:${movieId}?${searchParams}`);
+    navigate(`/${movieId}?${searchParams}`);
   };
   return (
     <>

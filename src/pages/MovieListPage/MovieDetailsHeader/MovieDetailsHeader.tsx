@@ -1,9 +1,9 @@
 import styles from './MovieDetailsHeader.module.css';
 import headerStyles from '../MovieListHeader.module.css';
 import classNames from 'classnames';
-import { MovieDetails } from '../../MovieDetails';
+import { MovieDetails } from '../../../components/MovieDetails';
 import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
-import { GetMovieByIdResponse } from '../../../loader/GetMovieById';
+import { GetMovieByIdResponse } from '../../../loaders/GetMovieByIdLoader';
 import imageNotFound from '../../../assets/imageNotFound.png';
 import { mapMovieDataToMovieDetailsInfo } from '../MovieListPage.utils';
 import { MOVIE_HEADER_SEARCH_ICON } from '../../../constants/tests.constants';

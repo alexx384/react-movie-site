@@ -21,10 +21,7 @@ import {
   GENRE_ITEM_SELECTED,
   GENRE_ITEM_UNSELECTED,
 } from '../../src/constants/tests.constants';
-import {
-  MovieData,
-  MovieDataResponse,
-} from '../../src/components/MovieListPage';
+import { MovieData, MovieDataResponse } from '../../src/pages/MovieListPage';
 import { createSearchParams } from 'react-router-dom';
 
 describe('Movie search', () => {

@@ -1,7 +1,7 @@
 import styles from './SearchFormHeader.module.css';
 import headerStyles from '../MovieListHeader.module.css';
 import classNames from 'classnames';
-import { SearchForm } from '../../SearchForm';
+import { SearchForm } from '../../../components/SearchForm';
 import { useSearchParams } from 'react-router-dom';
 import {
   getSearchQueryFromUrlSearchParams,

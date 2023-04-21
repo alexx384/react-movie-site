@@ -1,6 +1,6 @@
 import { arrayToString } from '../../utils/string.utils';
 import { MovieData, MovieListFilterSettings } from '.';
-import { MovieDetailsInfo } from '../MovieDetails';
+import { MovieDetailsInfo } from '../../components/MovieDetails';
 import {
   DEFAULT_MOVIE_GENRE,
   DEFAULT_SEARCH_BY_FIELD,
