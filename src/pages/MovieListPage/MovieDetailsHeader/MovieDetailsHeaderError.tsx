@@ -1,20 +1,29 @@
 import styles from './MovieDetailsHeader.module.css';
 import headerStyles from '../MovieListHeader.module.css';
 import classNames from 'classnames';
-import { MovieDetails } from '../../../components/MovieDetails';
-import { useLoaderData } from 'react-router-dom';
-import { GetMovieByIdResponse } from '../../../loaders/GetMovieByIdLoader';
-import {
-  mapMovieDataToMovieDetailsInfo,
-  useMovieDetailsContext,
-} from '../MovieListPage.utils';
+import { useRouteError } from 'react-router-dom';
+import { useMovieDetailsContext } from '../MovieListPage.utils';
+import imageNotFound from '../../../assets/imageNotFound.png';
 import { MOVIE_HEADER_SEARCH_ICON } from '../../../constants/tests.constants';
+import {
+  MovieDetails,
+  MovieDetailsInfo,
+} from '../../../components/MovieDetails';
 
-export const MovieDetailsHeader = () => {
+export const MovieDetailsHeaderError = () => {
   const result = useMovieDetailsContext();
   const { onOpenSearchForm } = result;
-  const movieData = useLoaderData() as GetMovieByIdResponse;
-  const movieDetails = mapMovieDataToMovieDetailsInfo(movieData);
+  const error = useRouteError() as { status: string };
+  const movieDetails: MovieDetailsInfo = {
+    id: '',
+    imageUrl: imageNotFound,
+    movieName: `${error.status}`,
+    releaseYear: 0,
+    rating: 0,
+    description: 'Something went wrong',
+    genre: '',
+    durationInMinutes: 0,
+  };
   const handleShowSearchForm = () => {
     onOpenSearchForm();
   };

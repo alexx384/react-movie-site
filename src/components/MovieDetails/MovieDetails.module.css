@@ -6,6 +6,8 @@
 
 .poster {
   margin: 0px 60px 0px 0px;
+  max-width: 25vw;
+  object-fit: contain;
 }
 
 .title-and-rating {

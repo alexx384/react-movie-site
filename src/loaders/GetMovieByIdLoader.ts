@@ -3,7 +3,7 @@ import { REQUEST_URI } from '../constants/loader.constants';
 import { ROOT_MOVIE_ID } from '../constants/router.constants';
 import { MovieData } from '../pages/MovieListPage';
 
-export type GetMovieByIdResponse = null | MovieData;
+export type GetMovieByIdResponse = MovieData;
 
 export const getMovieByIdLoader = async ({
   params,
@@ -16,7 +16,7 @@ export const getMovieByIdLoader = async ({
     signal: request.signal,
   });
   if (!response.ok) {
-    return null;
+    throw new Response('Something went wrong', { status: response.status });
   }
   return (await response.json()) as MovieData;
 };

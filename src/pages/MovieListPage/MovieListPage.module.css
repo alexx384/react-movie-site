@@ -18,3 +18,7 @@
 .movie-list-result {
   padding-bottom: 2rem;
 }
+
+.error-block {
+  color: white;
+}
