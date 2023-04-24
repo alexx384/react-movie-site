@@ -14,3 +14,11 @@
   background-color: #888888;
   height: 10px;
 }
+
+.movie-list-result {
+  padding-bottom: 2rem;
+}
+
+.error-block {
+  color: white;
+}

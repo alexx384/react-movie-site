@@ -1,6 +1,6 @@
 import styles from './MovieListResult.module.css';
 import fontStyles from '../../../Font.module.css';
-import { MovieTile, MovieBasicInfo } from '../../MovieTile';
+import { MovieTile, MovieBasicInfo } from '../../../components/MovieTile';
 import classNames from 'classnames';
 
 type Props = {

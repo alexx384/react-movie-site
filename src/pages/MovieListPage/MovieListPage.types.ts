@@ -6,7 +6,7 @@ import {
 } from '../../constants/movieListPage.constants';
 
 export type MovieData = {
-  id: string;
+  id: number;
   title: string;
   tagline: string;
   vote_average: number;
@@ -31,3 +31,16 @@ export type MovieListFilterSettings = {
   [QUERY_SEARCH]: string;
   [QUERY_SEARCH_BY]: string;
 };
+
+export interface SearchFormContext {
+  initialSearchQuery: string;
+  onSendSearchQuery: (searchQUery: string) => void;
+}
+
+export interface MovieDetailsContext {
+  onOpenSearchForm: () => void;
+}
+
+export interface MovieListPageContext
+  extends SearchFormContext,
+    MovieDetailsContext {}
