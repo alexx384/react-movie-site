@@ -13,6 +13,7 @@ import { getMovieByIdLoader } from './loaders/GetMovieByIdLoader';
 import { getMovieListLoader } from './loaders/GetMovieListLoader';
 import { MovieDetailsHeaderError } from './pages/MovieListPage/MovieDetailsHeader/MovieDetailsHeaderError';
 import { MovieListPageError } from './pages/MovieListPage/MovieListPageError';
+import { doNotRevalidateWhenHrefsAreTheSame } from './utils';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ export const router = createBrowserRouter(
       element={<MovieListPage />}
       loader={getMovieListLoader}
       errorElement={<MovieListPageError />}
+      shouldRevalidate={doNotRevalidateWhenHrefsAreTheSame}
     >
       <Route index element={<SearchFormHeader />} />
       <Route
@@ -28,6 +30,7 @@ export const router = createBrowserRouter(
         element={<MovieDetailsHeader />}
         loader={getMovieByIdLoader}
         errorElement={<MovieDetailsHeaderError />}
+        shouldRevalidate={doNotRevalidateWhenHrefsAreTheSame}
       />
     </Route>
   )
