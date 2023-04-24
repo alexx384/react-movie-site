@@ -11,21 +11,17 @@ import {
 } from '../../../components/MovieDetails';
 
 export const MovieDetailsHeaderError = () => {
-  const result = useMovieDetailsContext();
-  const { onOpenSearchForm } = result;
+  const { onOpenSearchForm } = useMovieDetailsContext();
   const error = useRouteError() as { status: string };
   const movieDetails: MovieDetailsInfo = {
     id: '',
     imageUrl: imageNotFound,
-    movieName: `${error.status}`,
+    movieName: error.status,
     releaseYear: 0,
     rating: 0,
     description: 'Something went wrong',
     genre: '',
     durationInMinutes: 0,
-  };
-  const handleShowSearchForm = () => {
-    onOpenSearchForm();
   };
   return (
     <div className={headerStyles.header}>
@@ -35,7 +31,7 @@ export const MovieDetailsHeaderError = () => {
             'material-symbols-outlined',
             styles['controls-search']
           )}
-          onClick={handleShowSearchForm}
+          onClick={onOpenSearchForm}
           data-testid={MOVIE_HEADER_SEARCH_ICON}
         >
           search

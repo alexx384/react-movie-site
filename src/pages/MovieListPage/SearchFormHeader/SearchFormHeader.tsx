@@ -6,9 +6,6 @@ import { useSearchFormContext } from '../MovieListPage.utils';
 
 export const SearchFormHeader = () => {
   const { initialSearchQuery, onSendSearchQuery } = useSearchFormContext();
-  const handleSearch = (query: string) => {
-    onSendSearchQuery(query);
-  };
   return (
     <div
       className={classNames(
@@ -18,7 +15,7 @@ export const SearchFormHeader = () => {
     >
       <SearchForm
         initialSearchQuery={initialSearchQuery}
-        onSearch={handleSearch}
+        onSearch={onSendSearchQuery}
       />
     </div>
   );

@@ -3,7 +3,7 @@ import { GenreItem } from './GenreItem';
 import styles from './GenreSelect.module.css';
 
 type GenreSelectProps = {
-  listOfGenres: string[];
+  listOfGenres: readonly string[];
   initiallySelectedGenreName: string;
   onSelectGenre?: (genreName: string) => void;
 };

@@ -74,7 +74,7 @@ export const MovieListPage = () => {
       <div className={styles.body}>
         <div className={styles['search-settings']}>
           <GenreSelect
-            listOfGenres={[...MOVIE_GENRES]}
+            listOfGenres={MOVIE_GENRES}
             initiallySelectedGenreName={genreFilter}
             onSelectGenre={handleGenreFilter}
           />
