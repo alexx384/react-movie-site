@@ -1,5 +1,4 @@
-import React from 'react';
-import { Multiselect, MultiselectHandle } from '../Multiselect';
+import { Multiselect } from '../Multiselect';
 import styles from './MovieForm.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
@@ -12,7 +11,10 @@ import {
   OVERVIEW,
   SUBMIT_BUTTON,
   RESET_BUTTON,
+  DEFAULT_MOVIE_GENRES,
 } from '../../constants/movieForm.constants';
+import { Controller, useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 
 export type MovieInfo = {
   id?: string;
@@ -30,50 +32,40 @@ export type MovieFormProps = {
   onSubmit?: (movieInfo: MovieInfo) => void;
 };
 
-const DEFAULT_MOVIE_GENRES = [
-  { id: 'crime', value: 'Crime', isChecked: false },
-  { id: 'documentary', value: 'Documentary', isChecked: false },
-  { id: 'horror', value: 'Horror', isChecked: false },
-  { id: 'comedy', value: 'Comedy', isChecked: false },
-];
+type FormValues = {
+  title: string;
+  releaseDate: Date;
+  movieURL: string;
+  rating: number;
+  genre: Set<string>;
+  runtime: number;
+  overview: string;
+};
 
 export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
-  const titleRef = React.useRef<HTMLInputElement>(null);
-  const releaseDateRef = React.useRef<HTMLInputElement>(null);
-  const movieURLRef = React.useRef<HTMLInputElement>(null);
-  const ratingRef = React.useRef<HTMLInputElement>(null);
-  const genreRef = React.useRef<MultiselectHandle>(null);
-  const runtimeRef = React.useRef<HTMLInputElement>(null);
-  const overviewRef = React.useRef<HTMLTextAreaElement>(null);
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const releaseDate =
-      releaseDateRef.current && releaseDateRef.current.value
-        ? new Date(releaseDateRef.current.value)
-        : undefined;
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>();
+  const selectedMovieGenreIds: Set<string> = DEFAULT_MOVIE_GENRES.filter(
+    (genre) => movieInfo?.genre?.has(genre.id) ?? false
+  ).reduce((genreSet, genre) => genreSet.add(genre.id), new Set<string>());
+  const handleFormSubmit = (data: FormValues) => {
     onSubmit?.({
       id: movieInfo?.id,
-      title: titleRef.current?.value,
-      releaseDate: releaseDate,
-      movieURL: movieURLRef.current?.value,
-      rating: Number(ratingRef.current?.value),
-      genre: genreRef.current?.getSelectedGenreIds() ?? new Set(),
-      runtime: Number(runtimeRef.current?.value),
-      overview: overviewRef.current?.value,
+      ...data,
     });
   };
-  const movieGenres = DEFAULT_MOVIE_GENRES.map((genre) =>
-    Object.assign({}, genre)
+  const errorMessage = ({ message }: { message: string }) => (
+    <p className={classNames(fontStyles.subtitle, styles['error-input'])}>
+      {message}
+    </p>
   );
-  movieGenres
-    .filter((genre) => movieInfo?.genre?.has(genre.id) ?? false)
-    .forEach((genre) => (genre.isChecked = true));
-  const handleResetInput = () => {
-    genreRef.current?.resetSelection();
-  };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <div className={styles['input-row-container']}>
         <div
           className={classNames(
@@ -85,15 +77,15 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             TITLE
           </label>
           <input
-            ref={titleRef}
             defaultValue={movieInfo?.title}
             className={fontStyles.input}
             type="text"
-            name="title"
+            {...register('title', { required: 'Title required' })}
             id="title"
             placeholder="Movie Title"
             data-testid={MOVIE_TITLE_INPUT}
           />
+          <ErrorMessage errors={errors} name="title" render={errorMessage} />
         </div>
         <div
           className={classNames(
@@ -106,14 +98,21 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             RELEASE DATE
           </label>
           <input
-            ref={releaseDateRef}
             defaultValue={movieInfo?.releaseDate?.toISOString().slice(0, 10)}
             className={fontStyles.input}
             type="date"
-            name="releaseDate"
+            {...register('releaseDate', {
+              required: 'Release date required',
+              valueAsDate: true,
+            })}
             id="releaseDate"
             placeholder="Select Date"
             style={{ content: 'attr(placeholder)' }}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="releaseDate"
+            render={errorMessage}
           />
         </div>
       </div>
@@ -125,30 +124,33 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {MOVIE_URL}
           </label>
           <input
-            ref={movieURLRef}
             defaultValue={movieInfo?.movieURL}
             className={fontStyles.input}
             type="url"
-            name="movieURL"
+            {...register('movieURL', { required: 'Movie URL required' })}
             id="movieURL"
             pattern="https://.*"
             placeholder="https://"
           />
+          <ErrorMessage errors={errors} name="movieURL" render={errorMessage} />
         </div>
         <div className={classNames(styles['label-and-input'], styles.rating)}>
           <label className={fontStyles['form-label']} htmlFor="rating">
             {RATING}
           </label>
           <input
-            ref={ratingRef}
             defaultValue={movieInfo?.rating}
             className={fontStyles.input}
             type="number"
             step={0.1}
-            name="rating"
+            {...register('rating', {
+              required: 'Rating required',
+              valueAsNumber: true,
+            })}
             id="rating"
             placeholder="7.8"
           />
+          <ErrorMessage errors={errors} name="rating" render={errorMessage} />
         </div>
       </div>
       <div className={styles['input-row-container']}>
@@ -156,25 +158,38 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           <label className={fontStyles['form-label']} htmlFor="genre">
             {GENRE}
           </label>
-          <Multiselect
-            ref={genreRef}
-            options={movieGenres}
-            placeholder="Select Genre"
+          <Controller
+            name="genre"
+            control={control}
+            rules={{ required: true }}
+            defaultValue={selectedMovieGenreIds}
+            render={({ field: { onChange, value } }) => (
+              <Multiselect
+                options={DEFAULT_MOVIE_GENRES}
+                initiallySelectedOptions={value}
+                onChange={onChange}
+                placeholder="Select Genre"
+              />
+            )}
           />
+          <ErrorMessage errors={errors} name="genre" render={errorMessage} />
         </div>
         <div className={classNames(styles['label-and-input'], styles.runtime)}>
           <label className={fontStyles['form-label']} htmlFor="runtime">
             {RUNTIME}
           </label>
           <input
-            ref={runtimeRef}
             defaultValue={movieInfo?.runtime}
             className={fontStyles.input}
             type="number"
-            name="runtime"
+            {...register('runtime', {
+              required: 'Runtime required',
+              valueAsNumber: true,
+            })}
             id="runtime"
             placeholder="minutes"
           />
+          <ErrorMessage errors={errors} name="runtime" render={errorMessage} />
         </div>
       </div>
       <div className={classNames(styles['label-and-input'])}>
@@ -182,17 +197,17 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           {OVERVIEW}
         </label>
         <textarea
-          ref={overviewRef}
           defaultValue={movieInfo?.overview}
           className={classNames(fontStyles.input, styles['movie-description'])}
-          name="overview"
+          {...register('overview', { required: 'Overview required' })}
           id="overview"
           placeholder="Movie description"
         />
+        <ErrorMessage errors={errors} name="overview" render={errorMessage} />
       </div>
       <div className={styles['btn-block']}>
         <input
-          onClick={handleResetInput}
+          onClick={() => reset()}
           className={fontStyles['submit-btn']}
           type="reset"
           value={RESET_BUTTON}

@@ -55,7 +55,7 @@ it('returns the same filled info on submit click', async () => {
   expect(handleSubmit).toBeCalledWith(TEST_MOVIE_INFO);
 });
 
-it('returns empty movie info for unfilled form on submit', async () => {
+it('does not return unfilled form on submit', async () => {
   const user = userEvent.setup();
   const handleSubmit = jest.fn();
 
@@ -64,41 +64,44 @@ it('returns empty movie info for unfilled form on submit', async () => {
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
   await user.click(submitButton);
 
-  expect(handleSubmit).toBeCalledTimes(1);
-  expect(handleSubmit).toBeCalledWith(EMPTY_MOVIE_INFO);
+  expect(handleSubmit)['not'].toBeCalled();
 });
 
-it('returns the filled info on submit click', async () => {
+it('returns the filled form with title change and submit click', async () => {
   const user = userEvent.setup();
   const handleSubmit = jest.fn();
 
-  render(<MovieForm onSubmit={handleSubmit} />);
+  render(<MovieForm movieInfo={TEST_MOVIE_INFO} onSubmit={handleSubmit} />);
 
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
-  const titleInput = screen.getByTestId(MOVIE_TITLE_INPUT);
+  // const resetButton = screen.getByRole('button', { name: RESET_BUTTON });
+  const titleInput: HTMLInputElement = screen.getByTestId(MOVIE_TITLE_INPUT);
+  titleInput.value = '';
   await user.type(titleInput, TITLE_TEXT);
+  // await user.click(resetButton);
   await user.click(submitButton);
 
   expect(handleSubmit).toBeCalledTimes(1);
   expect(handleSubmit).toBeCalledWith({
-    ...EMPTY_MOVIE_INFO,
+    ...TEST_MOVIE_INFO,
     title: TITLE_TEXT,
   });
 });
 
-it('returns the same filled info on reset click and then on submit click', async () => {
+it('returns the filled form with title change, reset click and submit click', async () => {
   const user = userEvent.setup();
   const handleSubmit = jest.fn();
 
-  render(<MovieForm onSubmit={handleSubmit} />);
+  render(<MovieForm movieInfo={TEST_MOVIE_INFO} onSubmit={handleSubmit} />);
 
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
   const resetButton = screen.getByRole('button', { name: RESET_BUTTON });
-  const titleInput = screen.getByTestId(MOVIE_TITLE_INPUT);
+  const titleInput: HTMLInputElement = screen.getByTestId(MOVIE_TITLE_INPUT);
+  titleInput.value = '';
   await user.type(titleInput, TITLE_TEXT);
   await user.click(resetButton);
   await user.click(submitButton);
 
   expect(handleSubmit).toBeCalledTimes(1);
-  expect(handleSubmit).toBeCalledWith(EMPTY_MOVIE_INFO);
+  expect(handleSubmit).toBeCalledWith(TEST_MOVIE_INFO);
 });

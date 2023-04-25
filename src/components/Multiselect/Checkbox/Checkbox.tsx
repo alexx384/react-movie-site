@@ -6,12 +6,12 @@ export type Props = {
   isChecked: boolean;
   value: string;
   id: string;
-  onChange?: (id: string) => void;
+  onChange?: (id: string, isChecked: boolean) => void;
 };
 
 export const Checkbox = ({ isChecked, value, id, onChange }: Props) => {
   function handleChange() {
-    onChange?.(id);
+    onChange?.(id, !isChecked);
   }
   return (
     <label className={styles.container}>

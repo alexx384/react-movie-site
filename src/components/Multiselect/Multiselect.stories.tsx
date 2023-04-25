@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Multiselect } from '.';
+import { DEFAULT_MOVIE_GENRES } from '../../constants/movieForm.constants';
 
 export default {
   title: 'Stories/Multiselect',
@@ -12,11 +13,6 @@ const Template: ComponentStory<typeof Multiselect> = (args) => (
 
 export const PrimaryMovieForm = Template.bind({});
 PrimaryMovieForm.args = {
-  options: [
-    { id: 'crime', value: 'Crime', isChecked: false },
-    { id: 'documentary', value: 'Documentary', isChecked: false },
-    { id: 'horror', value: 'Horror', isChecked: false },
-    { id: 'comedy', value: 'Comedy', isChecked: false },
-  ],
+  options: DEFAULT_MOVIE_GENRES,
   placeholder: 'Select Genre',
 };
