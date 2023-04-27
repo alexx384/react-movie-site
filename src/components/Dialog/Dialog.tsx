@@ -33,14 +33,7 @@ export const Dialog = ({
   onClose,
   isOpened = true,
 }: Props) => {
-  // const body = document.querySelector('body');
-  // if (isOpened && body) {
-  //   body.style.overflow = 'hidden';
-  // }
   const handleClose = () => {
-    // if (body) {
-    //   body.style.overflow = 'auto';
-    // }
     onClose?.();
   };
   useEscapeHandler(handleClose);

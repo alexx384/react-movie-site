@@ -19,6 +19,7 @@ export const Checkbox = ({ isChecked, value, id, onChange }: Props) => {
         type="checkbox"
         onChange={handleChange}
         className={classNames({ [styles.checked]: isChecked })}
+        name={value}
       />
       <span className={fontStyles.input}>{value}</span>
     </label>

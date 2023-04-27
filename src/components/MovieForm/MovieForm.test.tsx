@@ -11,7 +11,7 @@ import {
   TEST_MOVIE_INFO,
 } from '../../constants/movieForm.constants';
 import userEvent from '@testing-library/user-event';
-import { MOVIE_TITLE_INPUT } from '../../constants/tests.constants';
+import { FORM_MOVIE_TITLE_INPUT } from '../../constants/tests.constants';
 
 const TITLE_TEXT = 'HelloWorldTitle';
 
@@ -64,7 +64,9 @@ it('returns the filled form with title change and submit click', async () => {
 
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
   // const resetButton = screen.getByRole('button', { name: RESET_BUTTON });
-  const titleInput: HTMLInputElement = screen.getByTestId(MOVIE_TITLE_INPUT);
+  const titleInput: HTMLInputElement = screen.getByTestId(
+    FORM_MOVIE_TITLE_INPUT
+  );
   titleInput.value = '';
   await user.type(titleInput, TITLE_TEXT);
   // await user.click(resetButton);
@@ -85,7 +87,9 @@ it('returns the filled form with title change, reset click and submit click', as
 
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
   const resetButton = screen.getByRole('button', { name: RESET_BUTTON });
-  const titleInput: HTMLInputElement = screen.getByTestId(MOVIE_TITLE_INPUT);
+  const titleInput: HTMLInputElement = screen.getByTestId(
+    FORM_MOVIE_TITLE_INPUT
+  );
   titleInput.value = '';
   await user.type(titleInput, TITLE_TEXT);
   await user.click(resetButton);

@@ -2,7 +2,14 @@ import { Multiselect } from '../Multiselect';
 import styles from './MovieForm.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
-import { MOVIE_TITLE_INPUT } from '../../constants/tests.constants';
+import {
+  FORM_MOVIE_OVERVIEW,
+  FORM_MOVIE_RATING,
+  FORM_MOVIE_RELEASE_DATE,
+  FORM_MOVIE_RUNTIME,
+  FORM_MOVIE_TITLE_INPUT,
+  FORM_MOVIE_URL,
+} from '../../constants/tests.constants';
 import {
   MOVIE_URL,
   RATING,
@@ -74,7 +81,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {...register('title', { required: 'Title required' })}
             id="title"
             placeholder="Movie Title"
-            data-testid={MOVIE_TITLE_INPUT}
+            data-testid={FORM_MOVIE_TITLE_INPUT}
           />
           <ErrorMessage errors={errors} name="title" render={errorMessage} />
         </div>
@@ -97,6 +104,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             })}
             id="releaseDate"
             placeholder="Select Date"
+            data-testid={FORM_MOVIE_RELEASE_DATE}
             style={{ content: 'attr(placeholder)' }}
           />
           <ErrorMessage
@@ -120,6 +128,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             id="movieURL"
             pattern="https://.*"
             placeholder="https://"
+            data-testid={FORM_MOVIE_URL}
           />
           <ErrorMessage errors={errors} name="movieURL" render={errorMessage} />
         </div>
@@ -137,6 +146,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             })}
             id="rating"
             placeholder="7.8"
+            data-testid={FORM_MOVIE_RATING}
           />
           <ErrorMessage errors={errors} name="rating" render={errorMessage} />
         </div>
@@ -174,6 +184,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             })}
             id="runtime"
             placeholder="minutes"
+            data-testid={FORM_MOVIE_RUNTIME}
           />
           <ErrorMessage errors={errors} name="runtime" render={errorMessage} />
         </div>
@@ -187,6 +198,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           {...register('overview', { required: 'Overview required' })}
           id="overview"
           placeholder="Movie description"
+          data-testid={FORM_MOVIE_OVERVIEW}
         />
         <ErrorMessage errors={errors} name="overview" render={errorMessage} />
       </div>

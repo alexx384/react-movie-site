@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { SearchForm } from './SearchForm';
 import userEvent from '@testing-library/user-event';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
-import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 
 const initialSearchQuery: string = 'initial search query';
 

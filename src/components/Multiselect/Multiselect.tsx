@@ -7,6 +7,7 @@ import {
   TRIANGLE_UP,
   TRIANGLE_DOWN,
 } from '../../constants/multiselect.constants';
+import { FORM_MOVIE_GENRE } from '../../constants/tests.constants';
 
 export type GenreOption = {
   id: string;
@@ -73,9 +74,11 @@ export const Multiselect = ({
   return (
     <OutsideAlerter outsideClick={handleCloseOptionList}>
       <div className={styles['multi-select-container']}>
-        <div
+        <button
+          type="button"
           onClick={() => setIsShowOptionList((prev) => !prev)}
           className={classNames(styles['options-wrapper'], fontStyles.input)}
+          data-testid={FORM_MOVIE_GENRE}
         >
           {selectOptionSet.size !== 0
             ? options
@@ -83,7 +86,7 @@ export const Multiselect = ({
                 .map((option) => option.value)
                 .join(', ')
             : placeholder}
-        </div>
+        </button>
         <span
           className={classNames(fontStyles['filter-item'], styles.triangle)}
         >

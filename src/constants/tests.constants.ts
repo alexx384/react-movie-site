@@ -22,7 +22,13 @@ export const THREE_DOTS_BUTTON_BLOCK = 'threeDotsButtonBlock';
 
 export const DIALOG_X_BUTTON = 'DialogXButton';
 
-export const MOVIE_TITLE_INPUT = 'movieTitleInput';
+export const FORM_MOVIE_TITLE_INPUT = 'formMovieTitleInput';
+export const FORM_MOVIE_RELEASE_DATE = 'formMovieReleaseDate';
+export const FORM_MOVIE_URL = 'formMovieURL';
+export const FORM_MOVIE_RATING = 'formMovieRating';
+export const FORM_MOVIE_GENRE = 'formMovieGenre';
+export const FORM_MOVIE_RUNTIME = 'formMovieRuntime';
+export const FORM_MOVIE_OVERVIEW = 'formMovieOverview';
 
 export const MOVIE_LIST_ITEMS6: RequiredFullMovieInfo[] = [
   {
