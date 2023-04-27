@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { SearchForm } from './SearchForm';
 import userEvent from '@testing-library/user-event';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 
 const initialSearchQuery: string = 'initial search query';
 
@@ -34,6 +35,7 @@ it('calls "onSearch" prop with proper value after typing to the input and pressi
   const userTyping: string = 'hello';
   const user: UserEvent = userEvent.setup();
   const handleSearch = jest.fn();
+
   render(
     <SearchForm
       initialSearchQuery={initialSearchQuery}

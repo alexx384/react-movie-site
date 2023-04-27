@@ -1,9 +1,12 @@
 import { LoaderFunctionArgs } from 'react-router-dom';
-import { MovieDataResponse } from '../pages/MovieListPage';
 import { mapSearchQueryParamsToMoviesRequestParams } from '../pages/MovieListPage/MovieListPage.utils';
-import { REQUEST_URI } from '../constants/loader.constants';
+import { REQUEST_URI } from '../constants/request.constants';
+import {
+  MovieDataResponse,
+  MovieListDataResponse,
+} from '../interfaces/movieData';
 
-export type GetMovieListResponse = null | MovieDataResponse;
+export type GetMovieListResponse = null | MovieListDataResponse;
 
 export const getMovieListLoader = async ({ request }: LoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;

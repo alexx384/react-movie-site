@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { MovieForm, MovieInfo } from './MovieForm';
+import { MovieForm } from './MovieForm';
 import {
   MOVIE_URL,
   RATING,
@@ -12,17 +12,6 @@ import {
 } from '../../constants/movieForm.constants';
 import userEvent from '@testing-library/user-event';
 import { MOVIE_TITLE_INPUT } from '../../constants/tests.constants';
-
-const EMPTY_MOVIE_INFO: MovieInfo = {
-  id: undefined,
-  title: '',
-  releaseDate: undefined,
-  movieURL: '',
-  rating: 0,
-  genre: new Set(),
-  runtime: 0,
-  overview: '',
-};
 
 const TITLE_TEXT = 'HelloWorldTitle';
 

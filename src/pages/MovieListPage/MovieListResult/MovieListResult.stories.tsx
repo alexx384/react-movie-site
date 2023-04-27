@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { MovieListResult } from '.';
 import { MOVIE_LIST_ITEMS6 } from '../../../constants/tests.constants';
+import movieImage from '../../../assets/1.png';
 
 export default {
   title: 'Stories/MovieListResult',
@@ -34,11 +35,11 @@ Seven.args = {
   movieList: [
     ...MOVIE_LIST_ITEMS6,
     {
-      id: '7',
-      imageUrl: 'https://test-9mn.pages.dev/1.png',
-      movieName: 'Pulp Fiction',
-      releaseYear: 2004,
-      genre: 'Action & Adventure',
+      id: 7,
+      movieURL: movieImage,
+      title: 'Pulp Fiction',
+      releaseDate: new Date(2004, 0),
+      genreIds: new Set(['Action', 'Adventure']),
     },
   ],
 };

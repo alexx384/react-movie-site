@@ -15,31 +15,11 @@ import {
 } from '../../constants/movieForm.constants';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-
-export type MovieInfo = {
-  id?: string;
-  title?: string;
-  releaseDate?: Date;
-  movieURL?: string;
-  rating?: number;
-  genre?: Set<string>;
-  runtime?: number;
-  overview?: string;
-};
+import { FullMovieInfo, MovieFormInfo } from '../../interfaces/movieInfo';
 
 export type MovieFormProps = {
-  movieInfo?: MovieInfo;
-  onSubmit?: (movieInfo: MovieInfo) => void;
-};
-
-type FormValues = {
-  title: string;
-  releaseDate: Date;
-  movieURL: string;
-  rating: number;
-  genre: Set<string>;
-  runtime: number;
-  overview: string;
+  movieInfo?: FullMovieInfo;
+  onSubmit?: (movieInfo: FullMovieInfo) => void;
 };
 
 export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
@@ -48,16 +28,28 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
-  } = useForm<FormValues>();
-  const selectedMovieGenreIds: Set<string> = DEFAULT_MOVIE_GENRES.filter(
-    (genre) => movieInfo?.genre?.has(genre.id) ?? false
-  ).reduce((genreSet, genre) => genreSet.add(genre.id), new Set<string>());
-  const handleFormSubmit = (data: FormValues) => {
-    onSubmit?.({
-      id: movieInfo?.id,
-      ...data,
-    });
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm<MovieFormInfo>({
+    defaultValues: {
+      ...movieInfo,
+      genreIds: movieInfo?.genreIds ?? new Set<string>(),
+      releaseDate: movieInfo?.releaseDate?.toISOString().slice(0, 10),
+    },
+  });
+  const handleFormSubmit = async (data: MovieFormInfo) => {
+    try {
+      await onSubmit?.({
+        id: movieInfo?.id,
+        ...data,
+        releaseDate: new Date(data.releaseDate),
+      });
+    } catch (e) {
+      setError('root.serverError', {
+        type: 'server',
+        message: (e as Error).message,
+      });
+    }
   };
   const errorMessage = ({ message }: { message: string }) => (
     <p className={classNames(fontStyles.subtitle, styles['error-input'])}>
@@ -77,7 +69,6 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             TITLE
           </label>
           <input
-            defaultValue={movieInfo?.title}
             className={fontStyles.input}
             type="text"
             {...register('title', { required: 'Title required' })}
@@ -98,7 +89,6 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             RELEASE DATE
           </label>
           <input
-            defaultValue={movieInfo?.releaseDate?.toISOString().slice(0, 10)}
             className={fontStyles.input}
             type="date"
             {...register('releaseDate', {
@@ -124,7 +114,6 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {MOVIE_URL}
           </label>
           <input
-            defaultValue={movieInfo?.movieURL}
             className={fontStyles.input}
             type="url"
             {...register('movieURL', { required: 'Movie URL required' })}
@@ -139,7 +128,6 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {RATING}
           </label>
           <input
-            defaultValue={movieInfo?.rating}
             className={fontStyles.input}
             type="number"
             step={0.1}
@@ -159,10 +147,9 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {GENRE}
           </label>
           <Controller
-            name="genre"
+            name="genreIds"
             control={control}
             rules={{ required: true }}
-            defaultValue={selectedMovieGenreIds}
             render={({ field: { onChange, value } }) => (
               <Multiselect
                 options={DEFAULT_MOVIE_GENRES}
@@ -179,7 +166,6 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {RUNTIME}
           </label>
           <input
-            defaultValue={movieInfo?.runtime}
             className={fontStyles.input}
             type="number"
             {...register('runtime', {
@@ -197,7 +183,6 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           {OVERVIEW}
         </label>
         <textarea
-          defaultValue={movieInfo?.overview}
           className={classNames(fontStyles.input, styles['movie-description'])}
           {...register('overview', { required: 'Overview required' })}
           id="overview"
@@ -205,6 +190,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
         />
         <ErrorMessage errors={errors} name="overview" render={errorMessage} />
       </div>
+      <p>{errors?.root?.['serverError']?.message}</p>
       <div className={styles['btn-block']}>
         <input
           onClick={() => reset()}
@@ -213,6 +199,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           value={RESET_BUTTON}
         />
         <input
+          disabled={isSubmitting}
           className={fontStyles['submit-btn']}
           type="submit"
           value={SUBMIT_BUTTON}

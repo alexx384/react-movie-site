@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { MovieTile } from '.';
+import movieURL from '../../assets/1.png';
 
 export default {
   title: 'Stories/MovieTile',
@@ -13,10 +14,10 @@ const Template: ComponentStory<typeof MovieTile> = (args) => (
 export const Primary = Template.bind({});
 Primary.args = {
   info: {
-    id: '1',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
+    id: 1,
+    movieURL: movieURL,
+    title: 'Pulp Fiction',
+    releaseDate: new Date(2004, 0),
+    genreIds: new Set(['Action', 'Adventure']),
   },
 };

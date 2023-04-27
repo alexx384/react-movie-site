@@ -3,13 +3,23 @@ import styles from './ThreeDotsButton.module.css';
 import { MenuContextContainer } from '../../MenuContextContainer';
 import { THREE_DOTS_BUTTON_BLOCK } from '../../../constants/tests.constants';
 import { THREE_DOTS_SYMBOL } from '../../../constants/threeDotsButton.constants';
+import {
+  MOVIE_TILE_DELETE_OPTION,
+  MOVIE_TILE_EDIT_OPTION,
+  MOVIE_TILE_OPTIONS,
+} from '../../../constants/movieListPage.constants';
 
 type Props = {
   children: React.ReactNode;
-  onSelectOption?: (itemName: string) => void;
+  onSelectEditOption?: () => void;
+  onSelectDeleteOption?: () => void;
 };
 
-export const ThreeDotsButton = ({ children, onSelectOption }: Props) => {
+export const ThreeDotsButton = ({
+  children,
+  onSelectEditOption,
+  onSelectDeleteOption,
+}: Props) => {
   const [isMenuShown, setMenuShown] = React.useState(false);
   const [isBtnShown, setBtnShown] = React.useState(true);
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -22,7 +32,11 @@ export const ThreeDotsButton = ({ children, onSelectOption }: Props) => {
     setBtnShown(true);
   }
   function handleChange(itemName: string) {
-    onSelectOption?.(itemName);
+    if (itemName === MOVIE_TILE_EDIT_OPTION) {
+      onSelectEditOption?.();
+    } else if (itemName === MOVIE_TILE_DELETE_OPTION) {
+      onSelectDeleteOption?.();
+    }
     handleHideMenu();
   }
   return (
@@ -36,7 +50,7 @@ export const ThreeDotsButton = ({ children, onSelectOption }: Props) => {
       {isMenuShown && (
         <div className={styles.menu}>
           <MenuContextContainer
-            menuItems={['Edit', 'Delete']}
+            menuItems={MOVIE_TILE_OPTIONS}
             onChange={handleChange}
             onHideMenu={handleHideMenu}
           />

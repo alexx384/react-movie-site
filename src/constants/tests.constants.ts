@@ -1,3 +1,5 @@
+import { RequiredFullMovieInfo } from '../interfaces/movieInfo';
+
 export const COUNTER_LABEL = 'counterLabel';
 
 export const SEARCH_FORM_INPUT = 'searchMovieInput';
@@ -22,71 +24,71 @@ export const DIALOG_X_BUTTON = 'DialogXButton';
 
 export const MOVIE_TITLE_INPUT = 'movieTitleInput';
 
-export const MOVIE_LIST_ITEMS6 = [
+export const MOVIE_LIST_ITEMS6: RequiredFullMovieInfo[] = [
   {
-    id: '1',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
+    id: 1,
+    movieURL: 'https://test-9mn.pages.dev/1.png',
+    title: 'Pulp Fiction',
+    releaseDate: new Date(2004, 0),
+    genreIds: new Set(['Action', 'Adventure']),
     rating: 8.9,
-    durationInMinutes: 154,
-    description:
+    runtime: 154,
+    overview:
       'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra',
   },
   {
-    id: '2',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
+    id: 2,
+    movieURL: 'https://test-9mn.pages.dev/1.png',
+    title: 'Pulp Fiction',
+    releaseDate: new Date(2004, 0),
+    genreIds: new Set(['Action', 'Adventure']),
     rating: 8.9,
-    durationInMinutes: 154,
-    description:
+    runtime: 154,
+    overview:
       'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra',
   },
   {
-    id: '3',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
+    id: 3,
+    movieURL: 'https://test-9mn.pages.dev/1.png',
+    title: 'Pulp Fiction',
+    releaseDate: new Date(2004, 0),
+    genreIds: new Set(['Action', 'Adventure']),
     rating: 8.9,
-    durationInMinutes: 154,
-    description:
+    runtime: 154,
+    overview:
       'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra',
   },
   {
-    id: '4',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
+    id: 4,
+    movieURL: 'https://test-9mn.pages.dev/1.png',
+    title: 'Pulp Fiction',
+    releaseDate: new Date(2004, 0),
+    genreIds: new Set(['Action', 'Adventure']),
     rating: 8.9,
-    durationInMinutes: 154,
-    description:
+    runtime: 154,
+    overview:
       'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra',
   },
   {
-    id: '5',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
+    id: 5,
+    movieURL: 'https://test-9mn.pages.dev/1.png',
+    title: 'Pulp Fiction',
+    releaseDate: new Date(2004, 0),
+    genreIds: new Set(['Action', 'Adventure']),
     rating: 8.9,
-    durationInMinutes: 154,
-    description:
+    runtime: 154,
+    overview:
       'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra',
   },
   {
-    id: '6',
-    imageUrl: 'https://test-9mn.pages.dev/1.png',
-    movieName: 'Pulp Fiction',
-    releaseYear: 2004,
-    genre: 'Action & Adventure',
+    id: 6,
+    movieURL: 'https://test-9mn.pages.dev/1.png',
+    title: 'Pulp Fiction',
+    releaseDate: new Date(2004, 0),
+    genreIds: new Set(['Action', 'Adventure']),
     rating: 8.9,
-    durationInMinutes: 154,
-    description:
+    runtime: 154,
+    overview:
       'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra',
   },
 ];

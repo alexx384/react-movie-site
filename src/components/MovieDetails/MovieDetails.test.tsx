@@ -5,14 +5,14 @@ it('renders correctly', () => {
   const tree = renderer
     .create(
       <MovieDetails
-        id="1"
-        imageUrl="logo192.png"
-        movieName="React"
-        releaseYear={2022}
+        id={1}
+        movieURL="logo192.png"
+        title="React"
+        releaseDate={new Date(2022, 0)}
         rating={8.9}
-        genre="Adventure"
-        durationInMinutes={154}
-        description="Whether you work on your own or with thousands of other developers, using React feels the same. It is designed to let you seamlessly combine components written by independent people, teams, and organizations."
+        genreIds={new Set(['adventure'])}
+        runtime={154}
+        overview="Whether you work on your own or with thousands of other developers, using React feels the same. It is designed to let you seamlessly combine components written by independent people, teams, and organizations."
       />
     )
     .toJSON();

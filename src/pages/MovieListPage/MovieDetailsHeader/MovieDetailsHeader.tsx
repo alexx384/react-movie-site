@@ -2,18 +2,19 @@ import styles from './MovieDetailsHeader.module.css';
 import headerStyles from '../MovieListHeader.module.css';
 import classNames from 'classnames';
 import { MovieDetails } from '../../../components/MovieDetails';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useOutletContext } from 'react-router-dom';
 import { GetMovieByIdResponse } from '../../../loaders/GetMovieByIdLoader';
-import {
-  mapMovieDataToMovieDetailsInfo,
-  useMovieDetailsContext,
-} from '../MovieListPage.utils';
 import { MOVIE_HEADER_SEARCH_ICON } from '../../../constants/tests.constants';
+import { mapMovieDataResponseToRequiredFullMovieInfo } from '../../../utils/mapper.utils';
+
+export interface MovieDetailsContext {
+  onOpenSearchForm: () => void;
+}
 
 export const MovieDetailsHeader = () => {
-  const { onOpenSearchForm } = useMovieDetailsContext();
+  const { onOpenSearchForm } = useOutletContext<MovieDetailsContext>();
   const movieData = useLoaderData() as GetMovieByIdResponse;
-  const movieDetails = mapMovieDataToMovieDetailsInfo(movieData);
+  const movieDetails = mapMovieDataResponseToRequiredFullMovieInfo(movieData);
   return (
     <div className={headerStyles.header}>
       <div className={styles.controls}>

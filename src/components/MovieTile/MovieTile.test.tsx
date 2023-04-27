@@ -6,10 +6,11 @@ import {
 } from '../../constants/tests.constants';
 import userEvent from '@testing-library/user-event';
 
-const MOVIE_ID = '1';
+const MOVIE_ID = 1;
 const IMAGE_URL = 'https://example.com/';
 const MOVIE_NAME = 'Pulp Function';
-const RELEASE_YEAR = 2004;
+const RELEASE_DATE = new Date(2004, 0);
+const GENRES = new Set(['adventure', 'comedy']);
 const GENRE = 'Adventure & Comedy';
 
 it('renders an imageUrl, movieName, releaseYear, genres with the values equal to initial value passed in props', () => {
@@ -17,10 +18,10 @@ it('renders an imageUrl, movieName, releaseYear, genres with the values equal to
     <MovieTile
       info={{
         id: MOVIE_ID,
-        imageUrl: IMAGE_URL,
-        movieName: MOVIE_NAME,
-        releaseYear: RELEASE_YEAR,
-        genre: GENRE,
+        movieURL: IMAGE_URL,
+        title: MOVIE_NAME,
+        releaseDate: RELEASE_DATE,
+        genreIds: GENRES,
       }}
     />
   );
@@ -30,7 +31,7 @@ it('renders an imageUrl, movieName, releaseYear, genres with the values equal to
     name: MOVIE_NAME,
   });
   const releaseYearElement: HTMLElement | null = screen.queryByRole('heading', {
-    name: String(RELEASE_YEAR),
+    name: String(RELEASE_DATE.getFullYear()),
   });
   const genreElement: HTMLElement | null = screen.queryByRole('heading', {
     name: GENRE,
@@ -50,10 +51,10 @@ it('invokes an onClick with movie name on movie tile click', async () => {
     <MovieTile
       info={{
         id: MOVIE_ID,
-        imageUrl: IMAGE_URL,
-        movieName: MOVIE_NAME,
-        releaseYear: RELEASE_YEAR,
-        genre: GENRE,
+        movieURL: IMAGE_URL,
+        title: MOVIE_NAME,
+        releaseDate: RELEASE_DATE,
+        genreIds: new Set([GENRE]),
       }}
       onClick={handleClick}
     />
@@ -71,10 +72,10 @@ it('renders with menu context', () => {
     <MovieTile
       info={{
         id: MOVIE_ID,
-        imageUrl: IMAGE_URL,
-        movieName: MOVIE_NAME,
-        releaseYear: RELEASE_YEAR,
-        genre: GENRE,
+        movieURL: IMAGE_URL,
+        title: MOVIE_NAME,
+        releaseDate: RELEASE_DATE,
+        genreIds: GENRES,
       }}
     />
   );

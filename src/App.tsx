@@ -14,6 +14,8 @@ import { getMovieListLoader } from './loaders/GetMovieListLoader';
 import { MovieDetailsHeaderError } from './pages/MovieListPage/MovieDetailsHeader/MovieDetailsHeaderError';
 import { MovieListPageError } from './pages/MovieListPage/MovieListPageError';
 import { doNotRevalidateWhenHrefsAreTheSame } from './utils';
+import { AddMovieDialog } from './components/AddMovieDialog';
+import { EditMovieDialog } from './components/EditMovieDialog';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,7 +26,14 @@ export const router = createBrowserRouter(
       errorElement={<MovieListPageError />}
       shouldRevalidate={doNotRevalidateWhenHrefsAreTheSame}
     >
-      <Route index element={<SearchFormHeader />} />
+      <Route path="/" element={<SearchFormHeader />}>
+        <Route path="new" element={<AddMovieDialog />} />
+        <Route
+          path={`:${ROOT_MOVIE_ID}/edit`}
+          loader={getMovieByIdLoader}
+          element={<EditMovieDialog />}
+        />
+      </Route>
       <Route
         path={`:${ROOT_MOVIE_ID}`}
         element={<MovieDetailsHeader />}

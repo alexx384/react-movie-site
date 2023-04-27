@@ -4,10 +4,10 @@ import { withRouter } from 'storybook-addon-react-router-v6';
 import { MovieListPageError } from './MovieListPageError';
 import { TEST_ROOT_RESPONSE } from '../../constants/movieListPage.constants';
 import { SearchFormHeader } from './SearchFormHeader';
-import { LoaderFunctionArgs } from 'react-router-dom';
 import { ROOT_MOVIE_ID } from '../../constants/router.constants';
 import { MovieDetailsHeader } from './MovieDetailsHeader';
 import { MovieDetailsHeaderError } from './MovieDetailsHeader/MovieDetailsHeaderError';
+import { movieByIdLoader } from '../../utils/test.utils';
 
 export default {
   title: 'Pages/MovieListPage',
@@ -17,18 +17,6 @@ export default {
     layout: 'fullscreen',
   },
 } as ComponentMeta<typeof MovieListPage>;
-
-const movieByIdLoader = ({ params }: LoaderFunctionArgs) => {
-  const movieId = Number(params[ROOT_MOVIE_ID]);
-  const movieData = TEST_ROOT_RESPONSE.data.filter(
-    (movieData) => movieData.id === movieId
-  )?.[0];
-  if (movieData) {
-    return movieData;
-  } else {
-    throw new Response('Something went wrong', { status: 400 });
-  }
-};
 
 const Template: ComponentStory<typeof MovieListPage> = (args) => (
   <MovieListPage />

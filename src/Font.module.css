@@ -59,3 +59,7 @@
   font: 600 1rem/1.2em 'Montserrat', sans-serif;
   letter-spacing: 0.05em;
 }
+
+.add-movie-btn {
+  font: 600 1.25rem/1.2em 'Montserrat', sans-serif;
+}

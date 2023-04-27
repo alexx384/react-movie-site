@@ -33,7 +33,17 @@ export const Dialog = ({
   onClose,
   isOpened = true,
 }: Props) => {
-  useEscapeHandler(onClose);
+  // const body = document.querySelector('body');
+  // if (isOpened && body) {
+  //   body.style.overflow = 'hidden';
+  // }
+  const handleClose = () => {
+    // if (body) {
+    //   body.style.overflow = 'auto';
+    // }
+    onClose?.();
+  };
+  useEscapeHandler(handleClose);
   return (
     <>
       {isOpened && (
@@ -47,7 +57,7 @@ export const Dialog = ({
               <div className={styles.block}>
                 <button
                   className={styles['close-btn']}
-                  onClick={onClose}
+                  onClick={handleClose}
                   data-testid={DIALOG_X_BUTTON}
                 >
                   x
