@@ -303,7 +303,7 @@ describe('Movie search', () => {
     cy.get(`[data-testid="${FORM_MOVIE_OVERVIEW}"]`).should('have.value', '');
   });
 
-  it('opens empty "Edit Movie" form by the link', () => {
+  it('opens filled "Edit Movie" form by the link', () => {
     const movieId = 82702;
     cy.visit(`/${movieId}/edit`);
 
@@ -391,10 +391,16 @@ describe('Movie search', () => {
       );
       cy.get(`[data-testid="${FORM_MOVIE_OVERVIEW}"]`).type(movieData.overview);
       cy.get('form').submit();
+
       cy.get(`[data-testid="${MOVIE_DETAILS_NAME}"]`).should(
         'have.text',
         movieData.title
       );
+      cy.location().should((location) => {
+        const match = location.pathname.match(/\/(\d+)/);
+        const movieId = (match as RegExpMatchArray)[1];
+        expect(movieId).to.be.equal(String(movieData.id));
+      });
     });
     cy.get(`[data-testid="${MOVIE_TILE}"]`).should('have.length', 7);
   });
