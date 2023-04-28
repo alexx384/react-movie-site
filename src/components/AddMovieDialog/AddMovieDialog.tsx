@@ -8,6 +8,7 @@ import {
   RequiredFullMovieInfo,
 } from '../../interfaces/movieInfo';
 import { mapFullMovieInfoToCreateMovieResponse } from '../../utils/mapper.utils';
+import { addMovieData } from '../../api/movieApi';
 
 export type AddMovieContext = {
   onAddMovie: (movieId: number) => void;
@@ -17,22 +18,9 @@ export type AddMovieContext = {
 export const AddMovieDialog = () => {
   const { onAddMovie, onCloseAddMovie } = useOutletContext<AddMovieContext>();
   const handleSubmit = async (movieInfo: FullMovieInfo) => {
-    const movieData = mapFullMovieInfoToCreateMovieResponse(movieInfo);
-    const response = await fetch(CREATE_MOVIE_URI, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-      body: JSON.stringify(movieData),
-    });
-    if (!response.ok) {
-      throw new Error(`The response is ${response.status}`);
-    }
-    const jsonData: RequiredFullMovieInfo = await response.json();
-    if (!jsonData.id) {
-      throw new Error('There is no ID for newly created record');
-    }
-    onAddMovie(jsonData.id);
+    const formMovieData = mapFullMovieInfoToCreateMovieResponse(movieInfo);
+    const newMovieData = await addMovieData(formMovieData);
+    onAddMovie(newMovieData.id);
   };
   return (
     <Dialog isOpened={true} title={ADD_MOVIE_TITLE} onClose={onCloseAddMovie}>
