@@ -23,6 +23,7 @@ import {
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { FullMovieInfo, MovieFormInfo } from '../../interfaces/movieInfo';
+import { ErrorFormMessage } from './ErrorFormMessage';
 
 export type MovieFormProps = {
   movieInfo?: FullMovieInfo;
@@ -58,11 +59,6 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
       });
     }
   };
-  const errorMessage = ({ message }: { message: string }) => (
-    <p className={classNames(fontStyles.subtitle, styles['error-input'])}>
-      {message}
-    </p>
-  );
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <div className={styles['input-row-container']}>
@@ -83,7 +79,11 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             placeholder="Movie Title"
             data-testid={FORM_MOVIE_TITLE_INPUT}
           />
-          <ErrorMessage errors={errors} name="title" render={errorMessage} />
+          <ErrorMessage
+            errors={errors}
+            name="title"
+            render={({ message }) => <ErrorFormMessage message={message} />}
+          />
         </div>
         <div
           className={classNames(
@@ -120,7 +120,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           <ErrorMessage
             errors={errors}
             name="releaseDate"
-            render={errorMessage}
+            render={({ message }) => <ErrorFormMessage message={message} />}
           />
         </div>
       </div>
@@ -145,7 +145,11 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             placeholder="https://"
             data-testid={FORM_MOVIE_URL}
           />
-          <ErrorMessage errors={errors} name="movieURL" render={errorMessage} />
+          <ErrorMessage
+            errors={errors}
+            name="movieURL"
+            render={({ message }) => <ErrorFormMessage message={message} />}
+          />
         </div>
         <div className={classNames(styles['label-and-input'], styles.rating)}>
           <label className={fontStyles['form-label']} htmlFor="rating">
@@ -171,7 +175,11 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             placeholder="7.8"
             data-testid={FORM_MOVIE_RATING}
           />
-          <ErrorMessage errors={errors} name="rating" render={errorMessage} />
+          <ErrorMessage
+            errors={errors}
+            name="rating"
+            render={({ message }) => <ErrorFormMessage message={message} />}
+          />
         </div>
       </div>
       <div className={styles['input-row-container']}>
@@ -198,7 +206,11 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
               />
             )}
           />
-          <ErrorMessage errors={errors} name="genreIds" render={errorMessage} />
+          <ErrorMessage
+            errors={errors}
+            name="genreIds"
+            render={({ message }) => <ErrorFormMessage message={message} />}
+          />
         </div>
         <div className={classNames(styles['label-and-input'], styles.runtime)}>
           <label className={fontStyles['form-label']} htmlFor="runtime">
@@ -219,7 +231,11 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             placeholder="minutes"
             data-testid={FORM_MOVIE_RUNTIME}
           />
-          <ErrorMessage errors={errors} name="runtime" render={errorMessage} />
+          <ErrorMessage
+            errors={errors}
+            name="runtime"
+            render={({ message }) => <ErrorFormMessage message={message} />}
+          />
         </div>
       </div>
       <div className={classNames(styles['label-and-input'])}>
@@ -235,7 +251,11 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           placeholder="Movie description"
           data-testid={FORM_MOVIE_OVERVIEW}
         />
-        <ErrorMessage errors={errors} name="overview" render={errorMessage} />
+        <ErrorMessage
+          errors={errors}
+          name="overview"
+          render={({ message }) => <ErrorFormMessage message={message} />}
+        />
       </div>
       <p>{errors?.root?.['serverError']?.message}</p>
       <div className={styles['btn-block']}>
