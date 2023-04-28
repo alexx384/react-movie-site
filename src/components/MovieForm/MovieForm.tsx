@@ -260,6 +260,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
       <p>{errors?.root?.['serverError']?.message}</p>
       <div className={styles['btn-block']}>
         <input
+          disabled={isSubmitting}
           onClick={() => reset()}
           className={fontStyles['submit-btn']}
           type="button"

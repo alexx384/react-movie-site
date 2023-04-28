@@ -28,6 +28,7 @@ Primary.parameters = {
     handlers: [
       rest.put(UPDATE_MOVIE_URI, async (request, response, context) => {
         const body = await request.json();
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         action('Responding to request')(body);
         return response(
           context.status(200),
