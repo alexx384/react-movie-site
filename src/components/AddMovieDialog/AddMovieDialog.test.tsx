@@ -3,7 +3,6 @@ import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { AddMovieContext, AddMovieDialog } from '.';
 import { ADD_MOVIE_TITLE } from '../../constants/movieDialog.constants';
 import { TEST_MOVIE_DATA } from '../../constants/movieForm.constants';
-import { ROOT_MOVIE_ID } from '../../constants/router.constants';
 
 const Root = ({ outletContext }: { outletContext: AddMovieContext }) => (
   <Outlet context={outletContext} />
@@ -22,14 +21,14 @@ it('renders title', async () => {
         element: <Root outletContext={outletContext} />,
         children: [
           {
-            path: `:${ROOT_MOVIE_ID}/edit`,
+            path: 'new',
             element: <AddMovieDialog />,
             loader: () => TEST_MOVIE_DATA,
           },
         ],
       },
     ],
-    { initialEntries: ['/10191/edit'] }
+    { initialEntries: ['/new'] }
   );
   render(<RouterProvider router={router} />);
 
