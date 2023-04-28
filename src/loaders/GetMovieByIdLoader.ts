@@ -1,9 +1,9 @@
 import { LoaderFunctionArgs } from 'react-router-dom';
-import { REQUEST_URI } from '../constants/loader.constants';
+import { REQUEST_URI } from '../constants/request.constants';
 import { ROOT_MOVIE_ID } from '../constants/router.constants';
-import { MovieData } from '../pages/MovieListPage';
+import { MovieData, MovieDataResponse } from '../interfaces/movieData';
 
-export type GetMovieByIdResponse = MovieData;
+export type GetMovieByIdResponse = MovieDataResponse;
 
 export const getMovieByIdLoader = async ({
   params,

@@ -1,27 +1,25 @@
 import styles from './MovieDetailsHeader.module.css';
 import headerStyles from '../MovieListHeader.module.css';
 import classNames from 'classnames';
-import { useRouteError } from 'react-router-dom';
-import { useMovieDetailsContext } from '../MovieListPage.utils';
+import { useOutletContext, useRouteError } from 'react-router-dom';
 import imageNotFound from '../../../assets/imageNotFound.png';
 import { MOVIE_HEADER_SEARCH_ICON } from '../../../constants/tests.constants';
-import {
-  MovieDetails,
-  MovieDetailsInfo,
-} from '../../../components/MovieDetails';
+import { MovieDetails } from '../../../components/MovieDetails';
+import { RequiredFullMovieInfo } from '../../../interfaces/movieInfo';
+import { MovieDetailsContext } from './MovieDetailsHeader';
 
 export const MovieDetailsHeaderError = () => {
-  const { onOpenSearchForm } = useMovieDetailsContext();
+  const { onOpenSearchForm } = useOutletContext<MovieDetailsContext>();
   const error = useRouteError() as { status: string };
-  const movieDetails: MovieDetailsInfo = {
-    id: '',
-    imageUrl: imageNotFound,
-    movieName: error.status,
-    releaseYear: 0,
+  const movieDetails: RequiredFullMovieInfo = {
+    id: 0,
+    movieURL: imageNotFound,
+    title: error.status,
+    releaseDate: new Date(0, 0),
     rating: 0,
-    description: 'Something went wrong',
-    genre: '',
-    durationInMinutes: 0,
+    overview: 'Something went wrong',
+    genreIds: new Set(),
+    runtime: 0,
   };
   return (
     <div className={headerStyles.header}>

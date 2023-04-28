@@ -8,6 +8,11 @@ export const arrayToString = (array: string[]): string => {
   }
 };
 
+export const setToString = (set: Set<string>): string => {
+  const array = Array.from(set);
+  return arrayToString(array);
+};
+
 export const minutesToHoursAndMinutesString = (seconds: number): string => {
   if (seconds < 1) {
     return '';

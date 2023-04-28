@@ -1,37 +1,35 @@
 import styles from './MovieDetails.module.css';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
-import { MovieBasicInfo } from '../MovieTile';
-import { minutesToHoursAndMinutesString } from '../../utils/string.utils';
+import {
+  arrayToString,
+  minutesToHoursAndMinutesString,
+} from '../../utils/string.utils';
 import {
   MOVIE_DETAILS_DESCRIPTION,
   MOVIE_DETAILS_IMAGE,
   MOVIE_DETAILS_NAME,
   MOVIE_DETAILS_RATING,
 } from '../../constants/tests.constants';
-
-export interface MovieDetailsInfo extends MovieBasicInfo {
-  rating: number;
-  genre: string;
-  durationInMinutes: number;
-  description: string;
-}
+import { RequiredFullMovieInfo } from '../../interfaces/movieInfo';
+import { mapGenreIdsToGenreValues } from '../../utils/mapper.utils';
 
 export const MovieDetails = ({
-  imageUrl,
-  movieName,
-  releaseYear,
+  movieURL,
+  title,
+  releaseDate,
   rating,
-  genre,
-  durationInMinutes,
-  description,
-}: MovieDetailsInfo) => {
+  genreIds,
+  runtime,
+  overview,
+}: RequiredFullMovieInfo) => {
+  const movieGenres = mapGenreIdsToGenreValues(genreIds);
   return (
     <div className={styles.block}>
       <img
         className={styles.poster}
-        src={imageUrl}
-        alt={movieName}
+        src={movieURL}
+        alt={title}
         data-testid={MOVIE_DETAILS_IMAGE}
       />
       <div>
@@ -40,7 +38,7 @@ export const MovieDetails = ({
             className={classNames(fontStyles.title, styles.title)}
             data-testid={MOVIE_DETAILS_NAME}
           >
-            {movieName}
+            {title}
           </h1>
           <h3
             className={classNames(fontStyles.rating, styles.rating)}
@@ -50,21 +48,21 @@ export const MovieDetails = ({
           </h3>
         </div>
         <h4 className={classNames(fontStyles.subtitle, styles.genre)}>
-          {genre}
+          {arrayToString(movieGenres)}
         </h4>
         <div className={styles['year-and-timing']}>
           <h2 className={classNames(fontStyles['key-detail'], styles.year)}>
-            {releaseYear}
+            {releaseDate.getFullYear()}
           </h2>
           <h2 className={classNames(fontStyles['key-detail'], styles.timing)}>
-            {minutesToHoursAndMinutesString(durationInMinutes)}
+            {minutesToHoursAndMinutesString(runtime)}
           </h2>
         </div>
         <p
           className={classNames(fontStyles.description, styles.description)}
           data-testid={MOVIE_DETAILS_DESCRIPTION}
         >
-          {description}
+          {overview}
         </p>
       </div>
     </div>

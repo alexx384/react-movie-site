@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -16,6 +17,7 @@
     "focus-trap-react": "^10.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.10.0",
     "react-test-renderer": "^18.2.0",
     "typescript": "^4.9.5"
@@ -23,16 +25,17 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "build:local": "REACT_APP_MOVIE_BACKEND_HOSTNAME=localhost REACT_APP_MOVIE_BACKEND_PORT=4000 REACT_APP_MOVIE_BACKEND_PROTOCOL=http react-app-rewired build",
     "test": "start-test 'PORT=3000 BROWSER=none npx react-app-rewired start' http-get://localhost:3000 'npm run test:unit && npm run test:e2e'",
-    "test:watch": "react-app-rewired test",
+    "test:watch": "react-app-rewired test --silent=false",
     "test:unit": "react-app-rewired test --watchAll=false",
     "test:coverage": "react-app-rewired test --coverage --watchAll=false",
     "test:e2e": "cypress run",
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "cypress": "cypress open",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "storybook": "start-storybook -p 6006 -s .storybook/public",
+    "build-storybook": "build-storybook -s .storybook/public"
   },
   "browserslist": {
     "production": [
@@ -56,6 +59,7 @@
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-interactions": "^6.5.16",
     "@storybook/addon-links": "^6.5.16",
+    "@storybook/blocks": "^7.0.7",
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/manager-webpack5": "^6.5.16",
     "@storybook/node-logger": "^6.5.16",
@@ -71,7 +75,10 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.11",
     "husky": "^8.0.3",
+    "jest-fetch-mock": "^3.0.3",
     "lint-staged": "^13.2.0",
+    "msw": "^1.2.1",
+    "msw-storybook-addon": "^1.8.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "prettier-plugin-css-order": "^1.3.0",
@@ -79,5 +86,8 @@
     "react-scripts": "^5.0.1",
     "start-server-and-test": "^2.0.0",
     "storybook-addon-react-router-v6": "^0.3.5"
+  },
+  "msw": {
+    "workerDirectory": ".storybook/public"
   }
 }

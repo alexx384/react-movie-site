@@ -34,6 +34,7 @@ it('calls "onSearch" prop with proper value after typing to the input and pressi
   const userTyping: string = 'hello';
   const user: UserEvent = userEvent.setup();
   const handleSearch = jest.fn();
+
   render(
     <SearchForm
       initialSearchQuery={initialSearchQuery}

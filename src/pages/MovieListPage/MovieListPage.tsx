@@ -8,7 +8,6 @@ import {
   SORT_OPTIONS,
 } from '../../constants/movieListPage.constants';
 import {
-  mapMovieDataToMovieDetailsInfo,
   getGenreFilterFromUrlSearchParam,
   getSortByFromUrlSearchParams,
   setGenreFilterToUrlSearchParams,
@@ -16,7 +15,6 @@ import {
   getSearchQueryFromUrlSearchParams,
   setSearchQueryToUrlSearchParams,
 } from './MovieListPage.utils';
-import { MovieListPageContext, MovieDataResponse } from './MovieListPage.types';
 import {
   Outlet,
   useLoaderData,
@@ -24,20 +22,29 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { GetMovieListResponse } from '../../loaders/GetMovieListLoader';
+import { SearchFormContext } from './SearchFormHeader';
+import { MovieDetailsContext } from './MovieDetailsHeader';
+import { mapMovieDataResponseToRequiredFullMovieInfo } from '../../utils/mapper.utils';
+import { useRevalidator } from 'react-router-dom';
+
+export interface MovieListPageContext
+  extends SearchFormContext,
+    MovieDetailsContext {}
 
 export const MovieListPage = () => {
+  const revalidator = useRevalidator();
   const [searchParams, setSearchParams] = useSearchParams();
   const genreFilter = getGenreFilterFromUrlSearchParam(searchParams);
   const sortBy = getSortByFromUrlSearchParams(searchParams);
   const searchQuery = getSearchQueryFromUrlSearchParams(searchParams);
   const movieDataNullableResponse = useLoaderData() as GetMovieListResponse;
   const [totalMovieNumber, movieDetailsArray] = React.useMemo(() => {
-    const movieData: MovieDataResponse = movieDataNullableResponse ?? {
+    const movieData = movieDataNullableResponse ?? {
       totalAmount: 0,
       data: [],
     };
     const movieDetailsArray = movieData.data.map(
-      mapMovieDataToMovieDetailsInfo
+      mapMovieDataResponseToRequiredFullMovieInfo
     );
     return [movieData.totalAmount, movieDetailsArray];
   }, [movieDataNullableResponse]);
@@ -51,7 +58,7 @@ export const MovieListPage = () => {
       setGenreFilterToUrlSearchParams(prev, genreFilter)
     );
   };
-  const handleMovieListResultClick = (movieId: string) => {
+  const handleDisplayMovieDetails = (movieId: number) => {
     navigate(`/${movieId}?${searchParams}`);
   };
   const handleOpenSearchForm = () => {
@@ -62,10 +69,25 @@ export const MovieListPage = () => {
       setSearchQueryToUrlSearchParams(prev, searchQuery)
     );
   };
+  const handleAddMovieClick = () => {
+    navigate(`/new?${searchParams}`);
+  };
+  const handleAddOrEditMovie = (movieId: number) => {
+    navigate(`/${movieId}?${searchParams}`);
+    revalidator.revalidate();
+  };
   const outletContext: MovieListPageContext = {
     initialSearchQuery: searchQuery,
     onOpenSearchForm: handleOpenSearchForm,
     onSendSearchQuery: handleSendSearchQuery,
+    onAddMovie: handleAddOrEditMovie,
+    onEditMovie: handleAddOrEditMovie,
+    onCloseEditMovie: handleDisplayMovieDetails,
+    onCloseAddMovie: handleOpenSearchForm,
+    onAddMovieClick: handleAddMovieClick,
+  };
+  const handleMovieEdit = (movieId: number) => {
+    navigate(`/${movieId}/edit?${searchParams}`);
   };
   return (
     <>
@@ -89,7 +111,8 @@ export const MovieListPage = () => {
           <MovieListResult
             movieList={movieDetailsArray}
             totalMovieNumber={String(totalMovieNumber)}
-            onMovieClick={handleMovieListResultClick}
+            onMovieClick={handleDisplayMovieDetails}
+            onMovieEdit={handleMovieEdit}
           />
         </div>
       </div>

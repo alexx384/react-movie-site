@@ -1,12 +1,3 @@
-import { arrayToString } from '../../utils/string.utils';
-import {
-  MovieData,
-  MovieDetailsContext,
-  MovieListFilterSettings,
-  MovieListPageContext,
-  SearchFormContext,
-} from '.';
-import { MovieDetailsInfo } from '../../components/MovieDetails';
 import {
   DEFAULT_MOVIE_GENRE,
   DEFAULT_SEARCH_BY_FIELD,
@@ -18,20 +9,14 @@ import {
   QUERY_SORT_BY,
   SORT_OPTIONS,
 } from '../../constants/movieListPage.constants';
-import { URLSearchParamsInit, useOutletContext } from 'react-router-dom';
+import { URLSearchParamsInit } from 'react-router-dom';
 
-export const mapMovieDataToMovieDetailsInfo = (
-  movieData: MovieData
-): MovieDetailsInfo => ({
-  id: String(movieData.id),
-  imageUrl: movieData.poster_path,
-  movieName: movieData.title,
-  releaseYear: new Date(movieData.release_date).getFullYear(),
-  genre: arrayToString(movieData.genres),
-  description: movieData.overview,
-  durationInMinutes: movieData.runtime,
-  rating: movieData.vote_average,
-});
+export type MovieListFilterSettings = {
+  [QUERY_GENRE_FILTER_PARAM]: string;
+  [QUERY_SORT_BY]: string;
+  [QUERY_SEARCH]: string;
+  [QUERY_SEARCH_BY]: string;
+};
 
 export const mapSearchQueryParamsToMoviesRequestParams = (
   searchParams: URLSearchParams
@@ -91,11 +76,3 @@ export const setSearchQueryToUrlSearchParams = (
   ...Object.fromEntries(urlSearchParams.entries()),
   [QUERY_SEARCH]: movieQuery,
 });
-
-export const useSearchFormContext = (): SearchFormContext => {
-  return useOutletContext<MovieListPageContext>();
-};
-
-export const useMovieDetailsContext = (): MovieDetailsContext => {
-  return useOutletContext<MovieListPageContext>();
-};

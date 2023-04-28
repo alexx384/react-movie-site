@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import styles from './Multiselect.module.css';
 import classNames from 'classnames';
 import { Checkbox } from './Checkbox';
@@ -7,16 +7,18 @@ import {
   TRIANGLE_UP,
   TRIANGLE_DOWN,
 } from '../../constants/multiselect.constants';
+import { FORM_MOVIE_GENRE } from '../../constants/tests.constants';
 
-export type Option = {
+export type GenreOption = {
   id: string;
   value: string;
-  isChecked: boolean;
 };
 
 export type Props = {
-  options: Option[];
+  options: GenreOption[];
   placeholder: string;
+  initiallySelectedOptions: Set<string>;
+  onChange: (genres: Set<string>) => void;
 };
 
 const useOutsideAlerter = (
@@ -49,90 +51,66 @@ const OutsideAlerter = (props: {
   return <div ref={wrapperRef}>{props.children}</div>;
 };
 
-type OptionDict = { [key: string]: Option };
-
-export type MultiselectHandle = {
-  getSelectedGenreIds: () => Set<string>;
-  resetSelection: () => void;
-};
-
-export const Multiselect = forwardRef<MultiselectHandle, Props>(
-  ({ options, placeholder }, ref) => {
-    const [isShowOptionList, setIsShowOptionList] = React.useState(false);
-    const [optionDict, setOptionDict] = React.useState(
-      options.reduce((dict: OptionDict, option) => {
-        dict[option.id] = option;
-        return dict;
-      }, {})
-    );
-    React.useImperativeHandle(ref, () => ({
-      getSelectedGenreIds: () => {
-        return new Set(
-          Object.entries(optionDict)
-            .filter((entry) => entry[1].isChecked)
-            .map((entry) => entry[0])
-        );
-      },
-      resetSelection: () => {
-        setOptionDict(() =>
-          options.reduce((dict: OptionDict, option) => {
-            dict[option.id] = option;
-            return dict;
-          }, {})
-        );
-      },
-    }));
-    const handleCloseOptionList = () => {
-      setIsShowOptionList(false);
-    };
-    const handleChange = (id: string) => {
-      setOptionDict((prev) => {
-        const result = Object.assign({}, prev);
-        const changedItem = Object.assign({}, prev[id]);
-        changedItem.isChecked = !changedItem.isChecked;
-        result[id] = changedItem;
-        return result;
-      });
-    };
-    const checkedEntries = Object.entries(optionDict).filter(
-      (entry) => entry[1].isChecked
-    );
-    return (
-      <OutsideAlerter outsideClick={handleCloseOptionList}>
-        <div className={styles['multi-select-container']}>
-          <div
-            onClick={() => setIsShowOptionList((prev) => !prev)}
-            className={classNames(styles['options-wrapper'], fontStyles.input)}
-          >
-            {checkedEntries.length !== 0
-              ? checkedEntries.map((entry) => entry[1].value).join(', ')
-              : placeholder}
-          </div>
-          <span
-            className={classNames(fontStyles['filter-item'], styles.triangle)}
-          >
-            {isShowOptionList ? TRIANGLE_UP : TRIANGLE_DOWN}
-          </span>
-          <div
-            className={classNames(styles['option-list-container'], {
-              [styles['display-none']]: !isShowOptionList,
-            })}
-          >
-            <ul className={styles['option-container']}>
-              {Object.entries(optionDict).map((entry) => (
-                <div key={entry[0]} className={styles.option}>
-                  <Checkbox
-                    id={entry[0]}
-                    value={entry[1].value}
-                    isChecked={entry[1].isChecked}
-                    onChange={handleChange}
-                  />
-                </div>
-              ))}
-            </ul>
-          </div>
+export const Multiselect = ({
+  options,
+  placeholder,
+  initiallySelectedOptions,
+  onChange,
+}: Props) => {
+  const [isShowOptionList, setIsShowOptionList] = React.useState(false);
+  const selectOptionSet = initiallySelectedOptions;
+  const handleCloseOptionList = () => {
+    setIsShowOptionList(false);
+  };
+  const handleChange = (id: string, isChecked: boolean) => {
+    const newOptionDict = new Set<string>(selectOptionSet);
+    if (isChecked) {
+      newOptionDict.add(id);
+    } else {
+      newOptionDict.delete(id);
+    }
+    onChange(newOptionDict);
+  };
+  return (
+    <OutsideAlerter outsideClick={handleCloseOptionList}>
+      <div className={styles['multi-select-container']}>
+        <button
+          type="button"
+          onClick={() => setIsShowOptionList((prev) => !prev)}
+          className={classNames(styles['options-wrapper'], fontStyles.input)}
+          data-testid={FORM_MOVIE_GENRE}
+        >
+          {selectOptionSet.size !== 0
+            ? options
+                .filter((option) => selectOptionSet.has(option.id))
+                .map((option) => option.value)
+                .join(', ')
+            : placeholder}
+        </button>
+        <span
+          className={classNames(fontStyles['filter-item'], styles.triangle)}
+        >
+          {isShowOptionList ? TRIANGLE_UP : TRIANGLE_DOWN}
+        </span>
+        <div
+          className={classNames(styles['option-list-container'], {
+            [styles['display-none']]: !isShowOptionList,
+          })}
+        >
+          <ul className={styles['option-container']}>
+            {options.map((entry) => (
+              <div key={entry.id} className={styles.option}>
+                <Checkbox
+                  id={entry.id}
+                  value={entry.value}
+                  isChecked={selectOptionSet.has(entry.id)}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
+          </ul>
         </div>
-      </OutsideAlerter>
-    );
-  }
-);
+      </div>
+    </OutsideAlerter>
+  );
+};

@@ -1,17 +1,26 @@
-import { MovieForm, MovieInfo } from '../MovieForm';
+import { MovieForm } from '../MovieForm';
 import { Dialog } from '../Dialog';
 import { ADD_MOVIE_TITLE } from '../../constants/movieDialog.constants';
+import { useOutletContext } from 'react-router-dom';
+import { FullMovieInfo } from '../../interfaces/movieInfo';
+import { mapFullMovieInfoToCreateMovieResponse } from '../../utils/mapper.utils';
+import { addMovieData } from '../../api/movieApi';
 
-type Props = {
-  isOpened: boolean;
-  onClose?: () => void;
-  onSubmit?: (movieInfo: MovieInfo) => void;
+export type AddMovieContext = {
+  onAddMovie: (movieId: number) => void;
+  onCloseAddMovie: () => void;
 };
 
-export const AddMovieDialog = ({ isOpened, onClose, onSubmit }: Props) => {
+export const AddMovieDialog = () => {
+  const { onAddMovie, onCloseAddMovie } = useOutletContext<AddMovieContext>();
+  const handleSubmit = async (movieInfo: FullMovieInfo) => {
+    const formMovieData = mapFullMovieInfoToCreateMovieResponse(movieInfo);
+    const newMovieData = await addMovieData(formMovieData);
+    onAddMovie(newMovieData.id);
+  };
   return (
-    <Dialog isOpened={isOpened} title={ADD_MOVIE_TITLE} onClose={onClose}>
-      <MovieForm onSubmit={onSubmit} />
+    <Dialog isOpened={true} title={ADD_MOVIE_TITLE} onClose={onCloseAddMovie}>
+      <MovieForm onSubmit={handleSubmit} />
     </Dialog>
   );
 };

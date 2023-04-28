@@ -3,49 +3,57 @@ import { MOVIE_TILE, MOVIE_TILE_IMAGE } from '../../constants/tests.constants';
 import fontStyles from '../../Font.module.css';
 import classNames from 'classnames';
 import { ThreeDotsButton } from './ThreeDotsButton';
-
-export interface MovieBasicInfo {
-  id: string;
-  imageUrl: string;
-  movieName: string;
-  releaseYear: number;
-  genre: string;
-}
+import { RequiredBasicMovieInfo } from '../../interfaces/movieInfo';
+import { arrayToString } from '../../utils/string.utils';
+import { mapGenreIdsToGenreValues } from '../../utils/mapper.utils';
 
 export type Props = {
-  info: MovieBasicInfo;
-  onClick?: (movieId: string) => void;
+  info: RequiredBasicMovieInfo;
+  onClick?: (movieId: number) => void;
+  onMovieEdit?: (movieId: number) => void;
+  onMovieDelete?: (movieId: number) => void;
 };
 
-export const MovieTile = ({ info, onClick }: Props) => {
-  function handleClick() {
+export const MovieTile = ({
+  info,
+  onClick,
+  onMovieEdit,
+  onMovieDelete,
+}: Props) => {
+  const handleClick = () => {
     onClick?.(info.id);
-  }
-  function handleSelectOption(itemName: string) {
-    console.log(itemName);
-  }
-
+  };
+  const handleSelectEditOption = () => {
+    onMovieEdit?.(info.id);
+  };
+  const handleSelectDeleteOption = () => {
+    onMovieDelete?.(info.id);
+  };
+  const movieGenres = mapGenreIdsToGenreValues(info.genreIds);
   return (
     <div className={styles.block} data-testid={MOVIE_TILE}>
-      <ThreeDotsButton onSelectOption={handleSelectOption}>
+      <ThreeDotsButton
+        onSelectEditOption={handleSelectEditOption}
+        onSelectDeleteOption={handleSelectDeleteOption}
+      >
         <img
           onClick={handleClick}
           className={styles.poster}
-          src={info.imageUrl}
-          alt={info.movieName}
+          src={info.movieURL}
+          alt={info.title}
           data-testid={MOVIE_TILE_IMAGE}
         />
       </ThreeDotsButton>
       <div className={styles['name-and-year']}>
         <h1 className={classNames(fontStyles['tile-name'], styles.name)}>
-          {info.movieName}
+          {info.title}
         </h1>
         <h2 className={classNames(fontStyles['tile-year'], styles.year)}>
-          {info.releaseYear}
+          {info.releaseDate.getFullYear()}
         </h2>
       </div>
       <h2 className={classNames(fontStyles.subtitle, styles.genre)}>
-        {info.genre}
+        {arrayToString(movieGenres)}
       </h2>
     </div>
   );

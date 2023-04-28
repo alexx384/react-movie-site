@@ -46,7 +46,7 @@
   margin-top: 3.75rem;
 }
 
-.btn-block > input[type='reset'] {
+.btn-block > input[type='button'] {
   margin-right: 1rem;
   border: 1.5px solid #f65261;
   border-radius: 4px;
@@ -55,10 +55,21 @@
   color: #f65261;
 }
 
+.btn-block > input[type='button']:disabled {
+  border-color: #f652618a;
+  color: #f652618a;
+}
+
 .btn-block > input[type='submit'] {
   border: 1.5px solid #f65261;
   border-radius: 4px;
   background: #f65261;
   padding: 1rem 3rem 1rem 3rem;
   color: white;
+}
+
+.btn-block > input[type='submit']:disabled {
+  border-color: #f652618a;
+  background-color: #f652618a;
+  color: #ffffff8a;
 }

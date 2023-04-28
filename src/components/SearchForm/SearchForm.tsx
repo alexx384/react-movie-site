@@ -7,30 +7,45 @@ import classNames from 'classnames';
 export type SearchFormProps = {
   initialSearchQuery: string;
   onSearch?: (searchQuery: string) => void;
+  onAddMovieClick?: () => void;
 };
 
 export const SearchForm = ({
   initialSearchQuery,
   onSearch,
+  onAddMovieClick,
 }: SearchFormProps) => {
   const [searchQuery, setSearchQuery] = React.useState(initialSearchQuery);
 
-  function handleSearchClick() {
+  const handleSearchClick = () => {
     onSearch?.(searchQuery);
-  }
+  };
 
-  function handleInputKeydown(event: React.KeyboardEvent<HTMLInputElement>) {
+  const handleInputKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       handleSearchClick();
     }
-  }
+  };
 
-  function handleSearchQueryChange(event: React.ChangeEvent<HTMLInputElement>) {
+  const handleSearchQueryChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchQuery(event.target.value);
-  }
+  };
 
   return (
     <div className={styles.form}>
+      <div className={styles.heading}>
+        <button
+          onClick={onAddMovieClick}
+          className={classNames(
+            fontStyles['add-movie-btn'],
+            styles['add-movie-btn']
+          )}
+        >
+          + ADD MOVIE
+        </button>
+      </div>
       <h1 className={classNames(fontStyles.title, styles.title)}>
         FIND YOUR MOVIE
       </h1>

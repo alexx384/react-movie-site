@@ -6,12 +6,12 @@ export type Props = {
   isChecked: boolean;
   value: string;
   id: string;
-  onChange?: (id: string) => void;
+  onChange?: (id: string, isChecked: boolean) => void;
 };
 
 export const Checkbox = ({ isChecked, value, id, onChange }: Props) => {
   function handleChange() {
-    onChange?.(id);
+    onChange?.(id, !isChecked);
   }
   return (
     <label className={styles.container}>
@@ -19,6 +19,7 @@ export const Checkbox = ({ isChecked, value, id, onChange }: Props) => {
         type="checkbox"
         onChange={handleChange}
         className={classNames({ [styles.checked]: isChecked })}
+        name={value}
       />
       <span className={fontStyles.input}>{value}</span>
     </label>

@@ -9,6 +9,14 @@ import {
   MOVIE_DETAILS_DESCRIPTION,
   MOVIE_DETAILS_IMAGE,
   MOVIE_HEADER_SEARCH_ICON,
+  FORM_MOVIE_TITLE_INPUT,
+  FORM_MOVIE_RELEASE_DATE,
+  FORM_MOVIE_URL,
+  FORM_MOVIE_RATING,
+  FORM_MOVIE_GENRE,
+  FORM_MOVIE_RUNTIME,
+  FORM_MOVIE_OVERVIEW,
+  MOVIE_TILE,
 } from '../../src/constants/tests.constants';
 import {
   DEFAULT_SORT_OPTION_KEY,
@@ -21,8 +29,17 @@ import {
   GENRE_ITEM_SELECTED,
   GENRE_ITEM_UNSELECTED,
 } from '../../src/constants/tests.constants';
-import { MovieData, MovieDataResponse } from '../../src/pages/MovieListPage';
 import { createSearchParams } from 'react-router-dom';
+import {
+  MovieDataResponse,
+  MovieListDataResponse,
+} from '../../src/interfaces/movieData';
+import {
+  ADD_MOVIE_TITLE,
+  EDIT_MOVIE_TITLE,
+} from '../../src/constants/movieDialog.constants';
+import { arrayToString } from '../../src/utils/string.utils';
+import { contains } from 'cypress/types/jquery';
 
 describe('Movie search', () => {
   beforeEach(() => {
@@ -30,7 +47,7 @@ describe('Movie search', () => {
       fixture: 'movieListResponse.json',
     }).as('movieResponse');
     cy.fixture('movieListResponse.json').then(
-      (movieResponse: MovieDataResponse) => {
+      (movieResponse: MovieListDataResponse) => {
         cy.intercept(
           'GET',
           `${Cypress.env('REQUEST_URI')}/movies/*`,
@@ -42,29 +59,17 @@ describe('Movie search', () => {
             const filteredMovieData = movieResponse.data.filter(
               (data) => data.id === movieId
             );
-            request.reply(filteredMovieData[0] as MovieData);
+            request.reply(filteredMovieData[0] as MovieDataResponse);
           }
         ).as('movieByIdResponse');
       }
     );
-    cy.intercept('GET', '/test/media/how_to_train_your_dragon_2.jpg', {
-      fixture: 'media/how_to_train_your_dragon_2.jpg',
-    }).as('howToTrainYouDragon2Image');
-    cy.intercept('GET', '/test/media/how_to_train_your_dragon.jpg', {
-      fixture: 'media/how_to_train_your_dragon.jpg',
-    }).as('howToTrainYouDragonImage');
-    cy.intercept('GET', '/test/media/thank_you_for_smoking.jpg', {
-      fixture: 'media/thank_you_for_smoking.jpg',
-    }).as('thankYouForSmokingImage');
-    cy.intercept('GET', '/test/media/now_you_see_me_2.jpg', {
-      fixture: 'media/now_you_see_me_2.jpg',
-    }).as('nowYouSeeMe2Image');
-    cy.intercept('GET', '/test/media/he_is_just_not_that_into_you.jpg', {
-      fixture: 'media/he_is_just_not_that_into_you.jpg',
-    }).as('heIsJustNotThatIntoYouImage');
-    cy.intercept('GET', '/test/media/now_you_see_me.jpg', {
-      fixture: 'media/now_you_see_me.jpg',
-    }).as('nowYouSeeMeImage');
+    cy.intercept('GET', '/test/media/*', (request) => {
+      const filename = (
+        request.url.match('\\/(\\w+\\.\\w+)') as RegExpMatchArray
+      )[1];
+      request.reply({ fixture: `media/${filename}` });
+    });
   });
 
   it('sends movie request with search query after click on search button', () => {
@@ -174,8 +179,8 @@ describe('Movie search', () => {
     cy.get(`[data-testid="${MOVIE_TILE_IMAGE}"]`).eq(0).click();
 
     cy.fixture('movieListResponse.json').then(
-      (movieResponse: MovieDataResponse) => {
-        const firstMovieResponse = movieResponse.data[0] as MovieData;
+      (movieResponse: MovieListDataResponse) => {
+        const firstMovieResponse = movieResponse.data[0] as MovieDataResponse;
         cy.get(`[data-testid="${MOVIE_DETAILS_NAME}"]`).should(
           'have.text',
           firstMovieResponse.title
@@ -264,15 +269,139 @@ describe('Movie search', () => {
       sortBy
     );
     cy.fixture('movieListResponse.json').then(
-      (movieResponse: MovieDataResponse) => {
+      (movieResponse: MovieListDataResponse) => {
         const firstMovieResponse = movieResponse.data.filter(
           (data) => data.id === Number(movieId)
-        )[0] as MovieData;
+        )[0] as MovieDataResponse;
         cy.get(`[data-testid="${MOVIE_DETAILS_NAME}"]`).should(
           'have.text',
           firstMovieResponse.title
         );
       }
     );
+  });
+
+  it('opens empty "Add Movie" form by the link', () => {
+    cy.visit(`/new`);
+
+    cy.contains('h1', ADD_MOVIE_TITLE);
+    cy.get(`[data-testid="${FORM_MOVIE_TITLE_INPUT}"]`).should(
+      'have.value',
+      ''
+    );
+    cy.get(`[data-testid="${FORM_MOVIE_RELEASE_DATE}"]`).should(
+      'have.value',
+      ''
+    );
+    cy.get(`[data-testid="${FORM_MOVIE_URL}"]`).should('have.value', '');
+    cy.get(`[data-testid="${FORM_MOVIE_RATING}"]`).should('have.value', '');
+    cy.get(`[data-testid="${FORM_MOVIE_GENRE}"]`).should(
+      'have.text',
+      'Select Genre'
+    );
+    cy.get(`[data-testid="${FORM_MOVIE_RUNTIME}"]`).should('have.value', '');
+    cy.get(`[data-testid="${FORM_MOVIE_OVERVIEW}"]`).should('have.value', '');
+  });
+
+  it('opens filled "Edit Movie" form by the link', () => {
+    const movieId = 82702;
+    cy.visit(`/${movieId}/edit`);
+
+    cy.contains('h1', EDIT_MOVIE_TITLE);
+    cy.fixture('movieListResponse.json').then(
+      (movieResponse: MovieListDataResponse) => {
+        const movieData = movieResponse.data.filter(
+          (data) => data.id === movieId
+        )[0]!;
+        cy.get(`[data-testid="${FORM_MOVIE_TITLE_INPUT}"]`).should(
+          'have.value',
+          movieData.title
+        );
+        cy.get(`[data-testid="${FORM_MOVIE_RELEASE_DATE}"]`).should(
+          'have.value',
+          movieData.release_date
+        );
+        cy.get(`[data-testid="${FORM_MOVIE_URL}"]`).should(
+          'have.value',
+          movieData.poster_path
+        );
+        cy.get(`[data-testid="${FORM_MOVIE_RATING}"]`).should(
+          'have.value',
+          movieData.vote_average
+        );
+        cy.get(`[data-testid="${FORM_MOVIE_GENRE}"]`).should((element) => {
+          movieData.genres.forEach((genre) =>
+            expect(element)['to'].contain(genre)
+          );
+        });
+        cy.get(`[data-testid="${FORM_MOVIE_RUNTIME}"]`).should(
+          'have.value',
+          String(movieData.runtime)
+        );
+        cy.get(`[data-testid="${FORM_MOVIE_OVERVIEW}"]`).should(
+          'have.value',
+          movieData.overview
+        );
+      }
+    );
+  });
+
+  it('can add a new movie', () => {
+    cy.visit(`/new`);
+
+    cy.fixture('newMovie.json').then((newMovieData: MovieDataResponse) => {
+      cy.fixture('movieListResponse.json').then(
+        (movieListData: MovieListDataResponse) => {
+          cy.intercept(
+            'GET',
+            `${Cypress.env('REQUEST_URI')}/movies*`,
+            (request) => {
+              const newList: MovieListDataResponse = {
+                totalAmount: movieListData.totalAmount + 1,
+                data: [...movieListData.data, newMovieData],
+              };
+              request.reply(newList);
+            }
+          );
+        }
+      );
+    });
+    cy.intercept('POST', `${Cypress.env('REQUEST_URI')}/movies*`, {
+      fixture: 'newMovie.json',
+    }).as('newMovieResponse');
+    cy.intercept('GET', `${Cypress.env('REQUEST_URI')}/movies/*`, {
+      fixture: 'newMovie.json',
+    });
+
+    cy.fixture('newMovie.json').then((movieData: MovieDataResponse) => {
+      cy.get(`[data-testid="${FORM_MOVIE_TITLE_INPUT}"]`).type(movieData.title);
+      cy.get(`[data-testid="${FORM_MOVIE_RELEASE_DATE}"]`).type(
+        movieData.release_date
+      );
+      cy.get(`[data-testid="${FORM_MOVIE_URL}"]`).type(movieData.poster_path);
+      cy.get(`[data-testid="${FORM_MOVIE_RATING}"]`).type(
+        String(movieData.vote_average)
+      );
+      cy.get(`[data-testid="${FORM_MOVIE_GENRE}"]`).click();
+      movieData.genres.forEach((genre) => {
+        cy.get(`input[name="${genre}"]`).check();
+      });
+      cy.get(`[data-testid="${FORM_MOVIE_RUNTIME}"]`).type(
+        String(movieData.runtime)
+      );
+      cy.get(`[data-testid="${FORM_MOVIE_OVERVIEW}"]`).type(movieData.overview);
+      cy.get('form').submit();
+
+      cy.get(`[data-testid="${MOVIE_DETAILS_NAME}"]`).should(
+        'have.text',
+        movieData.title
+      );
+      cy.location().should((location) => {
+        const match = location.pathname.match(/\/(\d+)/);
+        const movieId = (match as RegExpMatchArray)[1];
+        expect(movieId).to.be.equal(String(movieData.id));
+      });
+    });
+    cy.get(`[data-testid="${MOVIE_TILE}"]`).should('have.length', 7);
   });
 });
