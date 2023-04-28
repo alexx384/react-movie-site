@@ -101,6 +101,16 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {...register('releaseDate', {
               required: 'Release date required',
               valueAsDate: true,
+              validate: {
+                correctRange: (v) => {
+                  const date = new Date(v);
+                  return (
+                    (1895 <= date.getFullYear() &&
+                      date.getFullYear() <= new Date().getFullYear()) ||
+                    'The movie date shoule be from 1895 up to now'
+                  );
+                },
+              },
             })}
             id="releaseDate"
             placeholder="Select Date"
@@ -124,9 +134,14 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           <input
             className={fontStyles.input}
             type="url"
-            {...register('movieURL', { required: 'Movie URL required' })}
+            {...register('movieURL', {
+              required: 'Movie URL required',
+              pattern: {
+                value: /(http|https):\/\/.*/,
+                message: "Please start URL with 'http' or 'https'",
+              },
+            })}
             id="movieURL"
-            pattern="https://.*"
             placeholder="https://"
             data-testid={FORM_MOVIE_URL}
           />
@@ -143,6 +158,14 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {...register('rating', {
               required: 'Rating required',
               valueAsNumber: true,
+              min: {
+                value: 0,
+                message: 'Rating should not be less than 0',
+              },
+              max: {
+                value: 100,
+                message: 'Rating should not be no more than 100',
+              },
             })}
             id="rating"
             placeholder="7.8"
@@ -159,7 +182,13 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
           <Controller
             name="genreIds"
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: 'Genre required',
+              validate: {
+                atLeastOne: (v) =>
+                  v.size > 0 || 'At least one genre should be choosen',
+              },
+            }}
             render={({ field: { onChange, value } }) => (
               <Multiselect
                 options={DEFAULT_MOVIE_GENRES}
@@ -169,7 +198,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
               />
             )}
           />
-          <ErrorMessage errors={errors} name="genre" render={errorMessage} />
+          <ErrorMessage errors={errors} name="genreIds" render={errorMessage} />
         </div>
         <div className={classNames(styles['label-and-input'], styles.runtime)}>
           <label className={fontStyles['form-label']} htmlFor="runtime">
@@ -181,6 +210,10 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
             {...register('runtime', {
               required: 'Runtime required',
               valueAsNumber: true,
+              min: {
+                value: 0,
+                message: 'Runtime should not be less than 0',
+              },
             })}
             id="runtime"
             placeholder="minutes"
@@ -195,7 +228,9 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
         </label>
         <textarea
           className={classNames(fontStyles.input, styles['movie-description'])}
-          {...register('overview', { required: 'Overview required' })}
+          {...register('overview', {
+            required: 'Overview required',
+          })}
           id="overview"
           placeholder="Movie description"
           data-testid={FORM_MOVIE_OVERVIEW}
