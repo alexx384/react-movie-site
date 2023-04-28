@@ -1,17 +1,14 @@
 import { MovieForm } from '../MovieForm';
 import { Dialog } from '../Dialog';
 import { EDIT_MOVIE_TITLE } from '../../constants/movieDialog.constants';
-import { UPDATE_MOVIE_URI } from '../../constants/request.constants';
 import { useLoaderData, useOutletContext } from 'react-router-dom';
 import { GetMovieByIdResponse } from '../../loaders/GetMovieByIdLoader';
-import {
-  FullMovieInfo,
-  RequiredFullMovieInfo,
-} from '../../interfaces/movieInfo';
+import { FullMovieInfo } from '../../interfaces/movieInfo';
 import {
   mapFullMovieInfoToUpdateMovieResponse,
   mapMovieDataResponseToRequiredFullMovieInfo,
 } from '../../utils/mapper.utils';
+import { updateMovieData } from '../../api/movieApi';
 
 export type EditMovieContext = {
   onEditMovie: (movieId: number) => void;
@@ -26,18 +23,8 @@ export const EditMovieDialog = () => {
 
   const handleSubmit = async (formMovieInfo: FullMovieInfo) => {
     const formMovieData = mapFullMovieInfoToUpdateMovieResponse(formMovieInfo);
-    const response = await fetch(UPDATE_MOVIE_URI, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-      body: JSON.stringify(formMovieData),
-    });
-    if (!response.ok) {
-      throw new Error(`The response is ${response.status}`);
-    }
-    const jsonData: RequiredFullMovieInfo = await response.json();
-    onEditMovie(jsonData.id);
+    const newMovieData = await updateMovieData(formMovieData);
+    onEditMovie(newMovieData.id);
   };
   const handleCloseEditMovie = () => {
     if (!movieInfo.id) {
