@@ -25,12 +25,14 @@ import { GetMovieListResponse } from '../../loaders/GetMovieListLoader';
 import { SearchFormContext } from './SearchFormHeader';
 import { MovieDetailsContext } from './MovieDetailsHeader';
 import { mapMovieDataResponseToRequiredFullMovieInfo } from '../../utils/mapper.utils';
+import { useRevalidator } from 'react-router-dom';
 
 export interface MovieListPageContext
   extends SearchFormContext,
     MovieDetailsContext {}
 
 export const MovieListPage = () => {
+  const revalidator = useRevalidator();
   const [searchParams, setSearchParams] = useSearchParams();
   const genreFilter = getGenreFilterFromUrlSearchParam(searchParams);
   const sortBy = getSortByFromUrlSearchParams(searchParams);
@@ -70,12 +72,16 @@ export const MovieListPage = () => {
   const handleAddMovieClick = () => {
     navigate(`/new?${searchParams}`);
   };
+  const handleAddOrEditMovie = (movieId: number) => {
+    navigate(`/${movieId}?${searchParams}`);
+    revalidator.revalidate();
+  };
   const outletContext: MovieListPageContext = {
     initialSearchQuery: searchQuery,
     onOpenSearchForm: handleOpenSearchForm,
     onSendSearchQuery: handleSendSearchQuery,
-    onAddMovie: handleDisplayMovieDetails,
-    onEditMovie: handleDisplayMovieDetails,
+    onAddMovie: handleAddOrEditMovie,
+    onEditMovie: handleAddOrEditMovie,
     onCloseEditMovie: handleDisplayMovieDetails,
     onCloseAddMovie: handleOpenSearchForm,
     onAddMovieClick: handleAddMovieClick,

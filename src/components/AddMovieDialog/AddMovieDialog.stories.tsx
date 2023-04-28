@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { withRouter } from 'storybook-addon-react-router-v6';
 import { AddMovieContext, AddMovieDialog } from '.';
 import { CREATE_MOVIE_URI } from '../../constants/request.constants';
+import { rest } from 'msw';
 
 export default {
   title: 'Stories/AddMovieDialog',
@@ -21,18 +22,19 @@ const Template: ComponentStory<typeof AddMovieDialog> = (args) => {
 
 export const Primary = Template.bind({});
 Primary.parameters = {
-  mockData: [
-    {
-      url: CREATE_MOVIE_URI,
-      method: 'POST',
-      status: 201,
-      response: (request: Request) => {
-        action('Responding to request')(request);
-        const { body } = request;
-        return { ...body, id: 12345 };
-      },
-    },
-  ],
+  msw: {
+    handlers: [
+      rest.post(CREATE_MOVIE_URI, async (request, response, context) => {
+        const body = await request.json();
+        action('Responding to request')(body);
+        return response(
+          context.status(200),
+          context.set('Content-Type', 'text/plain'),
+          context.json({ ...body, id: 12345 })
+        );
+      }),
+    ],
+  },
   reactRouter: {
     browserPath: '/new',
     routerPath: '/*',

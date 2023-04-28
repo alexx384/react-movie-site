@@ -25,6 +25,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "build:local": "REACT_APP_MOVIE_BACKEND_HOSTNAME=localhost REACT_APP_MOVIE_BACKEND_PORT=4000 REACT_APP_MOVIE_BACKEND_PROTOCOL=http react-app-rewired build",
     "test": "start-test 'PORT=3000 BROWSER=none npx react-app-rewired start' http-get://localhost:3000 'npm run test:unit && npm run test:e2e'",
     "test:watch": "react-app-rewired test --silent=false",
     "test:unit": "react-app-rewired test --watchAll=false",
@@ -33,8 +34,8 @@
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "cypress": "cypress open",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "storybook": "start-storybook -p 6006 -s .storybook/public",
+    "build-storybook": "build-storybook -s .storybook/public"
   },
   "browserslist": {
     "production": [
@@ -76,13 +77,17 @@
     "husky": "^8.0.3",
     "jest-fetch-mock": "^3.0.3",
     "lint-staged": "^13.2.0",
+    "msw": "^1.2.1",
+    "msw-storybook-addon": "^1.8.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "prettier-plugin-css-order": "^1.3.0",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1",
     "start-server-and-test": "^2.0.0",
-    "storybook-addon-mock": "^4.0.0",
     "storybook-addon-react-router-v6": "^0.3.5"
+  },
+  "msw": {
+    "workerDirectory": ".storybook/public"
   }
 }

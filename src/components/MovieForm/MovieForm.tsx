@@ -207,7 +207,7 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
         <input
           onClick={() => reset()}
           className={fontStyles['submit-btn']}
-          type="reset"
+          type="button"
           value={RESET_BUTTON}
         />
         <input

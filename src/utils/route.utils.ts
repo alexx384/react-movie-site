@@ -5,9 +5,7 @@ export const doNotRevalidateWhenHrefsAreTheSame: ShouldRevalidateFunction = ({
   nextUrl,
   defaultShouldRevalidate,
 }) => {
-  if (currentUrl.pathname === '/new') {
-    return true;
-  } else if (currentUrl.href.normalize() === nextUrl.href.normalize()) {
+  if (currentUrl.href.normalize() === nextUrl.href.normalize()) {
     return false;
   } else {
     return defaultShouldRevalidate;
