@@ -1,0 +1,17 @@
+.header-with-background::before {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.3;
+  z-index: -1;
+  background-image: url(../../assets/searchFormBackgroun.png);
+  background-size: cover;
+  content: '';
+}
+
+.header {
+  position: relative;
+  padding: 4vh 3vw 4vh 3vw;
+}
