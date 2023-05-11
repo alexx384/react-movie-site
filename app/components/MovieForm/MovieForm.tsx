@@ -24,13 +24,15 @@ import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { FullMovieInfo, MovieFormInfo } from '~/interfaces/movieInfo';
 import { ErrorFormMessage } from './ErrorFormMessage';
+import { Form } from '@remix-run/react';
+import { useRemixFetcher } from '~/hooks';
 
 export type MovieFormProps = {
   movieInfo?: FullMovieInfo;
-  onSubmit?: (movieInfo: FullMovieInfo) => void;
+  onFormSubmit?: (movieInfo: FullMovieInfo) => void;
 };
 
-export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
+export const MovieForm = ({ movieInfo, onFormSubmit }: MovieFormProps) => {
   const {
     register,
     handleSubmit,
@@ -45,22 +47,30 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
       releaseDate: movieInfo?.releaseDate?.toISOString().slice(0, 10),
     },
   });
-  const handleFormSubmit = async (data: MovieFormInfo) => {
-    try {
-      await onSubmit?.({
-        id: movieInfo?.id,
-        ...data,
-        releaseDate: new Date(data.releaseDate),
-      });
-    } catch (e) {
+  const { submit, state } = useRemixFetcher({
+    onSuccess: (response) => {
+      onFormSubmit?.(response.data);
+    },
+    onError: (response) => {
       setError('root.serverError', {
         type: 'server',
-        message: (e as Error).message,
+        message: (response.error as Error).message,
       });
-    }
+    },
+  });
+
+  const handleFormSubmit = async (data: MovieFormInfo) => {
+    const fullMovieInfo = {
+      id: movieInfo?.id,
+      ...data,
+      releaseDate: new Date(data.releaseDate),
+      genreIds: Array.from(data.genreIds),
+    };
+    const requestData = { data: JSON.stringify(fullMovieInfo) };
+    submit(requestData, { method: 'post' });
   };
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <Form method="post" onSubmit={handleSubmit(handleFormSubmit)}>
       <div className={styles['input-row-container']}>
         <div
           className={classNames(
@@ -260,19 +270,19 @@ export const MovieForm = ({ movieInfo, onSubmit }: MovieFormProps) => {
       <p>{errors?.root?.['serverError']?.message}</p>
       <div className={styles['btn-block']}>
         <input
-          disabled={isSubmitting}
+          disabled={isSubmitting && state !== 'idle'}
           onClick={() => reset()}
           className={fontStyles['submit-btn']}
           type="button"
           value={RESET_BUTTON}
         />
         <input
-          disabled={isSubmitting}
+          disabled={isSubmitting && state !== 'idle'}
           className={fontStyles['submit-btn']}
           type="submit"
           value={SUBMIT_BUTTON}
         />
       </div>
-    </form>
+    </Form>
   );
 };

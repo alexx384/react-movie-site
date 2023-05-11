@@ -35,7 +35,9 @@ it('returns the same filled info on submit click', async () => {
   const user = userEvent.setup();
   const handleSubmit = jest.fn();
 
-  render(<MovieForm movieInfo={TEST_MOVIE_INFO} onSubmit={handleSubmit} />);
+  render(
+    <MovieForm movieInfo={TEST_MOVIE_INFO} onSuccessFormSubmit={handleSubmit} />
+  );
 
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
   await user.click(submitButton);
@@ -48,7 +50,7 @@ it('does not return unfilled form on submit', async () => {
   const user = userEvent.setup();
   const handleSubmit = jest.fn();
 
-  render(<MovieForm onSubmit={handleSubmit} />);
+  render(<MovieForm onSuccessFormSubmit={handleSubmit} />);
 
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
   await user.click(submitButton);
@@ -60,16 +62,16 @@ it('returns the filled form with title change and submit click', async () => {
   const user = userEvent.setup();
   const handleSubmit = jest.fn();
 
-  render(<MovieForm movieInfo={TEST_MOVIE_INFO} onSubmit={handleSubmit} />);
+  render(
+    <MovieForm movieInfo={TEST_MOVIE_INFO} onSuccessFormSubmit={handleSubmit} />
+  );
 
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
-  // const resetButton = screen.getByRole('button', { name: RESET_BUTTON });
   const titleInput: HTMLInputElement = screen.getByTestId(
     FORM_MOVIE_TITLE_INPUT
   );
   titleInput.value = '';
   await user.type(titleInput, TITLE_TEXT);
-  // await user.click(resetButton);
   await user.click(submitButton);
 
   expect(handleSubmit).toBeCalledTimes(1);
@@ -83,7 +85,9 @@ it('returns the filled form with title change, reset click and submit click', as
   const user = userEvent.setup();
   const handleSubmit = jest.fn();
 
-  render(<MovieForm movieInfo={TEST_MOVIE_INFO} onSubmit={handleSubmit} />);
+  render(
+    <MovieForm movieInfo={TEST_MOVIE_INFO} onSuccessFormSubmit={handleSubmit} />
+  );
 
   const submitButton = screen.getByRole('button', { name: SUBMIT_BUTTON });
   const resetButton = screen.getByRole('button', { name: RESET_BUTTON });

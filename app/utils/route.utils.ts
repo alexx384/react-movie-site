@@ -1,4 +1,5 @@
 import { ShouldRevalidateFunction } from 'react-router-dom';
+import { JSONErrorResponse, JSONSuccessResponse } from '~/hooks';
 
 export const doNotRevalidateWhenHrefsAreTheSame: ShouldRevalidateFunction = ({
   currentUrl,
@@ -10,4 +11,16 @@ export const doNotRevalidateWhenHrefsAreTheSame: ShouldRevalidateFunction = ({
   } else {
     return defaultShouldRevalidate;
   }
+};
+
+export const createSuccessActionResponse = <T>(
+  responseData: T
+): JSONSuccessResponse<T> => {
+  return { success: true, data: responseData };
+};
+
+export const createErrorActionResponse = (
+  errorMessage: string
+): JSONErrorResponse => {
+  return { success: false, error: { message: errorMessage } };
 };

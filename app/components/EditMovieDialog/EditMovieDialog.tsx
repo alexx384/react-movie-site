@@ -2,11 +2,7 @@ import { MovieForm } from '../MovieForm';
 import { Dialog } from '../Dialog';
 import { EDIT_MOVIE_TITLE } from '../../constants/movieDialog.constants';
 import { FullMovieInfo } from '../../interfaces/movieInfo';
-import {
-  mapFullMovieInfoToUpdateMovieResponse,
-  mapMovieDataResponseToRequiredFullMovieInfo,
-} from '../../utils/mapper.utils';
-import { updateMovieData } from '../../api/movieApi';
+import { mapMovieDataResponseToRequiredFullMovieInfo } from '../../utils/mapper.utils';
 import { MovieIdContext } from '~/interfaces/outletContext';
 
 export interface EditMovieCallbacks {
@@ -24,9 +20,13 @@ export const EditMovieDialog = ({
   const movieInfo = mapMovieDataResponseToRequiredFullMovieInfo(movieData);
 
   const handleSubmit = async (formMovieInfo: FullMovieInfo) => {
-    const formMovieData = mapFullMovieInfoToUpdateMovieResponse(formMovieInfo);
-    const newMovieData = await updateMovieData(formMovieData);
-    onEditMovie(newMovieData.id);
+    if (movieInfo.id) {
+      onEditMovie(movieInfo.id);
+    } else {
+      throw new Error(
+        'There is no movie id in form response after update movie request'
+      );
+    }
   };
   const handleCloseEditMovie = () => {
     if (!movieInfo.id) {
@@ -40,7 +40,7 @@ export const EditMovieDialog = ({
       title={EDIT_MOVIE_TITLE}
       onClose={handleCloseEditMovie}
     >
-      <MovieForm movieInfo={movieInfo} onSubmit={handleSubmit} />
+      <MovieForm movieInfo={movieInfo} onFormSubmit={handleSubmit} />
     </Dialog>
   );
 };

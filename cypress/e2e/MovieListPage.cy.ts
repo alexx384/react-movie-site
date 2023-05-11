@@ -5,9 +5,6 @@ import {
   MENU_CONTEXT_CONTAINER,
   MOVIE_TILE_IMAGE,
   MOVIE_DETAILS_NAME,
-  MOVIE_DETAILS_RATING,
-  MOVIE_DETAILS_DESCRIPTION,
-  MOVIE_DETAILS_IMAGE,
   MOVIE_HEADER_SEARCH_ICON,
   FORM_MOVIE_TITLE_INPUT,
   FORM_MOVIE_RELEASE_DATE,
@@ -16,7 +13,6 @@ import {
   FORM_MOVIE_GENRE,
   FORM_MOVIE_RUNTIME,
   FORM_MOVIE_OVERVIEW,
-  MOVIE_TILE,
 } from '~/constants/tests.constants';
 import {
   DEFAULT_SORT_OPTION_KEY,
@@ -87,9 +83,6 @@ describe('Movie search', () => {
     cy.get(`[data-testid="${SEARCH_FORM_INPUT}"]`).type(userRequest);
     cy.contains('button', 'SEARCH').click();
 
-    // cy.wait('@userQueryResponse')
-    //   .its('request.url')
-    //   .should('include', `search=${userRequest}`);
     cy.location().should(
       'have.property',
       'search',
@@ -119,9 +112,6 @@ describe('Movie search', () => {
       'have.text',
       dramaGenre
     );
-    // cy.wait('@userQueryResponse')
-    //   .its('request.url')
-    //   .should('include', `filter=${dramaGenre}`);
     cy.location().should(
       'have.property',
       'search',
@@ -162,9 +152,6 @@ describe('Movie search', () => {
       'have.text',
       unselectedSortOptionText
     );
-    // cy.wait('@userQueryResponse')
-    //   .its('request.url')
-    //   .should('include', `sortBy=${unselectedSortOptionSetting}`);
     cy.location().should(
       'have.property',
       'search',
@@ -175,34 +162,6 @@ describe('Movie search', () => {
   it('gets movie details after click on the first image', () => {
     cy.visit('/');
     cy.get(`[data-testid="${MOVIE_TILE_IMAGE}"]`).eq(0).click();
-
-    // cy.fixture('movieListResponse.json').then(
-    //   (movieResponse: MovieListDataResponse) => {
-    //     const firstMovieResponse = movieResponse.data[0] as MovieDataResponse;
-    //     cy.get(`[data-testid="${MOVIE_DETAILS_NAME}"]`).should(
-    //       'have.text',
-    //       firstMovieResponse.title
-    //     );
-    //     cy.get(`[data-testid="${MOVIE_DETAILS_RATING}"]`).should(
-    //       'have.text',
-    //       firstMovieResponse.vote_average
-    //     );
-    //     cy.get(`[data-testid="${MOVIE_DETAILS_DESCRIPTION}"]`).should(
-    //       'have.text',
-    //       firstMovieResponse.overview
-    //     );
-    //     cy.get(`[data-testid="${MOVIE_DETAILS_IMAGE}"]`).should(
-    //       'have.attr',
-    //       'src',
-    //       firstMovieResponse.poster_path
-    //     );
-    //     cy.location().should(
-    //       'have.property',
-    //       'pathname',
-    //       `/${firstMovieResponse.id}`
-    //     );
-    //   }
-    // );
   });
 
   it('gets movie details and switches to search after click on the search icon', () => {
@@ -319,10 +278,6 @@ describe('Movie search', () => {
           'have.value',
           movieData.release_date
         );
-        // cy.get(`[data-testid="${FORM_MOVIE_URL}"]`).should(
-        //   'have.value',
-        //   movieData.poster_path
-        // );
         cy.get(`[data-testid="${FORM_MOVIE_RATING}"]`).should(
           'have.value',
           movieData.vote_average
@@ -388,18 +343,6 @@ describe('Movie search', () => {
         String(movieData.runtime)
       );
       cy.get(`[data-testid="${FORM_MOVIE_OVERVIEW}"]`).type(movieData.overview);
-      // cy.get('form').submit();
-
-      // cy.get(`[data-testid="${MOVIE_DETAILS_NAME}"]`).should(
-      //   'have.text',
-      //   movieData.title
-      // );
-      // cy.location().should((location) => {
-      //   const match = location.pathname.match(/\/(\d+)/);
-      //   const movieId = (match as RegExpMatchArray)[1];
-      //   expect(movieId).to.be.equal(String(movieData.id));
-      // });
     });
-    // cy.get(`[data-testid="${MOVIE_TILE}"]`).should('have.length', 7);
   });
 });
