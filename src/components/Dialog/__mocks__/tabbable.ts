@@ -2,6 +2,10 @@ import { TabbableOptions, CheckOptions } from 'tabbable';
 
 const lib = jest.requireActual<typeof import('tabbable')>('tabbable');
 
+// If you see error `SyntaxError: 'slot):not([inert]' is not a valid selector` then it is occurred because of a bug in a library nwsapi
+// The latest working version is nwsapi@2.2.2
+// For more information please refer to https://github.com/dperini/nwsapi/issues/83
+
 export const tabbable = {
   __esModule: true,
   ...lib,
