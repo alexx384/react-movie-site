@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -5,12 +6,12 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
   const isEnvProduction = env === 'production';
   const appSrc = path.resolve(__dirname, 'src');
+  console.log('the appSrc is', appSrc);
 
   return {
     entry: {
@@ -30,12 +31,6 @@ module.exports = (env) => {
       new ForkTsCheckerNotifierWebpackPlugin({
         title: 'TypeScript',
         excludeWarnings: false,
-      }),
-      new ESLintPlugin({
-        cache: true,
-        context: appSrc,
-        eslintPath: require.resolve('eslint'),
-        extensions: ['js', 'jsx', 'ts', 'tsx'],
       }),
       new CopyPlugin({
         patterns: [

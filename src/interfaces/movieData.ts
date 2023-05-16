@@ -23,6 +23,8 @@ export interface MovieListDataResponse {
   data: MovieDataResponse[];
 }
 
-export interface CreateMovieRequest extends MovieData {}
+export interface CreateMovieRequest extends MovieData {
+  title: string;
+}
 
 export interface UpdateMovieRequest extends MovieDataId, MovieData {}
