@@ -10,8 +10,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
   const isEnvProduction = env === 'production';
-  const appSrc = path.resolve(__dirname, 'src');
-  console.log('the appSrc is', appSrc);
 
   return {
     entry: {
