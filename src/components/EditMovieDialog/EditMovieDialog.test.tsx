@@ -15,7 +15,7 @@ it('renders title', async () => {
     onEditMovie: jest.fn(),
   };
 
-  let router = createMemoryRouter(
+  const router = createMemoryRouter(
     [
       {
         path: '/',

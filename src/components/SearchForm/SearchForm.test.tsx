@@ -3,7 +3,7 @@ import { SearchForm } from './SearchForm';
 import userEvent from '@testing-library/user-event';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
 
-const initialSearchQuery: string = 'initial search query';
+const initialSearchQuery = 'initial search query';
 
 it('renders an input with the value equal to initial value passed in props', () => {
   render(<SearchForm initialSearchQuery={initialSearchQuery} />);
@@ -13,7 +13,7 @@ it('renders an input with the value equal to initial value passed in props', () 
 });
 
 it('calls "onSearch" prop with proper value after typing to the input and a "click" event on the Submit button', async () => {
-  const userTyping: string = 'hello';
+  const userTyping = 'hello';
   const user: UserEvent = userEvent.setup();
   const handleSearch = jest.fn();
   render(
@@ -31,7 +31,7 @@ it('calls "onSearch" prop with proper value after typing to the input and a "cli
 });
 
 it('calls "onSearch" prop with proper value after typing to the input and pressing Enter key', async () => {
-  const userTyping: string = 'hello';
+  const userTyping = 'hello';
   const user: UserEvent = userEvent.setup();
   const handleSearch = jest.fn();
 

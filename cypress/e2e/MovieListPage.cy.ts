@@ -399,7 +399,7 @@ describe('Movie search', () => {
       cy.location().should((location) => {
         const match = location.pathname.match(/\/(\d+)/);
         const movieId = (match as RegExpMatchArray)[1];
-        expect(movieId).to.be.equal(String(movieData.id));
+        expect(movieId)['to'].be.equal(String(movieData.id));
       });
     });
     cy.get(`[data-testid="${MOVIE_TILE}"]`).should('have.length', 7);

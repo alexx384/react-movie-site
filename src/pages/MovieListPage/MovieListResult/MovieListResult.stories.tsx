@@ -11,9 +11,12 @@ export default {
   },
 } as ComponentMeta<typeof MovieListResult>;
 
-const Template: ComponentStory<typeof MovieListResult> = (args) => (
-  <MovieListResult {...args} />
-);
+const Template: ComponentStory<typeof MovieListResult> = (args) => {
+  const totalMovieNumber = args.movieList.length;
+  return (
+    <MovieListResult {...args} totalMovieNumber={String(totalMovieNumber)} />
+  );
+};
 
 export const Full = Template.bind({});
 Full.args = {

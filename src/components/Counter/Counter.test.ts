@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
 import { COUNTER_LABEL } from '../../constants/tests.constants';
 
-const initialValue: number = 25;
+const initialValue = 25;
 
 it('renders initial value in counter label', () => {
   render(React.createElement(Counter, { initialValue: initialValue }));

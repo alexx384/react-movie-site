@@ -4,11 +4,19 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@storybook/preset-create-react-app',
     'storybook-addon-react-router-v6',
   ],
   framework: '@storybook/react',
   core: {
-    builder: '@storybook/builder-webpack5',
+    builder: {
+      name: '@storybook/builder-webpack5',
+      options: {
+        fsCache: true,
+        lazyCompilation: true,
+      },
+    },
+  },
+  typescript: {
+    reactDocgen: 'react-docgen-typescript-plugin',
   },
 };

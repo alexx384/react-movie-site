@@ -54,7 +54,7 @@ const OutsideAlerter = (props: {
 export const Multiselect = ({
   options,
   placeholder,
-  initiallySelectedOptions,
+  initiallySelectedOptions = new Set(),
   onChange,
 }: Props) => {
   const [isShowOptionList, setIsShowOptionList] = React.useState(false);

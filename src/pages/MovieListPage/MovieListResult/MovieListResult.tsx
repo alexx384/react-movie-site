@@ -14,7 +14,7 @@ type Props = {
 
 export const MovieListResult = ({
   movieList,
-  totalMovieNumber,
+  totalMovieNumber = 'Undefined',
   onMovieClick,
   onMovieEdit,
   onMovieDelete,

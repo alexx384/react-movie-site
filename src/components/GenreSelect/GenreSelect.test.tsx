@@ -71,7 +71,7 @@ it('calls "onSelectGenre" callback and passes correct genre in arguments after a
 });
 
 it('not highlights a selected genre when it is not from the list', () => {
-  const initiallySelectedGenreName: string = 'UNKNOWN';
+  const initiallySelectedGenreName = 'UNKNOWN';
   render(
     <GenreSelect
       listOfGenres={[]}
