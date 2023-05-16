@@ -6,6 +6,7 @@ const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-web
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
   const isEnvProduction = env === 'production';
@@ -20,6 +21,7 @@ module.exports = (env) => {
         title: 'React Movie Site',
         filename: 'index.html',
         template: './src/template.html',
+        favicon: './src/assets/public/favicon.ico',
       }),
       new MiniCssExtractPlugin({
         filename: 'static/css/[name].[contenthash].css',
@@ -34,6 +36,13 @@ module.exports = (env) => {
         context: appSrc,
         eslintPath: require.resolve('eslint'),
         extensions: ['js', 'jsx', 'ts', 'tsx'],
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(__dirname, 'src/assets/public/robots.txt'),
+          },
+        ],
       }),
     ],
     module: {
@@ -62,9 +71,6 @@ module.exports = (env) => {
                 compact: isEnvProduction,
               },
             },
-            // {
-            //   loader: 'ts-loader',
-            // },
           ],
         },
       ],
